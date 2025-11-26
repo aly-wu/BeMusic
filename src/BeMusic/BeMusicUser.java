@@ -17,32 +17,33 @@ public class BeMusicUser implements User {
    
     /**
      * Retrieve the adjacency list for the given user
+     * 
+     * @pre this is in allUsers
      */
-    public ArrayList<User> friends(UserDatabase allUsers){
-
+    public ArrayList<BeMusicUser> friends(BeMusicDatabase allUsers){
+        return allUsers.adj(this);
     }
 
     /**
-     * Add edge between current user and friend
+     * Add edge between current user and friend.
      * 
-     * @pre: friend exists in allUsers database
+     * TODO: No error is thrown if friend or user does not exist in BeMusicDatabase.
      */
-    public void addFriend(User friend, UserDatabase allUsers){
-
+    public void addFriend(BeMusicUser newFriend, BeMusicDatabase allUsers){
+        allUsers.addEdge(this, newFriend);
     }
     
     /**
      * Remove edge between current user and formerFriend
-     * 
-     *  @pre: formerFriend exists in allUsers database AND is currently a friend of user 
+     * TODO: No error is thrown if friend or user does not exist in BeMusicDatabase.
      */
-    public void removeFriend(User formerFriend, UserDatabase allUsers){
-
+    public void removeFriend(BeMusicUser formerFriend, BeMusicDatabase allUsers){
+        allUsers.removeEdge(this, formerFriend);
     }
 
     /**
-     * return array list that is in order (most recent til oldest). 
-     * this way, to get the last week's listening history, we simply index [0, 6].
+     * Return array list that is in order (most recent til oldest). 
+     * This way, to get the last week's listening history, we simply get the first element by .get(0)
      */
     public ArrayList<Song> getSongHistory(){
 
@@ -64,7 +65,7 @@ public class BeMusicUser implements User {
 
     // FOR HASHING BEMUSIC USERS
     /**
-     * Determines whether two string pairs are equal based on if they share a username
+     * Determines whether two BeMusicUsers are equal based on if they share a username
      * @return boolean, equal or not
      */
     public boolean equals(Object that){
@@ -76,10 +77,9 @@ public class BeMusicUser implements User {
     }
 
     /**
-     * Custom hashCode() for hashing StringPair objects
+     * Custom hashCode() for hashing BeMusicUser objects
      */
     public int hashCode(){
-        // using 31x + y method
         return username.hashCode(); // hashing the username as a string
     }
 
