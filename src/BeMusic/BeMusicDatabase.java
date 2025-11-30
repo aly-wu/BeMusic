@@ -1,7 +1,7 @@
-/******************************************************************************
+/**
  * TODO: fix formatting of title, also should we maintain normal graph method
- * naming conventions, or change it to correpond to the 
- ******************************************************************************/
+ * naming conventions, or change it to correpond to the "add user/remove user"
+ */
 package BeMusic; 
 
 import java.util.NoSuchElementException;
@@ -145,6 +145,8 @@ public class BeMusicDatabase implements UserDatabase {
     /**
      * Removes the undirected edge v-w to this graph.
      * Synonymous with two users removing each other.
+     * 
+     * TODO: No error is thrown if v and w are not friends first.  
      *
      * @param  v one vertex in the edge
      * @param  w the other vertex in the edge

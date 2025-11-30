@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class BeMusicUser implements User {
     // TODO: INSTANCE VARIABLES
     public String username; // TODO: final? 
-    public ListeningHistory songHistory;
+    public ListeningHistory listeningHistory;
     
     /**
      * Initializes a BeMusic user with 
@@ -52,14 +52,14 @@ public class BeMusicUser implements User {
     /**
      * 
      */
-    public void addSong(ListeningHistory songHistory){
+    public void addSong(ListeningHistory listeningHistory){
 
     }
 
     /**
      * 
      */
-    public ArrayList<String> getTopArtist (ListeningHistory songHistory){
+    public ArrayList<String> getTopArtist(ListeningHistory listeningHistory){
 
     }
 
