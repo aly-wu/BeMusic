@@ -10,49 +10,20 @@ import java.util.HashMap;
 
  
 public class BeMusicDatabase implements UserDatabase {
-    private static final String NEWLINE = System.getProperty("line.separator");
-
     private int V; // number of users
     private int E; // number of connections across BeMusic
     private HashMap<BeMusicUser, ArrayList<BeMusicUser>> adjList; // adjacency list, keys with users, values with friends
     // TODO: perhaps we do a cusotm hashing thing that hashes BeMusicUsers based on their username, not just if they are distinct objects which all users are
 
     /**
-     * Initializes a graph from a list of users
-     * with V vertices (the number of users in the ArrayList) and 0 edges.
+     * Constructor. Initializes a graph with no users
      *
      * @param  V number of vertices
-     * @throws IllegalArgumentException if list of users is empty
      */
-    public BeMusicDatabase(ArrayList<BeMusicUser> users) {
-        if (users.isEmpty()){
-            throw new IllegalArgumentException("user list is empty");
-        }
-
-        V = users.size();
+    public BeMusicDatabase() {
+        V = 0;
         E = 0;
         adjList = new HashMap<BeMusicUser, ArrayList<BeMusicUser>>();
-
-        for (BeMusicUser user:users) {
-            adjList.put(user, null); 
-        }
-    }
-
-     /**
-     * Initializes a graph from a single user
-     *
-     * @param  V number of vertices
-     * @throws IllegalArgumentException if list of users is empty
-     */
-    public BeMusicDatabase(BeMusicUser user) {
-        if (user == null){
-            throw new IllegalArgumentException("user is null");
-        }
-
-        V = 1;
-        E = 0;
-        adjList = new HashMap<BeMusicUser, ArrayList<BeMusicUser>>();
-        adjList.put(user, null);
     }
 
     /**
@@ -83,7 +54,6 @@ public class BeMusicDatabase implements UserDatabase {
      */
     private boolean validateVertex(BeMusicUser v) {
         return adjList.containsKey(v);
-        // TODO: must check if it works based on the username hashing!
     }
 
     /**
@@ -97,8 +67,8 @@ public class BeMusicDatabase implements UserDatabase {
     public void addVertex(BeMusicUser v) {
         if (!validateVertex(v)){
             V++;
-            adjList.put(v, null); 
-        }   
+            adjList.put(v, new ArrayList<BeMusicUser>()); 
+        } else {System.out.println("username " + v + " already taken.");} 
     }
 
     /**
@@ -128,17 +98,18 @@ public class BeMusicDatabase implements UserDatabase {
     }
 
     /**
-     * Adds the undirected edge v-w to this graph.
+     * Adds the undirected edge v-w to this graph so long as it does not already exist.
      * Synonymous with two users becoming friends.
      *
      * @param  v one vertex in the edge
      * @param  w the other vertex in the edge
      */
     public void addEdge(BeMusicUser v, BeMusicUser w) {
-        if (validateVertex(v) && validateVertex(w)){
+        if (validateVertex(v) && validateVertex(w) && !adjList.get(v).contains(w)){
             E++;
-            adjList.get(v).add(w); // TODO: do i need to reput, since arraylists are mutable?
+            adjList.get(v).add(w);
             adjList.get(w).add(v);
+             // NOTE: do not need to re-put into adjList when adding to exisitng list of friends as ArrayLists are mutable objects
         }
     }
 
@@ -154,7 +125,7 @@ public class BeMusicDatabase implements UserDatabase {
     public void removeEdge(BeMusicUser v, BeMusicUser w) {
         if (validateVertex(v) && validateVertex(w)){
             E--;
-            adjList.get(v).remove(w); // TODO: do i need to reput, since arraylists are mutable?
+            adjList.get(v).remove(w); // NOTE: do not need to reput since arraylists are mutable
             adjList.get(w).remove(v);
         }
     }
@@ -169,7 +140,8 @@ public class BeMusicDatabase implements UserDatabase {
         // If v is an exisiting user
         if (validateVertex(v)){
             // Remove v from the adj of adjacent vertices
-            for (BeMusicUser friend:adjList.get(v)){
+            ArrayList<BeMusicUser> friendsClone =  (ArrayList<BeMusicUser>) adjList.get(v).clone();  
+            for (BeMusicUser friend:friendsClone){
                 removeEdge(v, friend);
             }
             // Remove v from the adjList of the map
@@ -208,16 +180,7 @@ public class BeMusicDatabase implements UserDatabase {
      *         followed by the <em>V</em> adjacency lists
      */
     public String toString() {
-        StringBuilder s = new StringBuilder();
-        s.append(V + " vertices, " + E + " edges " + NEWLINE);
-        for (int v = 0; v < V; v++) {
-            s.append(v + ": ");
-            for (int w : adj[v]) {
-                s.append(w + " ");
-            }
-            s.append(NEWLINE);
-        }
-        return s.toString();
+        return adjList.toString();
     }
 
     /**

@@ -1,66 +1,101 @@
 package BeMusic;
 
+// TODO: complete/rewrite methods for this class 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 
-public class BeMusicUser implements User {
+public class BeMusicUser {
     // TODO: INSTANCE VARIABLES
-    public String username; // TODO: final? 
-    public ListeningHistory listeningHistory;
+    String username; // TODO: final? 
+    ListeningHistory listeningHistory;
+    BeMusicDatabase allUsers;
     
     /**
-     * Initializes a BeMusic user with 
+     * Creates a BeMusic user and adds them to the allUsers database
      */
-    public BeMusicUser(String username){
+    public BeMusicUser(String username, BeMusicDatabase allUsers){
         // TODO: CONSTRUCTOR
         this.username = username;
+        this.allUsers = allUsers;
+        allUsers.addVertex(this);
     }
    
     /**
-     * Retrieve the adjacency list for the given user
-     * 
-     * @pre this is in allUsers
+     * Retrieve the adjacency list for the given user (aka list of friends)
      */
-    public ArrayList<BeMusicUser> friends(BeMusicDatabase allUsers){
+    public ArrayList<BeMusicUser> friends(){
         return allUsers.adj(this);
+    }
+
+     /**
+     * Retrieve the degree of given user (aka number of friends)
+     */
+    public int numFriends(){
+        return allUsers.degree(this);
     }
 
     /**
      * Add edge between current user and friend.
-     * 
-     * TODO: No error is thrown if friend or user does not exist in BeMusicDatabase.
+     * TODO: No error is thrown if friend does not exist in BeMusicDatabase.
+     * @pre assumes newFriend is in the same BeMusicDatabase
      */
-    public void addFriend(BeMusicUser newFriend, BeMusicDatabase allUsers){
+    public void addFriend(BeMusicUser newFriend){
         allUsers.addEdge(this, newFriend);
     }
     
     /**
      * Remove edge between current user and formerFriend
-     * TODO: No error is thrown if friend or user does not exist in BeMusicDatabase.
+     * TODO: No error is thrown if friend does not exist in BeMusicDatabase.
+     * @pre assumes newFriend is in the same BeMusicDatabase
      */
-    public void removeFriend(BeMusicUser formerFriend, BeMusicDatabase allUsers){
+    public void removeFriend(BeMusicUser formerFriend){
         allUsers.removeEdge(this, formerFriend);
     }
 
     /**
-     * Return array list that is in order (most recent til oldest). 
-     * This way, to get the last week's listening history, we simply get the first element by .get(0)
+     * Delete vertex from allUsers graph.
      */
-    public ArrayList<Song> getSongHistory(){
+    public void deleteAccount(){
+        allUsers.removeVertex(this);
+    }
 
+
+    /**
+     * 
+     * @param month
+     * @param year
+     * @param chronological
+     * @return
+     */
+    public ArrayList<Song> getSongHistory(int month, int year, boolean chronological){
+        return listeningHistory.getMonthSongHistory(month, year, chronological);
     }
 
     /**
      * 
+     * @param song
      */
-    public void addSong(ListeningHistory listeningHistory){
-
+    public void addSong(Song song){
+        listeningHistory.addSong(song);
     }
 
     /**
      * 
+     * @param month
+     * @param year
+     * @return
      */
-    public ArrayList<String> getTopArtist(ListeningHistory listeningHistory){
+    public List<Entry<String, Integer>> getTopArtist(int month, int year){
+        return listeningHistory.getMonthTopArtist(month, year);
+    }
 
+    /**
+     * Print user's username 
+     */
+    @Override
+    public String toString(){
+        return "@" + username;
     }
 
     // FOR HASHING BEMUSIC USERS
@@ -68,6 +103,7 @@ public class BeMusicUser implements User {
      * Determines whether two BeMusicUsers are equal based on if they share a username
      * @return boolean, equal or not
      */
+    @Override
     public boolean equals(Object that){
         if (that == this){return true;}
         if (that == null){return false;}
@@ -79,6 +115,7 @@ public class BeMusicUser implements User {
     /**
      * Custom hashCode() for hashing BeMusicUser objects
      */
+    @Override
     public int hashCode(){
         return username.hashCode(); // hashing the username as a string
     }
@@ -91,8 +128,39 @@ public class BeMusicUser implements User {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-       
+        System.out.println("-------testing constructors-------");
+        BeMusicDatabase allUsers = new BeMusicDatabase();
+
+        System.out.println("-------testing constructor-------");
+        BeMusicUser cris = new BeMusicUser("cris", allUsers);
+        BeMusicUser pj = new BeMusicUser("pj", allUsers);
+        BeMusicUser alyssa = new BeMusicUser("alyssa", allUsers);
+        System.out.println(allUsers);
+
+        System.out.println("\n-------testing addFriend()-------");
+        alyssa.addFriend(pj);
+        pj.addFriend(cris);
+        cris.addFriend(alyssa);
+        System.out.println("everyone is friends: " + allUsers);
+        System.out.println("alyssa's friends: " + alyssa.friends());
+        System.out.println("cris's friends: " + cris.friends());
+        System.out.println("pj's friends: " + pj.friends());
+
+        System.out.println("\n-------attempting to add a repeated friend-------");
+        pj.addFriend(alyssa);
+        System.out.println(allUsers);
+
+        System.out.println("\n-------testing removeFriend()-------");
+        alyssa.removeFriend(cris);
+        pj.removeFriend(alyssa);
+        System.out.println("only cris and pj are friends: " + allUsers);
+
+        System.out.println("\n-------testing deleteAccount()-------");
+        cris.deleteAccount(); // should remove cris from friend connections as well
+        System.out.println("bye bye cris :( " + allUsers);
+
+        System.out.println("\n-------testing hashing function-------");
+        BeMusicUser pj2 = new BeMusicUser("pj", allUsers); // should not add new user as repeated username   
+        System.out.println(allUsers); 
     }
-
-
 }
