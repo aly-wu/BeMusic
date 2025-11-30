@@ -7,11 +7,12 @@ import java.util.Locale;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class Song {
+public class Song implements Comparable<Song> {
     // Instance variables
-    public final String title;
-    public final String artist;
-    public final Date date; // the same song listened to on different days IS a different song object
+    final String title;
+    final String artist;
+    Date date; // the same song listened to on different days IS a different song object
+    private String[] dateSplit;
     // TODO: other things we may want to store like album cover, nicheness score, etc.
 
     /**
@@ -25,7 +26,7 @@ public class Song {
         this.artist = artist;
 
         // Date in format from excel as mm/d(d)/yyyy, need to standardize as mm/dd/yyyy
-        String[] dateSplit = date.split("/");
+        this.dateSplit = date.split("/");
         String day = dateSplit[1];
         if (day.length() == 1){
             dateSplit[1] = "0" + day;
@@ -37,14 +38,25 @@ public class Song {
             this.date = dateObj;
         } catch (ParseException e){
             System.out.println("error parsing date" + e);
-            this.date = null; // TODO: figure this out...
         }
+    }
+
+    public int getMonth(){
+        return Integer.parseInt(dateSplit[0]);
+    }
+
+    public int getDay(){
+        return Integer.parseInt(dateSplit[1]);
+    }
+
+    public int getYear(){
+        return Integer.parseInt(dateSplit[2]);
     }
 
     /**
      * NOTE: In Java's PriorityQueue with natural ordering/comparator, the head is the smallest (minimal) element
-     * @Override
      */
+    @Override
     public int compareTo(Song that){
         // If after, then more recent --> "smaller"
         if (this.date.after(that.date)){
@@ -59,15 +71,15 @@ public class Song {
     }
 
     /**
-    * @Override
+    * "Song Title" by Song Artist
     */
+   @Override
     public String toString(){
         return "\"" + this.title + "\" by " + this.artist; 
     }
 
     /**
      * Tests the Song class. 
-     * TODO: TEST!
      *
      * @param args the command-line arguments
      */
@@ -84,8 +96,11 @@ public class Song {
 
         // Should return songs starting from most recently listened
         while (!priorityQueue.isEmpty()) {
-            System.out.print(priorityQueue.poll() + " ");
+            System.out.print(priorityQueue.poll() + ", ");
         }
-       
+
+        System.out.println("\n-------testing get methods-------");
+        Song test = new Song("Waiting In Vain", "Daniel Caesar", "11/29/2025");
+        System.out.print("November 29th, 2025...month " + test.getMonth() + ", day " + test.getDay() + ", year " + test.getYear());
     }
 }

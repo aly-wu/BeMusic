@@ -25,8 +25,8 @@ import java.util.concurrent.CompletionException;
 
 public class SearchSpotifyTracks {
   // Instance Variables
-  private static final String clientId = "687a86ef54ad4707af29922fdd9de9f4"; // TODO: btw this is my actual spotify api...
-  private static final String clientSecret = "b5a5d4b4d9bb42f2b26a49b9a95ebb55";
+  private static final String clientId = ""; // TODO: get one
+  private static final String clientSecret = "";
   
   private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
     .setClientId(clientId)
