@@ -20,6 +20,11 @@ import java.util.PriorityQueue;
 */
 public class ListeningHistory {
     // Instance variables
+
+    // TODO : add rating!
+    // method: rate also in user, all time or 7 days, peek into last 7, 
+    //OR: rate just person's profile
+    // IMPLEMENT: just add the rating on your profile / avg of all ratings
     HashMap<YearMonth, Queue<Song>> songHistory;
     HashMap<YearMonth, HashMap<String, Integer>> artistHistory;
 

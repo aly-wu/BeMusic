@@ -5,17 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-public class BeMusicUser {
-    // TODO: INSTANCE VARIABLES
-    String username; // TODO: final? 
+public class BeMusicUser implements User{
+    //INSTANCE VARIABLES
+    String username;
     ListeningHistory listeningHistory;
     BeMusicDatabase allUsers;
+    double ratingAggregate;
+    int nbRatings;
     
     /**
      * Creates a BeMusic user and adds them to the allUsers database
      */
     public BeMusicUser(String username, BeMusicDatabase allUsers){
-        // TODO: CONSTRUCTOR
+        //CONSTRUCTOR
         this.username = username;
         this.allUsers = allUsers;
         allUsers.addVertex(this);
@@ -28,6 +30,8 @@ public class BeMusicUser {
         return allUsers.adj(this);
     }
 
+    //get friends listening history method, calls last 2 months of friends listening history
+
      /**
      * Retrieve the degree of given user (aka number of friends)
      */
@@ -37,7 +41,7 @@ public class BeMusicUser {
 
     /**
      * Add edge between current user and friend.
-     * TODO: No error is thrown if friend does not exist in BeMusicDatabase.
+     * No error is thrown if friend does not exist in BeMusicDatabase.
      * @pre assumes newFriend is in the same BeMusicDatabase
      */
     public void addFriend(BeMusicUser newFriend){
@@ -46,7 +50,7 @@ public class BeMusicUser {
     
     /**
      * Remove edge between current user and formerFriend
-     * TODO: No error is thrown if friend does not exist in BeMusicDatabase.
+     * No error is thrown if friend does not exist in BeMusicDatabase.
      * @pre assumes newFriend is in the same BeMusicDatabase
      */
     public void removeFriend(BeMusicUser formerFriend){
@@ -89,6 +93,28 @@ public class BeMusicUser {
     public List<Entry<String, Integer>> getTopArtist(int month, int year){
         return listeningHistory.getMonthTopArtist(month, year);
     }
+    /**
+     * 
+     * being rated by someone viewing your profile
+     */
+    public void beRated(int rating){
+        if (rating<=5 && rating >= 0){
+        ratingAggregate = ratingAggregate + rating;
+        nbRatings++;
+        }
+    }
+
+    /**
+     * 
+     * @return view rating of this user
+     * rounded to 2 decimals
+     */
+    public double getRating(){
+        double scale = Math.pow(10, 2);
+        return Math.round(ratingAggregate / nbRatings * scale) / scale; 
+
+    }
+
 
     /**
      * Print user's username 
@@ -122,13 +148,10 @@ public class BeMusicUser {
 
     /**
      * Tests the BeMusicUser class.
-     * 
-     * TODO: TEST!
      *
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        System.out.println("-------testing constructors-------");
         BeMusicDatabase allUsers = new BeMusicDatabase();
 
         System.out.println("-------testing constructor-------");
@@ -162,5 +185,12 @@ public class BeMusicUser {
         System.out.println("\n-------testing hashing function-------");
         BeMusicUser pj2 = new BeMusicUser("pj", allUsers); // should not add new user as repeated username   
         System.out.println(allUsers); 
+
+        System.out.println("\n-------testing rating functions-------");
+        alyssa.beRated(5);
+        alyssa.beRated(4);
+        alyssa.beRated(4);
+        alyssa.beRated(8); // invalid ratings do nothing
+        System.out.println("alyssa's rating: " + alyssa.getRating());
     }
 }
