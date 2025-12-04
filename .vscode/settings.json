@@ -1,0 +1,9 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.project.sourcePaths": [
+        "src",
+        "BeMusicSpotify/src/main/java/com",
+        "demo/src/main/java/com"
+    ]
+}
