@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map.Entry;
 
 public class BeMusicUser implements User{
+    //TESTING GUI
+    private BeMusicGUI gui;
+
     //INSTANCE VARIABLES
     String username;
     ListeningHistory listeningHistory;
@@ -192,5 +195,16 @@ public class BeMusicUser implements User{
         alyssa.beRated(4);
         alyssa.beRated(8); // invalid ratings do nothing
         System.out.println("alyssa's rating: " + alyssa.getRating());
+
+        new BeMusicUser("guitest", allUsers).run();
+
+    }
+
+      /*
+     * Initializes the screen. TESTING GUI?
+     */
+    public void run() {
+         gui = new BeMusicGUI();
+
     }
 }

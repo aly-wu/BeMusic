@@ -1,6 +1,7 @@
 /**
  * TODO: fix formatting of title, also should we maintain normal graph method
- * naming conventions, or change it to correpond to the "add user/remove user"
+ * naming conventions, or change it to correpond to the "add user/remove user" <-changed the interface to match with the names here!
+ * 
  */
 package BeMusic; 
 
