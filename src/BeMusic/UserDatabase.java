@@ -5,13 +5,13 @@ package BeMusic;
 public interface UserDatabase {
 
     /**
-     * 
+     * Or, add/create new user.
      */
-    public void addUser();
+    public void addVertex(BeMusicUser v);
 
     /**
-     * 
+     * Or, delete user.
      */
-    public void deleteUser();
+    public void removeVertex(BeMusicUser v);
     
 }
