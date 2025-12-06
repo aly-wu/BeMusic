@@ -23,7 +23,8 @@ public class BeMusicUser implements User{
         //CONSTRUCTOR
         this.username = username;
         this.allUsers = allUsers;
-        allUsers.addVertex(this);
+        allUsers.addVertex(this); // if username already taken, then the user is not added
+        this.listeningHistory = allUsers.get(this).listeningHistory; // should mean that adding songs to pj1 will still show up in pj
     }
    
     /**
@@ -195,6 +196,18 @@ public class BeMusicUser implements User{
         alyssa.beRated(4);
         alyssa.beRated(8); // invalid ratings do nothing
         System.out.println("alyssa's rating: " + alyssa.getRating());
+
+        System.out.println("-------adding ListeningHistory to users()-------");
+        Song s1 = new Song("EoO", "Bad Bunny", "11/29/2025");
+        Song s2 = new Song("Heroine", "Azamiah", "10/15/2025");
+        Song s3 = new Song("Fall In Love (Your Funeral)", "Erykah Badu", "11/11/2025");
+        Song s4 = new Song("Care for You", "The Marias", "10/31/2025");
+        alyssa.addSong(s1);
+        cris.addSong(s2);
+        pj.addSong(s3);
+        pj2.addSong(s4);
+        System.out.println("original pj's listeing history": pj.listeningHistory);
+       // TODO: check if changing pj2's listneing history impact pj's listening history?  
 
         new BeMusicUser("guitest", allUsers).run();
 
