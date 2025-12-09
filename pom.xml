@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>be_music_spotify</module>
+        <module>BeMusic</module>
     </modules>
 
     <properties>
