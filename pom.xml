@@ -29,9 +29,12 @@
         <artifactId>opencsv</artifactId>
         <version>5.9</version>
     </dependency>
-
-    
+    <dependency>
+        <groupId>org.netbeans.external</groupId>
+        <artifactId>AbsoluteLayout</artifactId>
+      <version>RELEASE280</version>
+      <scope>test</scope>
+    </dependency>
 </dependencies>
-
-   
+    <name>BeMusic</name>
 </project>

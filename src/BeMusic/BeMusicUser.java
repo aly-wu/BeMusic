@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 
 public class BeMusicUser implements User{
     //TESTING GUI
-    private BeMusicGUI gui;
+    private Timeline gui;
 
     //INSTANCE VARIABLES
     String username;
@@ -24,7 +24,8 @@ public class BeMusicUser implements User{
         this.username = username;
         this.allUsers = allUsers;
         allUsers.addVertex(this); // if username already taken, then the user is not added
-        this.listeningHistory = allUsers.get(this).listeningHistory; // should mean that adding songs to pj1 will still show up in pj
+        //TODO: temporarily removed this bc of error in order to work on gui. restore and fix!
+        //this.listeningHistory = allUsers.get(this).listeningHistory; // should mean that adding songs to pj1 will still show up in pj
     }
    
     /**
@@ -198,6 +199,8 @@ public class BeMusicUser implements User{
         System.out.println("alyssa's rating: " + alyssa.getRating());
 
         System.out.println("-------adding ListeningHistory to users()-------");
+        System.out.println("SORRY I TEMPORARILY DISABLED THIS BC IT WASNT WORKING AND I NEED TO TEST GUI");
+        /* TODO : restore and fix this whole segment
         Song s1 = new Song("EoO", "Bad Bunny", "11/29/2025");
         Song s2 = new Song("Heroine", "Azamiah", "10/15/2025");
         Song s3 = new Song("Fall In Love (Your Funeral)", "Erykah Badu", "11/11/2025");
@@ -206,10 +209,13 @@ public class BeMusicUser implements User{
         cris.addSong(s2);
         pj.addSong(s3);
         pj2.addSong(s4);
-        System.out.println("original pj's listeing history": pj.listeningHistory);
+        System.out.println("original pj's listening history": pj.listeningHistory);
+        TODO :above line creates error
+        */
        // TODO: check if changing pj2's listneing history impact pj's listening history?  
 
         new BeMusicUser("guitest", allUsers).run();
+        System.out.println("called run");
 
     }
 
@@ -217,7 +223,8 @@ public class BeMusicUser implements User{
      * Initializes the screen. TESTING GUI?
      */
     public void run() {
-         gui = new BeMusicGUI();
 
+        gui = new Timeline();
+        System.out.println("running timeline?");
     }
 }
