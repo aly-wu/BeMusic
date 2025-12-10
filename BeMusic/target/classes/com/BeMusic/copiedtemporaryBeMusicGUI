@@ -13,8 +13,7 @@
  * and your rating
  */
 
-package wordle;
-
+package com.BeMusic;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Color;

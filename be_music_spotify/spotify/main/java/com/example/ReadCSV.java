@@ -39,12 +39,6 @@ public class ReadCSV {
                     currentUser.addSong(song);
                 }
 
-                BeMusicUser user = new BeMusicUser(username, database);
-               
-                String username = line[0];
-                String title = line[1];
-                String artist = line[2];
-                String date = line[3];
 
                 BeMusicUser user = new BeMusicUser(username, database);
                 Song song = new Song(title, artist, date);
