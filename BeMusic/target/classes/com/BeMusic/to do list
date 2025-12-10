@@ -1,0 +1,17 @@
+methods for gui
+viewing own profile
+
+loading the timeline:
+    listening history of 2 months with adjency list
+    make a priority queue to sort them by date
+    either cap at 10 or do all listening history
+    make into list in order to iterate through based on index
+        +1 for next, -1 for last
+
+        gather: get methods
+            date, username, artist, title
+
+
+
+
+
