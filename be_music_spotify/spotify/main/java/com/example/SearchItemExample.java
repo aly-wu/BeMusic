@@ -15,42 +15,61 @@ import se.michaelthelin.spotify.requests.authorization.client_credentials.Client
 
 import java.io.IOException;
 import java.lang.module.ModuleDescriptor.Builder;
+import java.util.ArrayList;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
+
+import java.io.FileReader;
+import java.io.IOException;
+
 public class SearchItemExample {
-    private static final String q = "Abba";
+    // private static final String q = "Abba";
 
     private static final SpotifyApi spotifyApi = ClientCredentialsExample.clientCredentials_Sync();
-    private static final SearchTracksRequest searchTracksRequest = spotifyApi.searchTracks(q)
-            // .market(CountryCode.SE)
-            .limit(1)
-            // .offset(0)
-            // .includeExternal("audio")
-            .build();
+    private static SearchTracksRequest searchTracksRequest;
 
-    public static void searchTracks_Sync() {
+    public static SpotifySong search(String search) {
+        searchTracksRequest = spotifyApi.searchTracks(search)
+                // .market(CountryCode.SE)
+                .limit(1)
+                // .offset(0)
+                // .includeExternal("audio")
+                .build();
+
+        return searchTracks_Sync();
+    }
+
+    public static SpotifySong searchTracks_Sync() {
         try {
             final Paging<Track> trackPaging = searchTracksRequest.execute();
-            System.out.println("Total: " + trackPaging.getTotal());
+            // System.out.println("Total: " + trackPaging.getTotal());
             Track track = trackPaging.getItems()[0];
-            System.out.println("track name: " + track.getName());
+            // System.out.println("track name: " + track.getName());
+            // System.out.println("artist: " + track.getArtists()[0].getName());
 
             // other features
             String albumCoverUrl = track.getAlbum().getImages()[0].getUrl();
-            System.out.println("image url: " + albumCoverUrl);
+            // System.out.println("image url: " + albumCoverUrl);
 
             Integer popularity = track.getPopularity();
-            System.out.println("track popularity: " + popularity);
+            // System.out.println("track popularity: " + popularity + "\n");
 
-            String id = track.getId();
-            GetAudioFeaturesForTrackRequest.Builder features = spotifyApi.getAudioFeaturesForTrack(id);
+            // String id = track.getId();
+            // GetAudioFeaturesForTrackRequest.Builder features =
+            // spotifyApi.getAudioFeaturesForTrack(id);
+            // System.out.println(features.sedanceability);
 
             // System.out.println("features: " + track.key);
+            return new SpotifySong(track.getName(), track.getArtists()[0].getName(),
+                    track.getAlbum().getImages()[0].getUrl(), track.getPopularity());
 
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
+            return null;
         }
     }
 
@@ -79,7 +98,16 @@ public class SearchItemExample {
     }
 
     public static void main(String[] args) {
-        searchTracks_Sync();
-        searchTracks_Async();
+
+        ArrayList<String> searches = new ArrayList<>();
+        // searchTracks_Sync();
+        searches.add("4 Leaf Clover Ravyn Lenae, Steve Lacy");
+        searches.add("First Rate Town");
+        // searches.add("MF GROOVE, Smino, Ravyn Lenae");
+
+        for (String search : searches) {
+            search(search);
+        }
+        // searchTracks_Async();
     }
 }
