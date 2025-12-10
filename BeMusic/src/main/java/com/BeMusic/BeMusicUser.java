@@ -1,19 +1,19 @@
 package com.BeMusic;
-// TODO: complete/rewrite methods for this class 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Collections;
 
 public class BeMusicUser implements User{
     //TESTING GUI
     private Timeline gui;
 
     //INSTANCE VARIABLES
-    String username;
-    ListeningHistory listeningHistory = new ListeningHistory();
-    BeMusicDatabase allUsers;
-    double ratingAggregate;
-    int nbRatings;
+    private String username;
+    private ListeningHistory listeningHistory = new ListeningHistory();
+    private BeMusicDatabase allUsers;
+    private double ratingAggregate;
+    private int nbRatings;
     
     /**
      * Creates a BeMusic user and adds them to the allUsers database
@@ -77,26 +77,35 @@ public class BeMusicUser implements User{
 
 
     /**
-     * 
+     * You can either get a user's song history for a given month and year
      * @param month
      * @param year
      * @param chronological
-     * @return
+     * @return songHistory for a given month and year
      */
-    public ArrayList<Song> getSongHistory(int month, int year, boolean chronological){
-        return listeningHistory.getMonthSongHistory(month, year, chronological);
+    public ArrayList<Song> getSongHistory(int month, int year){
+        return listeningHistory.getMonthSongHistory(month, year);
     }
 
     /**
-     * 
+     * Or get a user's entire song history.
+     * @return entire songHistory
+     */
+    public ArrayList<Song> getSongHistory(){
+        return listeningHistory.getSongHistory();
+    }
+
+    /**
+     * Adds song to listeningHistory + adds username to Song object
      * @param song
      */
     public void addSong(Song song){
         listeningHistory.addSong(song);
+        song.setUser(this.username);
     }
 
     /**
-     * 
+     * Return the top artist for a given month and year
      * @param month
      * @param year
      * @return
@@ -104,6 +113,37 @@ public class BeMusicUser implements User{
     public List<Entry<String, Integer>> getTopArtist(int month, int year){
         return listeningHistory.getMonthTopArtist(month, year);
     }
+
+    
+    /**
+     * Get's the ENTIRE song histories of all added friends and formats into 
+     * a nested ArrayList with harcoded order [date, username, song title, artist, image-url]
+     * @return friend's listening history in reverse-chronological order.
+     */
+    public ArrayList<ArrayList<String>> getFeed(){
+        ArrayList<Song> songs = new ArrayList<Song>(); // to store all of the songs listenend to by all friends
+        for (BeMusicUser friend: this.friends()){
+            songs.addAll(friend.getSongHistory());
+        }
+        Collections.sort(songs); // sort songs in reverse-chronological order
+
+        ArrayList<ArrayList<String>> feed = new ArrayList<ArrayList<String>>();
+        for (Song song: songs){
+            // Create list entry for each song
+            ArrayList<String> list = new ArrayList<String>();
+            list.add(0, song.getDate());
+            list.add(1, song.getUser());
+            list.add(2, song.getTitle());
+            list.add(3, song.getArtist());
+            list.add(4, song.getImageURL());
+
+            // Add list entry to ArrayList feed
+            feed.add(list);
+        }
+        return feed;
+    }
+
+
     /**
      * 
      * being rated by someone viewing your profile
@@ -115,6 +155,7 @@ public class BeMusicUser implements User{
         }
     }
 
+
     /**
      * 
      * @return view rating of this user
@@ -125,6 +166,7 @@ public class BeMusicUser implements User{
         return Math.round(ratingAggregate / nbRatings * scale) / scale; 
 
     }
+    
 
 
     /**
@@ -207,15 +249,19 @@ public class BeMusicUser implements User{
         System.out.println("\n-------adding ListeningHistory to users()-------");
         System.out.println("SORRY I TEMPORARILY DISABLED THIS BC IT WASNT WORKING AND I NEED TO TEST GUI");
         Song s1 = new Song("EoO", "Bad Bunny", "11/29/2025");
-        Song s2 = new Song("Heroine", "Azamiah", "10/15/2025");
+        Song s2 = new Song("Heroine", "Azamiah", "11/3/2025");
         Song s3 = new Song("Fall In Love (Your Funeral)", "Erykah Badu", "11/11/2025");
         Song s4 = new Song("Care for You", "The Marias", "10/31/2025");
+        BeMusicUser crisAgain = new BeMusicUser("cris", allUsers);
         alyssa.addSong(s1);
-        cris.addSong(s2);
-        pj.addSong(s1);
+        crisAgain.addSong(s2);
         pj.addSong(s3);
-        pj2.addSong(s4);
-        System.out.println("original pj's listening history:\n" + pj.listeningHistory);
+        pj.addSong(s4);
+        alyssa.addFriend(crisAgain);
+        alyssa.addFriend(pj);
+
+        System.out.println("\n-------testing getFeed()-------");
+        System.out.println("alyssa's feed: " + alyssa.getFeed());
 
         new BeMusicUser("guitest", allUsers).run();
         System.out.println("called run");

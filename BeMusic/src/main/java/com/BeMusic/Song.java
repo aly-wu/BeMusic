@@ -10,8 +10,11 @@ public class Song implements Comparable<Song> {
     // Instance variables
     final String title;
     final String artist;
-    Date date; // the same song listened to on different days IS a different song object
+    private Date date; // the same song listened to on different days IS a different song object
+    private String dateString;
     private String[] dateSplit;
+    private String username; // set not when song is created, but when user add song to their listnening history
+    private String imageURL;
     // TODO: other things we may want to store like album cover, nicheness score, etc.
 
     /**
@@ -31,6 +34,7 @@ public class Song implements Comparable<Song> {
             dateSplit[1] = "0" + day;
         }
         String formattedDate = String.join("-", dateSplit);
+        this.dateString = formattedDate;
         SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH);
         try{
             Date dateObj = formatter.parse(formattedDate); 
@@ -40,17 +44,71 @@ public class Song implements Comparable<Song> {
         }
     }
 
-    public int getMonth(){
+
+    /**
+     * @return year as int
+     */
+    public Integer getYear(){
+        return Integer.parseInt(dateSplit[2]);
+    }
+
+
+    /**
+     * @return month as int
+     */
+    public Integer getMonth(){
         return Integer.parseInt(dateSplit[0]);
     }
 
-    public int getDay(){
-        return Integer.parseInt(dateSplit[1]);
+
+    /**
+     * @return date as string mm/dd/yyyy
+     */
+    public String getDate(){
+        return dateString;
     }
 
-    public int getYear(){
-        return Integer.parseInt(dateSplit[2]);
+
+     /**
+     * @return song title
+     */
+    public String getTitle(){
+        return title;
     }
+
+
+    /**
+     * @return song artists
+     */
+    public String getArtist(){
+        return artist;
+    }
+
+
+    /**
+     * @return image url of song's album cover
+     */
+    public String getImageURL(){
+        return imageURL;
+    }
+
+
+     /**
+     * @return username of user who listened to this song
+     */
+    public String getUser(){
+        return username;
+    }
+
+
+    /**
+     * Links the username of the user who listened to the song as an object.
+     * Needed for keeping track of users when generating feed
+     */
+    public void setUser(String username){
+        this.username = username;
+    }
+
 
     /**
      * NOTE: In Java's PriorityQueue with natural ordering/comparator, the head is the smallest (minimal) element
@@ -68,6 +126,7 @@ public class Song implements Comparable<Song> {
         // Otherwise, same date
         } return 0;
     }
+
 
     /**
     * "Song Title" by Song Artist

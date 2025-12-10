@@ -30,7 +30,7 @@ public interface User
      * return array list that is in order (most recent til oldest). 
      * this way, to get the last week's listening history, we simply index [0, 6].
      */
-    public ArrayList<Song> getSongHistory(int month, int year, boolean chronological);
+    public ArrayList<Song> getSongHistory(int month, int year);
 
     /**
      * 

@@ -3,14 +3,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.time.YearMonth;
-import java.util.Map.Entry; // for Map.Entry
+import java.util.Map.Entry;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 import java.util.PriorityQueue;
 
-// An interface for a data structure that stores a given BeMusic user's listening history
+// Class that stores a given BeMusic user's listening history
 
 /**
  * Two underlying data structures 
@@ -19,11 +18,6 @@ import java.util.PriorityQueue;
 */
 public class ListeningHistory {
     // Instance variables
-
-    // TODO : add rating!
-    // method: rate also in user, all time or 7 days, peek into last 7, 
-    //OR: rate just person's profile
-    // IMPLEMENT: just add the rating on your profile / avg of all ratings
     HashMap<YearMonth, Queue<Song>> songHistory;
     HashMap<YearMonth, HashMap<String, Integer>> artistHistory;
 
@@ -81,7 +75,7 @@ public class ListeningHistory {
 
     /**
      * Return the top artist for a given month, year. Includes tied artists.
-     * Returns null if there is no info for that given month, year. // TODO: should we throw error instead?
+     * Returns null if there is no info for that given month, year
      * 
      * @param month
      * @param year
@@ -109,53 +103,42 @@ public class ListeningHistory {
 
     /**
      * Return the song history for a given month, year.
-     * Returns null if there is no info for that given month, year. // TODO: should we throw error instead?
+     * Returns null if there is no info for that given month, year.
      * @param month
      * @param year
-     * @param chronological 
-     * // TODO: added chronological parameter for importing data to build the calender,
-     * but ideally if adding songs day by day, natural order of reverse chronology is better
-     * to add songs day by day to calender + feed  and profile in reverse chronology
      */
-    public ArrayList<Song> getMonthSongHistory(int month, int year, boolean chronological){
+    public ArrayList<Song> getMonthSongHistory(int month, int year){
         YearMonth yyyyMM = YearMonth.of(year,month); 
         Queue<Song> pq = songHistory.get(yyyyMM);
         
         if (pq == null || pq.isEmpty()) {return null;}
 
         ArrayList<Song> list = new ArrayList<>(pq);
-        if (chronological){
-            Collections.sort(list, songAscendingOrderComparator);
-        } else{
-            Collections.sort(list); // "natural ordering" is reverse-chronological
-        }
+        Collections.sort(list); // "natural ordering" is reverse-chronological
         return list; 
     }
 
-    /**
-     * Reverse of the "natural ordering" implemented in Song.java.
-     * Now, the beginning of the month is the "smallest" --> returns in chronological order
-     */
-    Comparator<Song> songAscendingOrderComparator = new Comparator<Song>() {
-        @Override
-        public int compare(Song s1, Song s2) {
-            // If after, then more recent --> "bigger"
-            if (s1.date.after(s2.date)){
-                return 1;
-            
-            // If before, then earlier in month --> "smaller"
-            } if (s1.date.before(s2.date)){
-                return -1;
 
-            // Otherwise, same date
-            } return 0;
+    /**
+     * Returns ENTIRE song history sorted in reverse chronological order.
+     * @return all songHistory
+     */
+    public ArrayList<Song> getSongHistory(){
+        ArrayList<Song> allSongHistory = new ArrayList<Song>();
+        for (YearMonth yyyyMM: songHistory.keySet()) {
+            Queue<Song> pq = songHistory.get(yyyyMM);
+            ArrayList<Song> list = new ArrayList<>(pq);
+            allSongHistory.addAll(list);
         }
-    };
+        Collections.sort(allSongHistory);
+        return allSongHistory;
+    }
+
 
     /**
-     * Prints out song history and artist history
-     * @override
+     * Prints out song history and artist history.
      */
+    @Override
     public String toString(){
         return "song history: " + songHistory.toString() + "\nartist history: " + artistHistory.toString();
     }
@@ -180,8 +163,11 @@ public class ListeningHistory {
         System.out.println("artistHistory: " + test.artistHistory);
         
         System.out.println("\n-------testing getMonthSongHistory-------");
-        System.out.println("Chronological:" + test.getMonthSongHistory(11, 2025, true));
-        System.out.println("Reverse-Chronological:" + test.getMonthSongHistory(11, 2025, false));
+        System.out.println("November:" + test.getMonthSongHistory(11, 2025));
+        System.out.println("October:" + test.getMonthSongHistory(10, 2025));
+
+         System.out.println("\n-------testing getSongHistory-------");
+        System.out.println("All Song History:" + test.getSongHistory());
 
         System.out.println("\n-------testing getmonthTopArtist-------");
         System.out.println("Top Artist November: " + test.getMonthTopArtist(11, 2025));
