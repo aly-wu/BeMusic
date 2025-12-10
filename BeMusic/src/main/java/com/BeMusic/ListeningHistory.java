@@ -153,6 +153,14 @@ public class ListeningHistory {
     };
 
     /**
+     * Prints out song history and artist history
+     * @override
+     */
+    public String toString(){
+        return "song history: " + songHistory.toString() + "\nartist history: " + artistHistory.toString();
+    }
+
+    /**
      * Tests the ListeningHistory class. 
      *
      * @param args the command-line arguments

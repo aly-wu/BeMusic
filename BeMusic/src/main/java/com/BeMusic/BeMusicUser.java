@@ -10,7 +10,7 @@ public class BeMusicUser implements User{
 
     //INSTANCE VARIABLES
     String username;
-    ListeningHistory listeningHistory;
+    ListeningHistory listeningHistory = new ListeningHistory();
     BeMusicDatabase allUsers;
     double ratingAggregate;
     int nbRatings;
@@ -24,7 +24,6 @@ public class BeMusicUser implements User{
         this.allUsers = allUsers;
         allUsers.addVertex(this); // if username already taken, then the user is not added
         //TODO: temporarily removed this bc of error in order to work on gui. restore and fix!
-        //this.listeningHistory = allUsers.get(this).listeningHistory; // should mean that adding songs to pj1 will still show up in pj
     }
    
     /**
@@ -197,21 +196,18 @@ public class BeMusicUser implements User{
         alyssa.beRated(8); // invalid ratings do nothing
         System.out.println("alyssa's rating: " + alyssa.getRating());
 
-        System.out.println("-------adding ListeningHistory to users()-------");
+        System.out.println("\n-------adding ListeningHistory to users()-------");
         System.out.println("SORRY I TEMPORARILY DISABLED THIS BC IT WASNT WORKING AND I NEED TO TEST GUI");
-        /* TODO : restore and fix this whole segment
         Song s1 = new Song("EoO", "Bad Bunny", "11/29/2025");
         Song s2 = new Song("Heroine", "Azamiah", "10/15/2025");
         Song s3 = new Song("Fall In Love (Your Funeral)", "Erykah Badu", "11/11/2025");
         Song s4 = new Song("Care for You", "The Marias", "10/31/2025");
         alyssa.addSong(s1);
         cris.addSong(s2);
+        pj.addSong(s1);
         pj.addSong(s3);
         pj2.addSong(s4);
-        System.out.println("original pj's listening history": pj.listeningHistory);
-        TODO :above line creates error
-        */
-       // TODO: check if changing pj2's listneing history impact pj's listening history?  
+        System.out.println("original pj's listening history:\n" + pj.listeningHistory);
 
         new BeMusicUser("guitest", allUsers).run();
         System.out.println("called run");

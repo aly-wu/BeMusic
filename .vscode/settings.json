@@ -4,6 +4,7 @@
     "java.project.sourcePaths": [
         "src",
         "BeMusicSpotify/src/main/java/com",
-        "demo/src/main/java/com"
+        "demo/src/main/java/com",
+        "be_music_spotify/spotify/main/java/com/example"
     ]
 }
