@@ -3,7 +3,7 @@
  * naming conventions, or change it to correpond to the "add user/remove user" <-changed the interface to match with the names here!
  * 
  */
-package BeMusic; 
+package main.java.com.example.BeMusic; 
 
 import java.util.NoSuchElementException;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package BeMusic;
+package main.java.com.example.BeMusic;
 
 import java.util.ArrayList;
 import java.util.List;

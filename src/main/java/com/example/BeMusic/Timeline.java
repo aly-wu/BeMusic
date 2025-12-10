@@ -8,7 +8,7 @@
  * @author pjman
  */
 
-package BeMusic; 
+package main.java.com.example.BeMusic; 
 public class Timeline extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Timeline.class.getName());

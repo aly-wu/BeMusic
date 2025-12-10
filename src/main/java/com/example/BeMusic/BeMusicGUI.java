@@ -13,7 +13,7 @@
  * and your rating
  */
 
-package BeMusic;
+package main.java.com.example.BeMusic;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

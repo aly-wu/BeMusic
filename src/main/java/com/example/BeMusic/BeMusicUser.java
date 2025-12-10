@@ -1,4 +1,4 @@
-package BeMusic;
+package main.java.com.example.BeMusic;
 
 // TODO: complete/rewrite methods for this class 
 import java.util.ArrayList;
