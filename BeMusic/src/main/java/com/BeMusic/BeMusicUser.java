@@ -67,6 +67,14 @@ public class BeMusicUser implements User{
         allUsers.removeVertex(this);
     }
 
+    /**
+     * get username
+     * @return username
+     */
+    public String getUsername(){
+        return this.username;
+    }
+
 
     /**
      * 

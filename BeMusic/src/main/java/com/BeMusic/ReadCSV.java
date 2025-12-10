@@ -15,7 +15,7 @@ public class ReadCSV {
         this.database = database;
     }
 
-    public void generateDatabase(){
+    public BeMusicDatabase generateDatabase(){
         try(CSVReader reader = new CSVReader(new FileReader(filePath))) {
             // Read in first line
             String[] line1 = reader.readNext();
@@ -41,7 +41,8 @@ public class ReadCSV {
                     System.out.println("new user: " + currentUser);
                     Song song = new Song(title, artist, date);
                     System.out.println("song: " + song);
-                    currentUser.addSong(song);
+                    currentUser.addSong(song); // this is not working?
+                    System.out.println(currentUser);
                 } else {
                     System.out.println("existing user: " + currentUser);
                     Song song = new Song(title, artist, date);
@@ -49,11 +50,14 @@ public class ReadCSV {
                     System.out.println("song: " + song);
                 }
             }
+            return this.database;
 
 
             } catch (IOException | CsvValidationException e) {
                 System.err.println(e.getMessage());
+                return null;
             }
+        
         } 
 
         public static void main(String[] args){
@@ -62,17 +66,19 @@ public class ReadCSV {
             ReadCSV r = new ReadCSV(testFile, testDatabase);
             r.generateDatabase();
 
-            System.out.println(testDatabase);
 
             /** Since we know alyssa, pj, and cris are in this database, creating new users won't add 
              * duplicates, but will function as "logging in" */
-            BeMusicUser alyssa = new BeMusicUser("alyssa", testDatabase);
-            BeMusicUser pj = new BeMusicUser("pj", testDatabase);
-            BeMusicUser cris = new BeMusicUser("cris", testDatabase);
 
             System.out.println("-------did it read the .csv correctly?-------");
-            System.out.println("alyssa's listening history: " + alyssa.listeningHistory);
-            System.out.println("pj's listening history: " + pj.listeningHistory);
-            System.out.println("cris's listening history: " + cris.listeningHistory);
+
+            //adding friend is this code sadly
+            testDatabase.getUser("alyssa").addFriend(testDatabase.getUser("pj"));
+            System.out.println(testDatabase); //friends
+
+
+            System.out.println("alyssa's listening history: " + testDatabase.getUser("alyssa").listeningHistory);
+            System.out.println("pj's listening history: " + testDatabase.getUser("pj").listeningHistory);
+            System.out.println("cris's listening history: " + testDatabase.getUser("cris").listeningHistory);
         }
     }

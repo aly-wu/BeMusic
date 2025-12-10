@@ -184,6 +184,22 @@ public class BeMusicDatabase implements UserDatabase {
     }
 
     /**
+     * get the Object User from the database according to a string username
+     * aka "logging in"
+     * @param username
+     * @return bemusicuser corresponding
+     */
+    public BeMusicUser getUser(String username){
+        for (BeMusicUser u : this.adjList.keySet()) {
+            if (u.getUsername().equals(username)) {
+                return u;
+            }
+        }
+        return null;
+        }
+    
+
+    /**
      * Tests the BeMusicDatabase class.
      * 
      * TODO: TEST!
