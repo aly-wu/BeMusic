@@ -1,9 +1,5 @@
-/**
- * TODO: fix formatting of title, also should we maintain normal graph method
- * naming conventions, or change it to correpond to the "add user/remove user" <-changed the interface to match with the names here!
- * 
- */
 package com.BeMusic;
+
 import java.util.NoSuchElementException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +9,6 @@ public class BeMusicDatabase implements UserDatabase {
     private int V; // number of users
     private int E; // number of connections across BeMusic
     private HashMap<BeMusicUser, ArrayList<BeMusicUser>> adjList; // adjacency list, keys with users, values with friends
-    // TODO: perhaps we do a cusotm hashing thing that hashes BeMusicUsers based on their username, not just if they are distinct objects which all users are
 
     /**
      * Constructor. Initializes a graph with no users
@@ -39,7 +34,6 @@ public class BeMusicDatabase implements UserDatabase {
     /**
      * Returns the number of edges in this graph.
      * Synonymous with returning the number of friend connections across BeUser.
-     * TODO: we kinda dont need this lol
      *
      * @return the number of edges in this graph
      */
@@ -117,7 +111,7 @@ public class BeMusicDatabase implements UserDatabase {
      * Removes the undirected edge v-w to this graph.
      * Synonymous with two users removing each other.
      * 
-     * TODO: No error is thrown if v and w are not friends first.  
+     * NOTE: No error is thrown if v and w are not friends first. Just does nothing.
      *
      * @param  v one vertex in the edge
      * @param  w the other vertex in the edge
@@ -173,8 +167,7 @@ public class BeMusicDatabase implements UserDatabase {
     }
 
     /**
-     * Returns a string representation of this graph.
-     * TODO: fix toString()
+     * Returns a string representation of this graph, based on friendship connections.
      *
      * @return the number of vertices <em>V</em>, followed by the number of edges <em>E</em>,
      *         followed by the <em>V</em> adjacency lists

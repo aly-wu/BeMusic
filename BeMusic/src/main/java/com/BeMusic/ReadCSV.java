@@ -42,17 +42,12 @@ public class ReadCSV {
                     currentUsername = username; // overwrite currentUsername,
                     currentUser = new BeMusicUser(username, database); // create new user
                     // Add song info from that line
-                    System.out.println("new user: " + currentUser);
                     Song song = new Song(title, artist, date);
-                    System.out.println("song: " + song);
                     currentUser.addSong(song);
-                    System.out.println(currentUser.listeningHistory);
+    
                 } else {
-                    System.out.println("existing user: " + currentUser);
                     Song song = new Song(title, artist, date);
                     currentUser.addSong(song);
-                    System.out.println("song: " + song);
-                    System.out.println(currentUser.listeningHistory);
                 }
             }
 
