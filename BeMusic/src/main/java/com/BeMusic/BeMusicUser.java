@@ -13,6 +13,7 @@ public class BeMusicUser implements User {
     private String username;
     private ListeningHistory listeningHistory = new ListeningHistory();
     private BeMusicDatabase allUsers;
+    private int nichescore = 0;
     private double ratingAggregate;
     private int nbRatings;
 
@@ -108,6 +109,7 @@ public class BeMusicUser implements User {
      * @param song
      */
     public void addSong(Song song) {
+        nichescore += nichescore + song.getPopularity();
         listeningHistory.addSong(song);
         song.setUser(this.username);
     }
@@ -280,7 +282,7 @@ public class BeMusicUser implements User {
         new BeMusicUser("guitest", allUsers).run();
         System.out.println("called run");
 
-        System.out.println(SearchItemExample.search(pj.listeningHistory.getSongHistory().get(0)));
+        // System.out.println(SearchItemExample.search(pj.listeningHistory.getSongHistory().get(0)));
 
     }
 

@@ -32,12 +32,12 @@ public class SearchItemExample {
     private static final SpotifyApi spotifyApi = ClientCredentialsExample.clientCredentials_Sync();
     private static SearchTracksRequest searchTracksRequest;
 
-    public static SpotifySong search(Song searchSong) {
+    public static String[] search(Song searchSong) {
         return search(searchSong.getTitle() + " " + searchSong.getArtist());
 
     }
 
-    public static SpotifySong search(String search) {
+    public static String[] search(String search) {
         searchTracksRequest = spotifyApi.searchTracks(search)
                 // .market(CountryCode.SE)
                 .limit(1)
@@ -48,7 +48,7 @@ public class SearchItemExample {
         return searchTracks_Sync();
     }
 
-    public static SpotifySong searchTracks_Sync() {
+    public static String[] searchTracks_Sync() {
         try {
             final Paging<Track> trackPaging = searchTracksRequest.execute();
             // System.out.println("Total: " + trackPaging.getTotal());
@@ -69,8 +69,8 @@ public class SearchItemExample {
             // System.out.println(features.sedanceability);
 
             // System.out.println("features: " + track.key);
-            return new SpotifySong(track.getName(), track.getArtists()[0].getName(),
-                    track.getAlbum().getImages()[0].getUrl(), track.getPopularity());
+            return new String[] { track.getName(), track.getArtists()[0].getName(),
+                    track.getAlbum().getImages()[0].getUrl(), "" + track.getPopularity() };
 
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
