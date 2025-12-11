@@ -134,27 +134,27 @@ public class BeMusicUser implements User {
 
     /**
      * Get's the ENTIRE song histories of all added friends and formats into
-     * a nested ArrayList with harcoded order [date, username, song title, artist,
+     * an ArrayList of String[] with harcoded order [date, username, song title, artist,
      * image-url]
      * 
      * @return friend's listening history in reverse-chronological order.
      */
-    public ArrayList<ArrayList<String>> getFeed() {
+    public ArrayList<String[]> getFeed() {
         ArrayList<Song> songs = new ArrayList<Song>(); // to store all of the songs listenend to by all friends
         for (BeMusicUser friend : this.friends()) {
             songs.addAll(friend.getSongHistory());
         }
         Collections.sort(songs); // sort songs in reverse-chronological order
 
-        ArrayList<ArrayList<String>> feed = new ArrayList<ArrayList<String>>();
+        ArrayList<String[]> feed = new ArrayList<String[]>();
         for (Song song : songs) {
             // Create list entry for each song
-            ArrayList<String> list = new ArrayList<String>();
-            list.add(0, song.getDate());
-            list.add(1, song.getUser());
-            list.add(2, song.getTitle());
-            list.add(3, song.getArtist());
-            list.add(4, song.getImageURL());
+            String[] list = new String[5];
+            list[0] = song.getDate();
+            list[1] = song.getUser();
+            list[2] = song.getTitle();
+            list[3] = song.getArtist();
+            list[4] = song.getImageURL();
 
             // Add list entry to ArrayList feed
             feed.add(list);
@@ -284,7 +284,7 @@ public class BeMusicUser implements User {
         alyssa.addFriend(pj);
 
         System.out.println("\n-------testing getFeed()-------");
-        System.out.println("alyssa's feed: " + alyssa.getFeed());
+        System.out.println("alyssa's feed: " + alyssa.getFeed()); // we know it works since we did it with ArrayLists so it would print pretty
 
         new BeMusicUser("guitest", allUsers).run();
         System.out.println("called run");

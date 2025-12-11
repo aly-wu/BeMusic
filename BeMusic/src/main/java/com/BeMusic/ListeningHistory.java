@@ -82,6 +82,8 @@ public class ListeningHistory {
      * @return
      */
     public List<Entry<String, Integer>> getMonthTopArtist(int month, int year){
+        if (month > 12 || month < 1){return null;} // return null for invalid month
+        
         YearMonth yyyyMM = YearMonth.of(year, month);
         HashMap<String, Integer> map = artistHistory.get(yyyyMM);
         
