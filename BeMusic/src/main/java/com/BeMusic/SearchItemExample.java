@@ -32,6 +32,11 @@ public class SearchItemExample {
     private static final SpotifyApi spotifyApi = ClientCredentialsExample.clientCredentials_Sync();
     private static SearchTracksRequest searchTracksRequest;
 
+    public static SpotifySong search(Song searchSong) {
+        return search(searchSong.getTitle() + " " + searchSong.getArtist());
+
+    }
+
     public static SpotifySong search(String search) {
         searchTracksRequest = spotifyApi.searchTracks(search)
                 // .market(CountryCode.SE)
@@ -52,10 +57,10 @@ public class SearchItemExample {
             // System.out.println("artist: " + track.getArtists()[0].getName());
 
             // other features
-            String albumCoverUrl = track.getAlbum().getImages()[0].getUrl();
+            // String albumCoverUrl = track.getAlbum().getImages()[0].getUrl();
             // System.out.println("image url: " + albumCoverUrl);
 
-            Integer popularity = track.getPopularity();
+            // Integer popularity = track.getPopularity();
             // System.out.println("track popularity: " + popularity + "\n");
 
             // String id = track.getId();

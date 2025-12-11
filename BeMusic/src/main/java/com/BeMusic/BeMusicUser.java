@@ -1,134 +1,144 @@
 package com.BeMusic;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Collections;
 
-public class BeMusicUser implements User{
-    //TESTING GUI
+public class BeMusicUser implements User {
+    // TESTING GUI
     private Timeline gui;
 
-    //INSTANCE VARIABLES
+    // INSTANCE VARIABLES
     private String username;
     private ListeningHistory listeningHistory = new ListeningHistory();
     private BeMusicDatabase allUsers;
     private double ratingAggregate;
     private int nbRatings;
-    
+
     /**
      * Creates a BeMusic user and adds them to the allUsers database
      */
-    public BeMusicUser(String username, BeMusicDatabase allUsers){
-        //CONSTRUCTOR
+    public BeMusicUser(String username, BeMusicDatabase allUsers) {
+        // CONSTRUCTOR
         this.username = username;
         this.allUsers = allUsers;
         allUsers.addVertex(this); // if username already taken, then the user is not added
-        //TODO: temporarily removed this bc of error in order to work on gui. restore and fix!
+        // TODO: temporarily removed this bc of error in order to work on gui. restore
+        // and fix!
     }
-   
+
     /**
      * Retrieve the adjacency list for the given user (aka list of friends)
      */
-    public ArrayList<BeMusicUser> friends(){
+    public ArrayList<BeMusicUser> friends() {
         return allUsers.adj(this);
     }
 
-    //get friends listening history method, calls last 2 months of friends listening history
+    // get friends listening history method, calls last 2 months of friends
+    // listening history
 
-     /**
+    /**
      * Retrieve the degree of given user (aka number of friends)
      */
-    public int numFriends(){
+    public int numFriends() {
         return allUsers.degree(this);
     }
 
     /**
      * Add edge between current user and friend.
      * No error is thrown if friend does not exist in BeMusicDatabase.
+     * 
      * @pre assumes newFriend is in the same BeMusicDatabase
      */
-    public void addFriend(BeMusicUser newFriend){
+    public void addFriend(BeMusicUser newFriend) {
         allUsers.addEdge(this, newFriend);
     }
-    
+
     /**
      * Remove edge between current user and formerFriend
      * No error is thrown if friend does not exist in BeMusicDatabase.
+     * 
      * @pre assumes newFriend is in the same BeMusicDatabase
      */
-    public void removeFriend(BeMusicUser formerFriend){
+    public void removeFriend(BeMusicUser formerFriend) {
         allUsers.removeEdge(this, formerFriend);
     }
 
     /**
      * Delete vertex from allUsers graph.
      */
-    public void deleteAccount(){
+    public void deleteAccount() {
         allUsers.removeVertex(this);
     }
 
     /**
      * get username
+     * 
      * @return username
      */
-    public String getUsername(){
+    public String getUsername() {
         return this.username;
     }
 
-
     /**
      * You can either get a user's song history for a given month and year
+     * 
      * @param month
      * @param year
      * @param chronological
      * @return songHistory for a given month and year
      */
-    public ArrayList<Song> getSongHistory(int month, int year){
+    public ArrayList<Song> getSongHistory(int month, int year) {
         return listeningHistory.getMonthSongHistory(month, year);
     }
 
     /**
      * Or get a user's entire song history.
+     * 
      * @return entire songHistory
      */
-    public ArrayList<Song> getSongHistory(){
+    public ArrayList<Song> getSongHistory() {
         return listeningHistory.getSongHistory();
     }
 
     /**
      * Adds song to listeningHistory + adds username to Song object
+     * 
      * @param song
      */
-    public void addSong(Song song){
+    public void addSong(Song song) {
         listeningHistory.addSong(song);
         song.setUser(this.username);
     }
 
     /**
      * Return the top artist for a given month and year
+     * 
      * @param month
      * @param year
      * @return
      */
-    public List<Entry<String, Integer>> getTopArtist(int month, int year){
+    public List<Entry<String, Integer>> getTopArtist(int month, int year) {
         return listeningHistory.getMonthTopArtist(month, year);
     }
 
-    
     /**
-     * Get's the ENTIRE song histories of all added friends and formats into 
-     * a nested ArrayList with harcoded order [date, username, song title, artist, image-url]
+     * Get's the ENTIRE song histories of all added friends and formats into
+     * a nested ArrayList with harcoded order [date, username, song title, artist,
+     * image-url]
+     * 
      * @return friend's listening history in reverse-chronological order.
      */
-    public ArrayList<ArrayList<String>> getFeed(){
+    public ArrayList<ArrayList<String>> getFeed() {
         ArrayList<Song> songs = new ArrayList<Song>(); // to store all of the songs listenend to by all friends
-        for (BeMusicUser friend: this.friends()){
+        for (BeMusicUser friend : this.friends()) {
             songs.addAll(friend.getSongHistory());
         }
         Collections.sort(songs); // sort songs in reverse-chronological order
 
         ArrayList<ArrayList<String>> feed = new ArrayList<ArrayList<String>>();
-        for (Song song: songs){
+        for (Song song : songs) {
             // Create list entry for each song
             ArrayList<String> list = new ArrayList<String>();
             list.add(0, song.getDate());
@@ -143,50 +153,54 @@ public class BeMusicUser implements User{
         return feed;
     }
 
-
     /**
      * 
      * being rated by someone viewing your profile
      */
-    public void beRated(int rating){
-        if (rating<=5 && rating >= 0){
-        ratingAggregate = ratingAggregate + rating;
-        nbRatings++;
+    public void beRated(int rating) {
+        if (rating <= 5 && rating >= 0) {
+            ratingAggregate = ratingAggregate + rating;
+            nbRatings++;
         }
     }
-
 
     /**
      * 
      * @return view rating of this user
-     * rounded to 2 decimals
+     *         rounded to 2 decimals
      */
-    public double getRating(){
+    public double getRating() {
         double scale = Math.pow(10, 2);
-        return Math.round(ratingAggregate / nbRatings * scale) / scale; 
+        return Math.round(ratingAggregate / nbRatings * scale) / scale;
 
     }
-    
-
 
     /**
-     * Print user's username 
+     * Print user's username
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "@" + username;
     }
 
     // FOR HASHING BEMUSIC USERS
     /**
-     * Determines whether two BeMusicUsers are equal based on if they share a username
+     * Determines whether two BeMusicUsers are equal based on if they share a
+     * username
+     * 
      * @return boolean, equal or not
      */
     @Override
-    public boolean equals(Object that){
-        if (that == this){return true;}
-        if (that == null){return false;}
-        if (that.getClass() != this.getClass()){return false;}
+    public boolean equals(Object that) {
+        if (that == this) {
+            return true;
+        }
+        if (that == null) {
+            return false;
+        }
+        if (that.getClass() != this.getClass()) {
+            return false;
+        }
         BeMusicUser y = (BeMusicUser) that;
         return username.equals(y.username);
     }
@@ -195,7 +209,7 @@ public class BeMusicUser implements User{
      * Custom hashCode() for hashing BeMusicUser objects
      */
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return username.hashCode(); // hashing the username as a string
     }
 
@@ -236,8 +250,8 @@ public class BeMusicUser implements User{
         System.out.println("bye bye cris :( " + allUsers);
 
         System.out.println("\n-------testing hashing function-------");
-        BeMusicUser pj2 = new BeMusicUser("pj", allUsers); // should not add new user as repeated username   
-        System.out.println(allUsers); 
+        BeMusicUser pj2 = new BeMusicUser("pj", allUsers); // should not add new user as repeated username
+        System.out.println(allUsers);
 
         System.out.println("\n-------testing rating functions-------");
         alyssa.beRated(5);
@@ -266,9 +280,11 @@ public class BeMusicUser implements User{
         new BeMusicUser("guitest", allUsers).run();
         System.out.println("called run");
 
+        System.out.println(SearchItemExample.search(pj.listeningHistory.getSongHistory().get(0)));
+
     }
 
-      /*
+    /*
      * Initializes the screen. TESTING GUI?
      */
     public void run() {
