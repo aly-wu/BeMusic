@@ -13,7 +13,7 @@ public class BeMusicUser implements User {
     private String username;
     private ListeningHistory listeningHistory = new ListeningHistory();
     private BeMusicDatabase allUsers;
-    private int nichescore = 0;
+    private int totalNichescore = 0;
     private double ratingAggregate;
     private int nbRatings;
 
@@ -109,7 +109,7 @@ public class BeMusicUser implements User {
      * @param song
      */
     public void addSong(Song song) {
-        nichescore += nichescore + song.getPopularity();
+        totalNichescore += song.getPopularity();
         listeningHistory.addSong(song);
         song.setUser(this.username);
     }
@@ -123,6 +123,13 @@ public class BeMusicUser implements User {
      */
     public List<Entry<String, Integer>> getTopArtist(int month, int year) {
         return listeningHistory.getMonthTopArtist(month, year);
+    }
+
+    /**
+     * @return user's niche score (0-100)
+     */
+    public int getNicheScore() {
+        return totalNichescore / listeningHistory.getSongHistory().size();
     }
 
     /**
