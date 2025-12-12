@@ -120,7 +120,7 @@ public class SearchItemExample {
     public static void main(String[] args) {
 
         ArrayList<String> searches = new ArrayList<>();
-        searches.add("4 Leaf Clover Ravyn Lenae, Steve Lacy");
+        searches.add("HER MINNIE");
         searches.add("First Rate Town");
         searches.add("MF GROOVE, Smino, Ravyn Lenae");
 
