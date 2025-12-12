@@ -7,7 +7,6 @@ import java.util.Collections;
 
 public class BeMusicUser{
     // TESTING GUI
-    private Timeline gui;
 
     // INSTANCE VARIABLES
     private String username;
@@ -346,7 +345,5 @@ public class BeMusicUser{
      */
     public void run() {
 
-        gui = new Timeline();
-        System.out.println("running timeline?");
     }
 }
