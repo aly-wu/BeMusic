@@ -132,7 +132,7 @@ public class BeMusicUser{
 
     /**
      * Get's the ENTIRE song histories of all added friends and formats into
-     * an ArrayList of String[] with harcoded order [date, username, song title, artist,
+     * an ArrayList of String[] with hardcoded order [date, username, song title, artist,
      * image-url]
      * 
      * @return friend's listening history in reverse-chronological order.
@@ -344,20 +344,22 @@ public class BeMusicUser{
         System.out.println("pj's music calendar for november:");
         System.out.println(string);
 
-        
-
         System.out.println(SearchItemExample.search(pj.listeningHistory.getSongHistory().get(0)));
-
+        
+        /* 
         String testFile = "listening_data_test.csv";
         BeMusicDatabase testDatabase = new BeMusicDatabase();
         ReadCSV r = new ReadCSV(testFile, testDatabase);
         r.generateDatabase();
 
+        */
+
         /** Since we know alyssa, pj, and cris are in this database, creating new users won't add 
          * duplicates, but will function as "logging in" */
     
         System.out.println("-------did it read the .csv correctly?-------");
-        System.out.println(testDatabase);
+        System.out.println("TEMPORARILY DISABLED FOR TIME");
+        //System.out.println(testDatabase);
 
         
 

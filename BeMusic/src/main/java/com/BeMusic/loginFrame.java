@@ -137,8 +137,9 @@ public class loginFrame extends javax.swing.JFrame {
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
         String user = usernamefield.getText();
-        if (user.equals("test")){
-            TimelineFrame.setup();
+        if (user.equals("pj")){
+
+            TimelineFrame.setup(user);
             setVisible(false);
         }
         else {

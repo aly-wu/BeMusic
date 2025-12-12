@@ -30,15 +30,16 @@ public class TimelineFrame extends javax.swing.JFrame {
     private String currentSongTitle; //index 2
     private String currentArtist; // index 3
     private String imageUrl; // index 4
-    private static  String loggedUser;
+    private static  String loggedUserStr;
 
      /**
      * Creates new form TimelineFrame
      */
-    public TimelineFrame(String loggedUser) {
+    public TimelineFrame(String loggedUserStr) {
         System.out.println("new Timeline Frame");
-        setLoggedUser(loggedUser);
-        initComponents(loggedUser);
+        setLoggedUserStr(loggedUserStr);
+        System.out.println("init:" + loggedUserStr);
+        initComponents(loggedUserStr);
     }
     
     public String[] getInfo(int i){
@@ -60,12 +61,12 @@ public class TimelineFrame extends javax.swing.JFrame {
         index = index + var;
     }
 
-    public static String getLoggedUser(){
-        return loggedUser;
+    public static String getLoggedUserStr(){
+        return loggedUserStr;
     }
 
-    public void setLoggedUser(String user){
-        TimelineFrame.loggedUser = user;
+    public void setLoggedUserStr(String user){
+        TimelineFrame.loggedUserStr = user;
     }
 
     
@@ -146,7 +147,7 @@ public class TimelineFrame extends javax.swing.JFrame {
         toolbarPanel.setBackground(new java.awt.Color(153, 204, 0));
 
         timelineLabel.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        timelineLabel.setText(loggedUser +  "'s Timeline");
+        timelineLabel.setText(loggedUserStr +  "'s Timeline");
 
         profileButton.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         profileButton.setText("View Profile");
@@ -362,7 +363,7 @@ public class TimelineFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
         
-        setup();
+        setup(loggedUserStr);
     }
 
     public void reload(){
@@ -401,14 +402,50 @@ public class TimelineFrame extends javax.swing.JFrame {
     public void firsttimeload(){
         // here is where we will load the songs from the cvs and process them, with addEntry
 
-        
+        String csvfile = "listening_data_test.csv"; //TODO  : CHANGE TO FULL
+        BeMusicDatabase database = new BeMusicDatabase();
+        ReadCSV r = new ReadCSV(csvfile, database);
+        r.generateDatabase();
 
-        
+        System.out.println("userstr" + getLoggedUserStr());
+        BeMusicUser loggedUser = database.getUser(loggedUserStr);
+        System.out.println("user" + loggedUser);
 
+
+        Song s1 = new Song("EoO", "Bad Bunny", "11/29/2025");
+        BeMusicUser alyssa = new BeMusicUser("alyssa", database);
+        alyssa.addSong(s1);
+        loggedUser.addFriend(alyssa);
+
+
+        ArrayList<String[]> feed = loggedUser.getFeed();
+        System.out.println("1st in feed:");
+        System.out.println(feed.get(0)[0]);
+
+        System.out.println(loggedUserStr + "'s feed...");
+        for (String[] post: feed){
+            System.out.println("NEW POST:");
+            String string = "";
+            for (String info:post){
+                string = string + info + ", ";
+            }
+            System.out.println(string);
+        }
+
+        setHistory(feed);
+
+        addEntry(feed.get(0)[0], feed.get(0)[1],feed.get(0)[2],feed.get(0)[3],feed.get(0)[4]);
+        addEntry(feed.get(1)[0], feed.get(1)[1],feed.get(1)[2],feed.get(1)[3],feed.get(1)[4]);
+
+        System.out.println("size: " + getHistory().size());
+
+        System.out.println(getHistory().get(0)[0]);
+        
+        /* 
         addEntry("2025-12-09", "PJ", "Heartbreak", "Minho", "https://i.scdn.co/image/ab67616d0000b2731817d8017b41f3d555ffc12c");
         addEntry("2025-12-09", "Alyssa", "Chapter Six", "Kendrick Lamar", "https://www.shutterstock.com/image-vector/clownfish-vibrant-small-marine-fish-600nw-2488428137.jpg");
         addEntry("2025-12-09", "Cris", "Get Used to It", "Ricky Montgomery", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSPZ9qXGkUUKotCwh3A5cIFzDd3O-HdRRUNw&s");
-
+        */
         reload();
     }
     
@@ -424,10 +461,11 @@ public class TimelineFrame extends javax.swing.JFrame {
         }
     }
     
-    public static void setup(){
-        TimelineFrame timeline = new TimelineFrame(loggedUser);
+    public static void setup(String loggedUserStr){
+        TimelineFrame timeline = new TimelineFrame(loggedUserStr);
         timeline.firsttimeload();
         timeline.reload();
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> timeline.setVisible(true));
