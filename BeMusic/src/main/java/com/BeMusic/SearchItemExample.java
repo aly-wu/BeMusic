@@ -71,12 +71,19 @@ public class SearchItemExample {
         try {
             final Paging<Track> trackPaging = searchTracksRequest.execute();
 
-            Track track = trackPaging.getItems()[0];
+            if (trackPaging.getItems().length == 0) {
+                // System.out.println();
+                return new String[] { "Unknown ", "Unknown Artist", "", "0" };
+            } else {
+                Track track = trackPaging.getItems()[0];
 
-            return new String[] { track.getName(), track.getArtists()[0].getName(),
-                    track.getAlbum().getImages()[0].getUrl(), "" + track.getPopularity() };
+                return new String[] { track.getName(), track.getArtists()[0].getName(),
+                        track.getAlbum().getImages()[0].getUrl(), "" + track.getPopularity() };
+            }
 
-        } catch (IOException | SpotifyWebApiException | ParseException e) {
+        } catch (IOException | SpotifyWebApiException |
+
+                ParseException e) {
             System.out.println("Error: " + e.getMessage());
             return null;
         }

@@ -12,7 +12,7 @@ public class Song implements Comparable<Song> {
     final String title;
     final String artist;
     private Date date; // the same song listened to on different days IS a different song object
-    private int popularity;
+    private int nicheness;
     private String dateString;
     private String[] dateSplit;
     private String username; // set not when song is created, but when user add song to their listnening
@@ -30,12 +30,13 @@ public class Song implements Comparable<Song> {
     public Song(String title, String artist, String date) {
 
         String[] details = SearchItemExample.search(title + " " + artist);
-        this.title = details[0];
-        this.artist = details[1];
+        this.title = title;
+        this.artist = artist;
         this.imageURL = details[2];
-        this.popularity = Integer.parseInt(details[3]);
-        System.out.println("Searched on Spotify API: \"" + this.title + "\" by " + this.artist + " with popularity "
-                + this.popularity);
+        this.nicheness = 100 - Integer.parseInt(details[3]);
+        System.out.println("Searched on Spotify API: \"" + this.title + "\" by " +
+                this.artist + " with popularity "
+                + this.nicheness);
 
         // Date in format from excel as mm/d(d)/yyyy, need to standardize as mm/dd/yyyy
         this.dateSplit = date.split("/");
@@ -101,10 +102,10 @@ public class Song implements Comparable<Song> {
     }
 
     /**
-     * @return popularity of song (0-100)
+     * @return nicheness of song (0-100)
      */
-    public int getPopularity() {
-        return popularity;
+    public int getNichness() {
+        return nicheness;
     }
 
     /**
