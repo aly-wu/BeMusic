@@ -67,7 +67,7 @@ public class SearchItemExample {
      * 
      * @return String[] {track name, artist name, album cover url, track popularity}
      */
-    public static String[] searchTracks_Sync() {
+    private static String[] searchTracks_Sync() {
         try {
             final Paging<Track> trackPaging = searchTracksRequest.execute();
 
@@ -118,7 +118,61 @@ public class SearchItemExample {
         searches.add("MF GROOVE, Smino, Ravyn Lenae");
 
         for (String search : searches) {
-            System.out.println(search(search));
+            System.out.println(search(search)[0]);
+            System.out.println(search(search)[1]);
+            System.out.println(search(search)[2]);
+            System.out.println(search(search)[3]);
+        }
+    }
+}
+
+class ClientCredentialsExample {
+    private static final String clientId = "3a93b7c866ce441cb84f000ff0c39f5d";
+    private static final String clientSecret = "910d00db4e054d1dadaadabe3859c3e0";
+
+    public static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
+            .setClientId(clientId)
+            .setClientSecret(clientSecret)
+            .build();
+    private static final ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials()
+            .build();
+
+    public static SpotifyApi clientCredentials_Sync() {
+        try {
+            final ClientCredentials clientCredentials = clientCredentialsRequest.execute();
+
+            // Set access token for further "spotifyApi" object usage
+            spotifyApi.setAccessToken(clientCredentials.getAccessToken());
+
+            System.out.println("Expires in: " + clientCredentials.getExpiresIn());
+            return spotifyApi;
+        } catch (IOException | SpotifyWebApiException | ParseException e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public static SpotifyApi clientCredentials_Async() {
+        try {
+            final CompletableFuture<ClientCredentials> clientCredentialsFuture = clientCredentialsRequest
+                    .executeAsync();
+
+            // Thread free to do other tasks...
+
+            // Example Only. Never block in production code.
+            final ClientCredentials clientCredentials = clientCredentialsFuture.join();
+
+            // Set access token for further "spotifyApi" object usage
+            spotifyApi.setAccessToken(clientCredentials.getAccessToken());
+
+            System.out.println("Expires in: " + clientCredentials.getExpiresIn());
+            return spotifyApi;
+        } catch (CompletionException e) {
+            System.out.println("Error: " + e.getCause().getMessage());
+            return null;
+        } catch (CancellationException e) {
+            System.out.println("Async operation cancelled.");
+            return null;
         }
     }
 }
