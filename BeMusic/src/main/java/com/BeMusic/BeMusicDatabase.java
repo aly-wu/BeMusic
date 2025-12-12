@@ -202,7 +202,7 @@ public class BeMusicDatabase {
      */
     public void run() {
     
-        String csvfile = "listening_data.csv"; 
+        String csvfile = "listening_data_test.csv"; 
         BeMusicDatabase database = new BeMusicDatabase();
         ReadCSV r = new ReadCSV(csvfile, database);
         database = r.generateDatabase();
