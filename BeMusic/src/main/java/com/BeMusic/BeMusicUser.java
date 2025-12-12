@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Collections;
 
-public class BeMusicUser implements User {
+public class BeMusicUser{
     // TESTING GUI
     private Timeline gui;
 
@@ -163,8 +163,34 @@ public class BeMusicUser implements User {
     }
 
     /**
-     * 
-     * being rated by someone viewing your profile
+     * Given a 
+     * @param month
+     * @param year
+     * @return a list of size 31 where each index correponds to the image-url of the song listened to that day
+     *         size 32 as max length of a month is 31 (and we need an index of 31)
+     */
+    public String[] getMusicCalendar(int month, int year) {
+        ArrayList<Song> songs = getSongHistory(month, year);
+        String[] musicCalendar = new String[32];
+    
+        int counter = 0;
+        Song song = songs.get(counter); // intialize to get first song in array list
+        for (int date = 31; date >= 0; date--){ // remember, songs sorted in REVERSE chronological 
+            if (song.getDay() == date){
+                musicCalendar[date] = song.getImageURL();
+                if (counter != songs.size()-1){
+                    song = songs.get(++counter); // iterate counter and get next song
+                }
+            } else {
+                musicCalendar[date] = ""; // set to empty string
+            }
+        }
+        return musicCalendar;
+    }
+
+    /**
+     * Being rated by someone viewing your profile
+     * @param rating
      */
     public void beRated(int rating) {
         if (rating <= 5 && rating >= 0) {
@@ -284,12 +310,34 @@ public class BeMusicUser implements User {
         alyssa.addFriend(pj);
 
         System.out.println("\n-------testing getFeed()-------");
-        System.out.println("alyssa's feed: " + alyssa.getFeed()); // we know it works since we did it with ArrayLists so it would print pretty
+        ArrayList<String[]> feed = alyssa.getFeed();
+        System.out.println("alyssa's feed...");
+        for (String[] post: feed){
+            System.out.println("NEW POST:");
+            String string = "";
+            for (String info:post){
+                string = string + info + ", ";
+            }
+            System.out.println(string);
+        }
+
+        System.out.println("\n-------testing getMusicCalendar()-------");
+        pj.addSong(s1);
+        pj.addSong(s2);
+        String[] calendar = pj.getMusicCalendar(11, 2025);
+        int index = 0;
+        String string = "";
+        for (String entry: calendar){
+            string = string + "index " + index + ": " + entry + " || ";
+            index++;
+        }
+        System.out.println("pj's music calendar for november:\n" + string);
+
 
         new BeMusicUser("guitest", allUsers).run();
         System.out.println("called run");
 
-        // System.out.println(SearchItemExample.search(pj.listeningHistory.getSongHistory().get(0)));
+        System.out.println(SearchItemExample.search(pj.listeningHistory.getSongHistory().get(0)));
 
     }
 

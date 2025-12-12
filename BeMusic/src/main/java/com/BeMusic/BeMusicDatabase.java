@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
  
-public class BeMusicDatabase implements UserDatabase {
+public class BeMusicDatabase {
     private int V; // number of users
     private int E; // number of connections across BeMusic
     private HashMap<BeMusicUser, ArrayList<BeMusicUser>> adjList; // adjacency list, keys with users, values with friends
