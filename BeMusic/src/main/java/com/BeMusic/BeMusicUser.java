@@ -305,7 +305,6 @@ public class BeMusicUser{
         System.out.println(alyssa.getRating());
 
         System.out.println("\n-------adding ListeningHistory to users()-------");
-        System.out.println("SORRY I TEMPORARILY DISABLED THIS BC IT WASNT WORKING AND I NEED TO TEST GUI");
         Song s1 = new Song("EoO", "Bad Bunny", "11/29/2025");
         Song s2 = new Song("Heroine", "Azamiah", "11/3/2025");
         Song s3 = new Song("Fall In Love (Your Funeral)", "Erykah Badu", "11/11/2025");
@@ -325,10 +324,7 @@ public class BeMusicUser{
             System.out.println("NEW POST:");
             String string = "";
             for (String info:post){
-                StringBuilder sb  = new StringBuilder(string);
-                sb.append(info).append(", ");
-                string = sb.toString();
-                //string = string + info + ", ";
+                string = string + info + ", ";
             }
             System.out.println(string);
         }
@@ -348,12 +344,18 @@ public class BeMusicUser{
         }
         System.out.println("pj's music calendar for november:");
         System.out.println(string);
-
-
-        new BeMusicUser("guitest", allUsers).run();
-        System.out.println("called run");
-
         System.out.println(SearchItemExample.search(pj.listeningHistory.getSongHistory().get(0)));
+
+        String testFile = "listening_data_test.csv";
+        BeMusicDatabase testDatabase = new BeMusicDatabase();
+        ReadCSV r = new ReadCSV(testFile, testDatabase);
+        r.generateDatabase();
+
+        /** Since we know alyssa, pj, and cris are in this database, creating new users won't add 
+         * duplicates, but will function as "logging in" */
+    
+        System.out.println("-------did it read the .csv correctly?-------");
+        System.out.println(testDatabase);
 
     }
 

@@ -25,7 +25,21 @@ public class TimelineFrame extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TimelineFrame.class.getName());
     ArrayList<String[]> history = new ArrayList<String[]>();
     private int index;
-    private String currentDate = "TEST";
+    private String currentDate; //index 0
+    private String currentUsername; //index 1
+    private String currentSongTitle; //index 2
+    private String currentArtist; // index 3
+    private String imageUrl; // index 4
+    private static  String loggedUser;
+
+     /**
+     * Creates new form TimelineFrame
+     */
+    public TimelineFrame(String loggedUser) {
+        System.out.println("new Timeline Frame");
+        setLoggedUser(loggedUser);
+        initComponents(loggedUser);
+    }
     
     public String[] getInfo(int i){
         String[] song = history.get(i);
@@ -37,7 +51,6 @@ public class TimelineFrame extends javax.swing.JFrame {
         return song;
     }
     
-    
     public void addEntry(String date, String username, String songtitle, String artist, String url){
         String[] entry = {date, username,songtitle,artist,url};
         this.history.add(entry);
@@ -46,11 +59,19 @@ public class TimelineFrame extends javax.swing.JFrame {
     public void changeIndex(int var){
         index = index + var;
     }
+
+    public static String getLoggedUser(){
+        return loggedUser;
+    }
+
+    public void setLoggedUser(String user){
+        this.loggedUser = user;
+    }
+
     
     public int getIndex(){
         return index;
     }
-    
     
     public ArrayList<String[]> getHistory() {
         return history;
@@ -91,18 +112,10 @@ public class TimelineFrame extends javax.swing.JFrame {
     public void setCurrentArtist(String currentArtist) {
         this.currentArtist = currentArtist;
     }
-    private String currentUsername; //index 1
-    private String currentSongTitle; //index 2
-    private String currentArtist; // index 3
-    private String imageUrl; // index 4
+
     
-    /**
-     * Creates new form TimelineFrame
-     */
-    public TimelineFrame() {
-        System.out.println("new Timeline Frame");
-        initComponents();
-    }
+    
+   
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,7 +124,7 @@ public class TimelineFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(String user) {
 
         toolbarPanel = new javax.swing.JPanel();
         timelineLabel = new javax.swing.JLabel();
@@ -133,7 +146,7 @@ public class TimelineFrame extends javax.swing.JFrame {
         toolbarPanel.setBackground(new java.awt.Color(153, 204, 0));
 
         timelineLabel.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        timelineLabel.setText("Your Timeline");
+        timelineLabel.setText(loggedUser +  "Timeline");
 
         profileButton.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         profileButton.setText("View Profile");
@@ -289,7 +302,6 @@ public class TimelineFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileButtonActionPerformed
-        // TODO add your handling code here
         ProfileFrame profileframe = new ProfileFrame();
         profileframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         profileframe.setVisible(true);
@@ -298,30 +310,28 @@ public class TimelineFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_profileButtonActionPerformed
 
     private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextbuttonActionPerformed
-        // TODO add your handling code here:
         System.out.println("NEXT CLICKED");
-        if (index < history.size() -1 ){
+        if (index < history.size() -1) {
             changeIndex(1);
         }
         reload();
     }//GEN-LAST:event_nextbuttonActionPerformed
 
     private void lastbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastbuttonActionPerformed
-        // TODO add your handling code here:
         System.out.println("LAST CLICKED");
         if (index >=1){
             changeIndex(-1);
         }
         
         reload();
-    }//GEN-LAST:event_lastbuttonActionPerformed
+    } //GEN-LAST:event_lastbuttonActionPerformed
 
     private void ratesongbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ratesongbuttonActionPerformed
         StringBuilder sb = new StringBuilder("How do you feel about");
         sb.append("\n").append(currentSongTitle).append(" by ").append(currentArtist).append("\n (1 to 5 stars)");
         String ratingmessage = sb.toString();
         Object newrating = JOptionPane.showInputDialog(this, ratingmessage, "Rate this song!", 2);
-    }//GEN-LAST:event_ratesongbuttonActionPerformed
+    } //GEN-LAST:event_ratesongbuttonActionPerformed
 
     private void nichebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nichebuttonActionPerformed
         StringBuilder sb = new StringBuilder(currentSongTitle);
@@ -358,7 +368,7 @@ public class TimelineFrame extends javax.swing.JFrame {
     public void reload(){
         revalidate();
         repaint();
-        System.out.println("\n RELOADED.");
+        System.out.println("\n RELOADED."); 
         String[] song = getInfo(getIndex()); 
 
         setCurrentDate((song[0]));
@@ -390,6 +400,11 @@ public class TimelineFrame extends javax.swing.JFrame {
     
     public void firsttimeload(){
         // here is where we will load the songs from the cvs and process them, with addEntry
+
+        
+
+        
+
         addEntry("2025-12-09", "PJ", "Heartbreak", "Minho", "https://i.scdn.co/image/ab67616d0000b2731817d8017b41f3d555ffc12c");
         addEntry("2025-12-09", "Alyssa", "Chapter Six", "Kendrick Lamar", "https://www.shutterstock.com/image-vector/clownfish-vibrant-small-marine-fish-600nw-2488428137.jpg");
         addEntry("2025-12-09", "Cris", "Get Used to It", "Ricky Montgomery", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSPZ9qXGkUUKotCwh3A5cIFzDd3O-HdRRUNw&s");
@@ -399,24 +414,22 @@ public class TimelineFrame extends javax.swing.JFrame {
     
     public void getImage(String link){
         try {
-        URL url = new URL(link); // Replace with your image URL
-        Image image = ImageIO.read(url);
-        // Use the image, for example, in a JLabel
-        Image resized = image.getScaledInstance(250,250,Image.SCALE_DEFAULT);
-        imagelabel.setIcon(new ImageIcon(resized));
-        // Add label to your JFrame or JPanel
+            URL url = new URL(link); 
+            Image image = ImageIO.read(url);
+            
+            Image resized = image.getScaledInstance(250,250,Image.SCALE_DEFAULT);
+            imagelabel.setIcon(new ImageIcon(resized));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
     public static void setup(){
-        TimelineFrame timeline = new TimelineFrame();
+        TimelineFrame timeline = new TimelineFrame(loggedUser);
         timeline.firsttimeload();
         
         
         //change to timeline.getIndex
-        
         /*
         timeline.setCurrentDate((song[0]));
         timeline.setCurrentUsername((song[1]));
