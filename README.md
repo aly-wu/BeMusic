@@ -1,8 +1,9 @@
 # BeMusic
 
+Summary of BeMusic and what it does!
 Music is a great peek into a person’s aesthetic, and people often take great pride in the artists they listen to. While music is a great way to connect, music streaming apps like Spotify or Apple Music lack a social aspect. Airbuds, an app that tells you all the songs your friend is listening to, often holds too much information, and the feed is easily bombarded by one person if they are continuously listening to music for any extended period of time. We wanted to create something that allows people to journal snippets of their music listening history and share that information with friends.
 
-Inspired by BeReal, the daily photo journal that goes off at random points in the day, we introduce BeMusic. BeMusic contains two main displays: 1) your personal profile that works as your music journal, and includes your music recaps by month, and 2) your feed, which includes the most recent posts from your friends in chronological order, newest posts on top.
+Inspired by BeReal, the daily photo journal that goes off at random points in the day, we are making BeMusic. BeMusic will contain two main displays: 1) your personal profile that works as your music journal, and includes your music recaps by month, and 2) your feed, which includes the most recent posts from your friends in chronological order, newest posts on top.
 
 ## Demo
 
@@ -17,8 +18,6 @@ Description of image.
 
 ## External Libraries:
 
-**To run BeMusic, you must have Java 25.** To download and find additional information on JDK 25, go to: https://www.oracle.com/java/technologies/downloads/ 
-
 We used the SpotifyAPI to take our users song history and get deatils from Spotify, such as track title, artist(s), url to the track's album cover, and the track's "popularity score", which is a Spotify-made score from 0 (not popular) to 100 (very popular).
 
 The OpenCSV library is used to simplfy parsing in data from listening_data.csv to populate our users and their listening histories.
@@ -32,6 +31,8 @@ These APIs and libraries are managed through the pom.xml file that keeps track o
 Instructions on how to call your public methods. That is, you are now writing an API in your README. This could be the same thing as your JavaDocs: What is the method called? What are its inputs and outputs? What is a verbal description of what it does? Don’t forget about constructors!
 
 For each of your public methods, also include usage examples. What do expected inputs and outputs look like in practice? For example, a usage example for add(x,y) would be add(2, 3) = 5.
+
+Below is a list of the classes avaliable and their public methods, though to use the intended program, only the loginFrame.java file is needed to start the program.
 
 BeMusicDatabase
 
@@ -87,15 +88,19 @@ Song:
         Ex: getDate() returns "12-11-2025"
 
     getTitle() - returns title of song as a String.
+        Ex: getTitle() returns "First Rate Town"
 
     getArtist() - returns artist of song as a String.
+        Ex: getArtist() returns "Good Kid"
 
     getImageURL() - returns url link to the image of album as a String.
+        Ex: getImageURL() returns "https://i.scdn.co/image/ab67616d0000b2739e466f8262ef856bc5b70260"
 
     getPopularity() - returns Spotify's "popularity score" for the song.
+        Ex: getPopularity() returns "47"
 
     getUser() - returns the user that listened to this instace of the song.
-
+        Ex: getUser() returns "Cris"
 
     setUser(String user) - sets the user that listened to this instace of the song. Does not return anything.
 
@@ -109,7 +114,7 @@ SearchItemExample:
 
 Timeline:
 
-    Idek more sourcery
+    Idek more sorcery
 
 ## Contributors
 
@@ -119,7 +124,7 @@ Timeline:
 
 **Cris Ovalle:** \
 &emsp; Student at Pomona College, Class of '28 \
-&emsp; contact: @gmail.com | [linkedin](linkedin)
+&emsp; contact: @crissovalle2010@gmail.com | [linkedin](linkedin)
 
 **Alyssa Wu:** \
 &emsp; Student at Pomona College, Class of '28 \

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Collections;
 
-public class BeMusicUser{
+public class BeMusicUser {
     // TESTING GUI
 
     // INSTANCE VARIABLES
@@ -24,7 +24,7 @@ public class BeMusicUser{
         this.username = username;
         this.allUsers = allUsers;
         allUsers.addVertex(this); // if username already taken, then the user is not added
-        
+
     }
 
     /**
@@ -107,7 +107,7 @@ public class BeMusicUser{
      * @param song
      */
     public void addSong(Song song) {
-        totalNichescore += song.getPopularity();
+        totalNichescore += song.getNichness();
         listeningHistory.addSong(song);
         song.setUser(this.username);
     }
@@ -132,7 +132,8 @@ public class BeMusicUser{
 
     /**
      * Get's the ENTIRE song histories of all added friends and formats into
-     * an ArrayList of String[] with hardcoded order [date, username, song title, artist,
+     * an ArrayList of String[] with hardcoded order [date, username, song title,
+     * artist,
      * image-url]
      * 
      * @return friend's listening history in reverse-chronological order.
@@ -161,22 +162,24 @@ public class BeMusicUser{
     }
 
     /**
-     * Given a 
+     * Given a
+     * 
      * @param month
      * @param year
-     * @return a list of size 31 where each index correponds to the image-url of the song listened to that day
+     * @return a list of size 31 where each index correponds to the image-url of the
+     *         song listened to that day
      *         size 32 as max length of a month is 31 (and we need an index of 31)
      */
     public String[] getMusicCalendar(int month, int year) {
         ArrayList<Song> songs = getSongHistory(month, year);
         String[] musicCalendar = new String[32];
-    
+
         int counter = 0;
         Song song = songs.get(counter); // intialize to get first song in array list
-        for (int date = 31; date >= 0; date--){ // remember, songs sorted in REVERSE chronological 
-            if (song.getDay() == date){
+        for (int date = 31; date >= 0; date--) { // remember, songs sorted in REVERSE chronological
+            if (song.getDay() == date) {
                 musicCalendar[date] = song.getImageURL();
-                if (counter != songs.size()-1){
+                if (counter != songs.size() - 1) {
                     song = songs.get(++counter); // iterate counter and get next song
                 }
             } else {
@@ -188,6 +191,7 @@ public class BeMusicUser{
 
     /**
      * Being rated by someone viewing your profile
+     * 
      * @param rating
      */
     public void beRated(int rating) {
@@ -268,13 +272,13 @@ public class BeMusicUser{
         pj.addFriend(cris);
         cris.addFriend(alyssa);
         System.out.println("everyone is friends: ");
-        System.out.println( allUsers);
+        System.out.println(allUsers);
         System.out.println("alyssa's friends: ");
         System.out.println(alyssa.friends());
         System.out.println("cris's friends: ");
-        System.out.println( cris.friends());
+        System.out.println(cris.friends());
         System.out.println("pj's friends: ");
-        System.out.println( pj.friends());
+        System.out.println(pj.friends());
 
         System.out.println("\n-------attempting to add a repeated friend-------");
         pj.addFriend(alyssa);
@@ -284,7 +288,7 @@ public class BeMusicUser{
         alyssa.removeFriend(cris);
         pj.removeFriend(alyssa);
         System.out.println("only cris and pj are friends: ");
-        System.out.println( allUsers);
+        System.out.println(allUsers);
 
         System.out.println("\n-------testing deleteAccount()-------");
         cris.deleteAccount(); // should remove cris from friend connections as well
@@ -319,10 +323,10 @@ public class BeMusicUser{
         System.out.println("\n-------testing getFeed()-------");
         ArrayList<String[]> feed = alyssa.getFeed();
         System.out.println("alyssa's feed...");
-        for (String[] post: feed){
+        for (String[] post : feed) {
             System.out.println("NEW POST:");
             String string = "";
-            for (String info:post){
+            for (String info : post) {
                 string = string + info + ", ";
             }
             System.out.println(string);
@@ -334,45 +338,46 @@ public class BeMusicUser{
         String[] calendar = pj.getMusicCalendar(11, 2025);
         int index = 0;
         String string = "";
-        for (String entry: calendar){
+        for (String entry : calendar) {
             StringBuilder sb = new StringBuilder(string);
             sb.append("index ").append(index).append(": ").append(entry).append(" || ");
             string = sb.toString();
-            //string = string + "index " + index + ": " + entry + " || ";
+            // string = string + "index " + index + ": " + entry + " || ";
             index++;
         }
         System.out.println("pj's music calendar for november:");
         System.out.println(string);
 
         System.out.println(SearchItemExample.search(pj.listeningHistory.getSongHistory().get(0)));
-        
-        /* 
-        String testFile = "listening_data_test.csv";
-        BeMusicDatabase testDatabase = new BeMusicDatabase();
-        ReadCSV r = new ReadCSV(testFile, testDatabase);
-        r.generateDatabase();
 
-        */
+        /*
+         * String testFile = "listening_data_test.csv";
+         * BeMusicDatabase testDatabase = new BeMusicDatabase();
+         * ReadCSV r = new ReadCSV(testFile, testDatabase);
+         * r.generateDatabase();
+         * 
+         */
 
-        /** Since we know alyssa, pj, and cris are in this database, creating new users won't add 
-         * duplicates, but will function as "logging in" */
-    
+        /**
+         * Since we know alyssa, pj, and cris are in this database, creating new users
+         * won't add
+         * duplicates, but will function as "logging in"
+         */
+
         System.out.println("-------did it read the .csv correctly?-------");
         System.out.println("TEMPORARILY DISABLED FOR TIME");
-        //System.out.println(testDatabase);
-
-        
+        // System.out.println(testDatabase);
 
         System.out.println("----------------Testing GUI---------------");
         allUsers.run();
-        
+
     }
 
     /*
      * Initializes the screen. TESTING GUI?
      */
-    //public void run() {
-        //TimelineFrame gui = new TimelineFrame();
+    // public void run() {
+    // TimelineFrame gui = new TimelineFrame();
 
-    //}
+    // }
 }
