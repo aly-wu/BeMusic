@@ -133,8 +133,7 @@ public class BeMusicUser {
     /**
      * Get's the ENTIRE song histories of all added friends and formats into
      * an ArrayList of String[] with hardcoded order [date, username, song title,
-     * artist,
-     * image-url]
+     * artist, image-url, nicheness score]
      * 
      * @return friend's listening history in reverse-chronological order.
      */
@@ -148,12 +147,13 @@ public class BeMusicUser {
         ArrayList<String[]> feed = new ArrayList<String[]>();
         for (Song song : songs) {
             // Create list entry for each song
-            String[] list = new String[5];
+            String[] list = new String[6];
             list[0] = song.getDate();
             list[1] = song.getUser();
             list[2] = song.getTitle();
             list[3] = song.getArtist();
             list[4] = song.getImageURL();
+            list[5] = song.getNichness() + "";
 
             // Add list entry to ArrayList feed
             feed.add(list);
