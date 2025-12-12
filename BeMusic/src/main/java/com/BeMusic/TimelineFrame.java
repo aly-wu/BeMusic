@@ -309,7 +309,7 @@ public class TimelineFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileButtonActionPerformed
-        ProfileFrame profileframe = new ProfileFrame();
+        ProfileFrame profileframe = new ProfileFrame(loggedUserStr);
         profileframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         profileframe.setVisible(true);
         
@@ -411,8 +411,8 @@ public class TimelineFrame extends javax.swing.JFrame {
 
         System.out.println("Adding friends");
         //manually make ppl friends
-        database.getUser("pj").addFriend(database.getUser("alyssa"));
-        database.getUser("pj").addFriend(database.getUser("cris"));
+        database.getUser("PJ").addFriend(database.getUser("Alyssa"));
+        database.getUser("PJ").addFriend(database.getUser("Cris"));
 
         System.out.println("database adj list");
 

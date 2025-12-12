@@ -11,12 +11,13 @@ package com.BeMusic;
 public class ProfileFrame extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProfileFrame.class.getName());
+    private static  String loggedUserStr;
 
     /**
      * Creates new form ProfileFrame
      */
-    public ProfileFrame() {
-        //TODO: ADD USERNAME AS ARG
+    public ProfileFrame(String loggedUserStr) {
+        ProfileFrame.loggedUserStr = loggedUserStr;
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -410,7 +411,7 @@ public class ProfileFrame extends javax.swing.JFrame {
         timelinebutton.addActionListener(this::timelinebuttonActionPerformed);
 
         profilelabel.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        profilelabel.setText("Your Profile");
+        profilelabel.setText(loggedUserStr + "'s Profile");
 
         javax.swing.GroupLayout toolbarLayout = new javax.swing.GroupLayout(toolbar);
         toolbar.setLayout(toolbarLayout);
@@ -456,7 +457,6 @@ public class ProfileFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void timelinebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timelinebuttonActionPerformed
-        // TODO add your handling code here:
         setVisible(false);
         
     }//GEN-LAST:event_timelinebuttonActionPerformed
@@ -483,7 +483,7 @@ public class ProfileFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new ProfileFrame().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new ProfileFrame(loggedUserStr).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

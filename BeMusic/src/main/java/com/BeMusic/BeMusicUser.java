@@ -361,7 +361,6 @@ public class BeMusicUser{
         System.out.println("TEMPORARILY DISABLED FOR TIME");
         //System.out.println(testDatabase);
 
-        
 
         System.out.println("----------------Testing GUI---------------");
         allUsers.run();

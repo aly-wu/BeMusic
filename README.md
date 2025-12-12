@@ -115,7 +115,7 @@ Timeline:
 
 **PJ James:** \
 &emsp; Student at Pomona College, Class of '28 \
-&emsp; contact: @gmail.com | [linkedin](linkedin)
+&emsp; contact: pjmandelaj@gmail.com | [linkedin](https://www.linkedin.com/in/pj-james-70341533b/)
 
 **Cris Ovalle:** \
 &emsp; Student at Pomona College, Class of '28 \
