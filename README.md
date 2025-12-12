@@ -1,9 +1,8 @@
 # BeMusic
 
-Summary of BeMusic and what it does!
 Music is a great peek into a person’s aesthetic, and people often take great pride in the artists they listen to. While music is a great way to connect, music streaming apps like Spotify or Apple Music lack a social aspect. Airbuds, an app that tells you all the songs your friend is listening to, often holds too much information, and the feed is easily bombarded by one person if they are continuously listening to music for any extended period of time. We wanted to create something that allows people to journal snippets of their music listening history and share that information with friends.
 
-Inspired by BeReal, the daily photo journal that goes off at random points in the day, we are making BeMusic. BeMusic will contain two main displays: 1) your personal profile that works as your music journal, and includes your music recaps by month, and 2) your feed, which includes the most recent posts from your friends in chronological order, newest posts on top.
+Inspired by BeReal, the daily photo journal that goes off at random points in the day, we introduce BeMusic. BeMusic contains two main displays: 1) your personal profile that works as your music journal, and includes your music recaps by month, and 2) your feed, which includes the most recent posts from your friends in chronological order, newest posts on top.
 
 ## Demo
 
@@ -17,6 +16,8 @@ Desciption of image.
 Description of image.
 
 ## External Libraries:
+
+**To run BeMusic, you must have Java 25.** To download and find additional information on JDK 25, go to: https://www.oracle.com/java/technologies/downloads/ 
 
 We used the SpotifyAPI to take our users song history and get deatils from Spotify, such as track title, artist(s), url to the track's album cover, and the track's "popularity score", which is a Spotify-made score from 0 (not popular) to 100 (very popular).
 
