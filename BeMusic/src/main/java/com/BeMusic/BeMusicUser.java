@@ -24,8 +24,7 @@ public class BeMusicUser{
         this.username = username;
         this.allUsers = allUsers;
         allUsers.addVertex(this); // if username already taken, then the user is not added
-        // TODO: temporarily removed this bc of error in order to work on gui. restore
-        // and fix!
+        
     }
 
     /**
@@ -344,6 +343,9 @@ public class BeMusicUser{
         }
         System.out.println("pj's music calendar for november:");
         System.out.println(string);
+
+        
+
         System.out.println(SearchItemExample.search(pj.listeningHistory.getSongHistory().get(0)));
 
         String testFile = "listening_data_test.csv";
@@ -357,12 +359,17 @@ public class BeMusicUser{
         System.out.println("-------did it read the .csv correctly?-------");
         System.out.println(testDatabase);
 
+
+        System.out.println("----------------Testing GUI---------------");
+        allUsers.run();
+        
     }
 
     /*
      * Initializes the screen. TESTING GUI?
      */
-    public void run() {
+    //public void run() {
+        //TimelineFrame gui = new TimelineFrame();
 
-    }
+    //}
 }

@@ -427,15 +427,6 @@ public class TimelineFrame extends javax.swing.JFrame {
     public static void setup(){
         TimelineFrame timeline = new TimelineFrame(loggedUser);
         timeline.firsttimeload();
-        
-        
-        //change to timeline.getIndex
-        /*
-        timeline.setCurrentDate((song[0]));
-        timeline.setCurrentUsername((song[1]));
-        timeline.setCurrentSongTitle((song[2]));
-        timeline.setCurrentArtist((song[3]));
-        */
         timeline.reload();
 
         /* Create and display the form */
