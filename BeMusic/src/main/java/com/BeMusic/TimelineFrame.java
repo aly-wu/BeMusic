@@ -14,6 +14,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import java.lang.StringBuilder;
 
 /**
  *
@@ -316,20 +317,16 @@ public class TimelineFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lastbuttonActionPerformed
 
     private void ratesongbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ratesongbuttonActionPerformed
-        // TODO add your handling code here:
-        Object[] ratingmessage = {
-            "How do you feel about"
-            + "\n" + currentSongTitle + " by " + currentArtist
-            + "\n (1 to 5 stars)"};
+        StringBuilder sb = new StringBuilder("How do you feel about");
+        sb.append("\n").append(currentSongTitle).append(" by ").append(currentArtist).append("\n (1 to 5 stars)");
+        String ratingmessage = sb.toString();
         Object newrating = JOptionPane.showInputDialog(this, ratingmessage, "Rate this song!", 2);
     }//GEN-LAST:event_ratesongbuttonActionPerformed
 
     private void nichebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nichebuttonActionPerformed
-        // TODO add your handling code here:
-        Object[] nichemessage = {
-            currentSongTitle + " by " + currentArtist
-            + "\n Nicheness score: " + "[NICHE]"
-        };
+        StringBuilder sb = new StringBuilder(currentSongTitle);
+        sb.append(" by ").append(currentArtist).append("\n Nicheness score: ").append("[NICHE]");
+        String nichemessage = sb.toString();
         JOptionPane.showMessageDialog(this, nichemessage);
 
     }//GEN-LAST:event_nichebuttonActionPerformed
@@ -362,9 +359,6 @@ public class TimelineFrame extends javax.swing.JFrame {
         revalidate();
         repaint();
         System.out.println("\n RELOADED.");
-        System.out.println("index: "+ index);
-        System.out.println("history: " + history);
-        
         String[] song = getInfo(getIndex()); 
 
         setCurrentDate((song[0]));
@@ -373,23 +367,33 @@ public class TimelineFrame extends javax.swing.JFrame {
         setCurrentArtist((song[3]));
         
         
-        System.out.println("current song:" + currentDate + currentUsername+ currentSongTitle + currentArtist);
+        StringBuilder printsong = new StringBuilder("current song: ");
+        printsong.append(currentDate).append(currentUsername).append(currentSongTitle).append(currentArtist);
+        System.out.println(printsong);
         
         artistlabel.setText(currentArtist);
         songtitlelabel.setText(currentSongTitle);
-        dateplayedlabel.setText("On " + currentDate + ",");
-        userlistenedtext.setText(currentUsername + " listened to...");
+
+        StringBuilder sbdate = new StringBuilder("On ");
+        sbdate.append(currentDate).append(",");
+        String stringdate = sbdate.toString();
+        dateplayedlabel.setText(stringdate);
+
+        StringBuilder sbuser = new StringBuilder(currentUsername);
+        sbuser.append(" listened to...");
+        String stringuser = sbuser.toString();
+
+        userlistenedtext.setText(stringuser);
         getImage(imageUrl);
         
     }
     
     public void firsttimeload(){
+        // here is where we will load the songs from the cvs and process them, with addEntry
         addEntry("2025-12-09", "PJ", "Heartbreak", "Minho", "https://i.scdn.co/image/ab67616d0000b2731817d8017b41f3d555ffc12c");
         addEntry("2025-12-09", "Alyssa", "Chapter Six", "Kendrick Lamar", "https://www.shutterstock.com/image-vector/clownfish-vibrant-small-marine-fish-600nw-2488428137.jpg");
         addEntry("2025-12-09", "Cris", "Get Used to It", "Ricky Montgomery", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSPZ9qXGkUUKotCwh3A5cIFzDd3O-HdRRUNw&s");
-        
-        System.out.println("HISTORY, ENTRY 0 ARTIST " + history.get(0)[3]);
-        
+
         reload();
     }
     
@@ -410,10 +414,6 @@ public class TimelineFrame extends javax.swing.JFrame {
         TimelineFrame timeline = new TimelineFrame();
         timeline.firsttimeload();
         
-        System.out.println("history: " + timeline.history);
-        System.out.println("timeline.index" + timeline.getIndex());
-        System.out.println("HISTORY, ENTRY 1 ARTIST " + timeline.history.get(1)[3]);
-
         
         //change to timeline.getIndex
         

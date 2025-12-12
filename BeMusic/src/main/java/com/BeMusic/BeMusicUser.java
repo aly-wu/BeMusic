@@ -214,7 +214,10 @@ public class BeMusicUser{
      */
     @Override
     public String toString() {
-        return "@" + username;
+        StringBuilder sb = new StringBuilder("@");
+        sb.append(username);
+        String print = sb.toString();
+        return print;
     }
 
     // FOR HASHING BEMUSIC USERS
@@ -265,10 +268,14 @@ public class BeMusicUser{
         alyssa.addFriend(pj);
         pj.addFriend(cris);
         cris.addFriend(alyssa);
-        System.out.println("everyone is friends: " + allUsers);
-        System.out.println("alyssa's friends: " + alyssa.friends());
-        System.out.println("cris's friends: " + cris.friends());
-        System.out.println("pj's friends: " + pj.friends());
+        System.out.println("everyone is friends: ");
+        System.out.println( allUsers);
+        System.out.println("alyssa's friends: ");
+        System.out.println(alyssa.friends());
+        System.out.println("cris's friends: ");
+        System.out.println( cris.friends());
+        System.out.println("pj's friends: ");
+        System.out.println( pj.friends());
 
         System.out.println("\n-------attempting to add a repeated friend-------");
         pj.addFriend(alyssa);
@@ -277,11 +284,13 @@ public class BeMusicUser{
         System.out.println("\n-------testing removeFriend()-------");
         alyssa.removeFriend(cris);
         pj.removeFriend(alyssa);
-        System.out.println("only cris and pj are friends: " + allUsers);
+        System.out.println("only cris and pj are friends: ");
+        System.out.println( allUsers);
 
         System.out.println("\n-------testing deleteAccount()-------");
         cris.deleteAccount(); // should remove cris from friend connections as well
-        System.out.println("bye bye cris :( " + allUsers);
+        System.out.println("bye bye cris :( ");
+        System.out.println(allUsers);
 
         System.out.println("\n-------testing hashing function-------");
         BeMusicUser pj2 = new BeMusicUser("pj", allUsers); // should not add new user as repeated username
@@ -292,7 +301,8 @@ public class BeMusicUser{
         alyssa.beRated(4);
         alyssa.beRated(4);
         alyssa.beRated(8); // invalid ratings do nothing
-        System.out.println("alyssa's rating: " + alyssa.getRating());
+        System.out.println("alyssa's rating: ");
+        System.out.println(alyssa.getRating());
 
         System.out.println("\n-------adding ListeningHistory to users()-------");
         System.out.println("SORRY I TEMPORARILY DISABLED THIS BC IT WASNT WORKING AND I NEED TO TEST GUI");
@@ -315,7 +325,10 @@ public class BeMusicUser{
             System.out.println("NEW POST:");
             String string = "";
             for (String info:post){
-                string = string + info + ", ";
+                StringBuilder sb  = new StringBuilder(string);
+                sb.append(info).append(", ");
+                string = sb.toString();
+                //string = string + info + ", ";
             }
             System.out.println(string);
         }
@@ -327,10 +340,14 @@ public class BeMusicUser{
         int index = 0;
         String string = "";
         for (String entry: calendar){
-            string = string + "index " + index + ": " + entry + " || ";
+            StringBuilder sb = new StringBuilder(string);
+            sb.append("index ").append(index).append(": ").append(entry).append(" || ");
+            string = sb.toString();
+            //string = string + "index " + index + ": " + entry + " || ";
             index++;
         }
-        System.out.println("pj's music calendar for november:\n" + string);
+        System.out.println("pj's music calendar for november:");
+        System.out.println(string);
 
 
         new BeMusicUser("guitest", allUsers).run();

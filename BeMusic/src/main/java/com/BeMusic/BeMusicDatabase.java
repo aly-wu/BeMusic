@@ -62,7 +62,12 @@ public class BeMusicDatabase {
         if (!validateVertex(v)){
             V++;
             adjList.put(v, new ArrayList<BeMusicUser>()); 
-        } else {System.out.println("username " + v + " already taken.");} 
+        } else {
+            StringBuilder sb = new StringBuilder("username ");
+            sb.append(v).append(" already taken.");
+            String print = sb.toString();
+            System.out.println(print);
+        } 
     }
 
     /**

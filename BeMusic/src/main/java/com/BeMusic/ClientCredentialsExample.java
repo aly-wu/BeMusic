@@ -29,10 +29,12 @@ public class ClientCredentialsExample {
             // Set access token for further "spotifyApi" object usage
             spotifyApi.setAccessToken(clientCredentials.getAccessToken());
 
-            System.out.println("Expires in: " + clientCredentials.getExpiresIn());
+            System.out.println("Expires in: ");
+            System.out.println(clientCredentials.getExpiresIn());
             return spotifyApi;
         } catch (IOException | SpotifyWebApiException | ParseException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error: ");
+            System.out.println( e.getMessage());
             return null;
         }
     }
@@ -50,10 +52,12 @@ public class ClientCredentialsExample {
             // Set access token for further "spotifyApi" object usage
             spotifyApi.setAccessToken(clientCredentials.getAccessToken());
 
-            System.out.println("Expires in: " + clientCredentials.getExpiresIn());
+            System.out.println("Expires in: ");
+            System.out.println(clientCredentials.getExpiresIn());
             return spotifyApi;
         } catch (CompletionException e) {
-            System.out.println("Error: " + e.getCause().getMessage());
+            System.out.println("Error: ");
+            System.out.println( e.getCause().getMessage());
             return null;
         } catch (CancellationException e) {
             System.out.println("Async operation cancelled.");

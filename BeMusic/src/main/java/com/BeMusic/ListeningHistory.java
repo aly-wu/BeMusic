@@ -142,7 +142,10 @@ public class ListeningHistory {
      */
     @Override
     public String toString(){
-        return "song history: " + songHistory.toString() + "\nartist history: " + artistHistory.toString();
+        StringBuilder sb = new StringBuilder("song history: ");
+        sb.append(songHistory.toString()).append("\nartist history: ").append(artistHistory.toString());
+        String print = sb.toString();
+        return print;
     }
 
     /**
@@ -161,18 +164,25 @@ public class ListeningHistory {
         test.addSong(new Song("Care for You", "The Marias", "10/31/2025"));
         test.addSong(new Song("Time Machine", "Willow", "11/13/2025"));
         test.addSong(new Song("Otro Atarfecer", "Bad Bunny, The Marias", "11/23/2025"));
-        System.out.println("songHistory: " + test.songHistory);
-        System.out.println("artistHistory: " + test.artistHistory);
+        System.out.println("songHistory: ");
+        System.out.println(test.songHistory);
+        System.out.println("artistHistory: ");
+        System.out.println(test.artistHistory);
         
         System.out.println("\n-------testing getMonthSongHistory-------");
-        System.out.println("November:" + test.getMonthSongHistory(11, 2025));
-        System.out.println("October:" + test.getMonthSongHistory(10, 2025));
+        System.out.println("November:");
+        System.out.println(test.getMonthSongHistory(11, 2025));
+        System.out.println("October:");
+        System.out.println(test.getMonthSongHistory(10, 2025));
 
          System.out.println("\n-------testing getSongHistory-------");
-        System.out.println("All Song History:" + test.getSongHistory());
+        System.out.println("All Song History:");
+        System.out.println(test.getSongHistory());
 
         System.out.println("\n-------testing getmonthTopArtist-------");
-        System.out.println("Top Artist November: " + test.getMonthTopArtist(11, 2025));
-        System.out.println("Top Artist October: " + test.getMonthTopArtist(10, 2025));
+        System.out.println("Top Artist November: ");
+        System.out.println(test.getMonthTopArtist(11, 2025));
+        System.out.println("Top Artist October: ");
+        System.out.println(test.getMonthTopArtist(10, 2025));
     }
 }
