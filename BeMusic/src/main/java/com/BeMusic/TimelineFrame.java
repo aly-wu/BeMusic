@@ -31,6 +31,7 @@ public class TimelineFrame extends javax.swing.JFrame {
     private String currentArtist; // index 3
     private String imageUrl; // index 4
     private static  String loggedUserStr;
+    private static BeMusicDatabase database;
 
      /**
      * Creates new form TimelineFrame
@@ -38,7 +39,9 @@ public class TimelineFrame extends javax.swing.JFrame {
     public TimelineFrame(String loggedUserStr) {
         System.out.println("new Timeline Frame");
         setLoggedUserStr(loggedUserStr);
+        setDatabase(database);
         System.out.println("init:" + loggedUserStr);
+
         initComponents(loggedUserStr);
     }
     
@@ -51,7 +54,10 @@ public class TimelineFrame extends javax.swing.JFrame {
         this.imageUrl = song[4];
         return song;
     }
-    
+    public void setDatabase(BeMusicDatabase database){
+        TimelineFrame.database = database;
+    }
+
     public void addEntry(String date, String username, String songtitle, String artist, String url){
         String[] entry = {date, username,songtitle,artist,url};
         this.history.add(entry);
@@ -363,7 +369,7 @@ public class TimelineFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
         
-        setup(loggedUserStr);
+        setup(loggedUserStr, database);
     }
 
     public void reload(){
@@ -399,13 +405,18 @@ public class TimelineFrame extends javax.swing.JFrame {
         
     }
     
-    public void firsttimeload(){
+    public void firsttimeload(BeMusicDatabase database){
         // here is where we will load the songs from the cvs and process them, with addEntry
 
-        String csvfile = "listening_data_test.csv"; //TODO  : CHANGE TO FULL
-        BeMusicDatabase database = new BeMusicDatabase();
-        ReadCSV r = new ReadCSV(csvfile, database);
-        r.generateDatabase();
+
+        System.out.println("Adding friends");
+        //manually make ppl friends
+        database.getUser("pj").addFriend(database.getUser("alyssa"));
+        database.getUser("pj").addFriend(database.getUser("cris"));
+
+        System.out.println("database adj list");
+
+        System.out.println(database); //adj list
 
         System.out.println("userstr" + getLoggedUserStr());
         BeMusicUser loggedUser = database.getUser(loggedUserStr);
@@ -415,7 +426,6 @@ public class TimelineFrame extends javax.swing.JFrame {
         Song s1 = new Song("EoO", "Bad Bunny", "11/29/2025");
         BeMusicUser alyssa = new BeMusicUser("alyssa", database);
         alyssa.addSong(s1);
-        loggedUser.addFriend(alyssa);
 
 
         ArrayList<String[]> feed = loggedUser.getFeed();
@@ -433,10 +443,6 @@ public class TimelineFrame extends javax.swing.JFrame {
         }
 
         setHistory(feed);
-
-        addEntry(feed.get(0)[0], feed.get(0)[1],feed.get(0)[2],feed.get(0)[3],feed.get(0)[4]);
-        addEntry(feed.get(1)[0], feed.get(1)[1],feed.get(1)[2],feed.get(1)[3],feed.get(1)[4]);
-
         System.out.println("size: " + getHistory().size());
 
         System.out.println(getHistory().get(0)[0]);
@@ -461,9 +467,9 @@ public class TimelineFrame extends javax.swing.JFrame {
         }
     }
     
-    public static void setup(String loggedUserStr){
+    public static void setup(String loggedUserStr, BeMusicDatabase database){
         TimelineFrame timeline = new TimelineFrame(loggedUserStr);
-        timeline.firsttimeload();
+        timeline.firsttimeload(database);
         timeline.reload();
 
 

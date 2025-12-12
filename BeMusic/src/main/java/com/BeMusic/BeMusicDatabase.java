@@ -195,23 +195,18 @@ public class BeMusicDatabase {
         }
         return null;
         }
-    
+    // TESTED IN BEMUSICUSER.
 
-    /**
-     * Tests the BeMusicDatabase class.
-     * 
-     * TODO: TEST!
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-       
-    }
     /*
      * Initializes the GUI screen.
      */
     public void run() {
-        loginFrame.bootUp();
+    
+        String csvfile = "listening_data.csv"; 
+        BeMusicDatabase database = new BeMusicDatabase();
+        ReadCSV r = new ReadCSV(csvfile, database);
+        database = r.generateDatabase();
 
+        loginFrame.bootUp(database);
     }
 }

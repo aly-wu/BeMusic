@@ -10,6 +10,8 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -18,13 +20,14 @@ import javax.swing.JOptionPane;
 public class loginFrame extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(loginFrame.class.getName());
+    private static BeMusicDatabase database;
 
     /**
      * Creates new form loginFrame
      */
-    public loginFrame() {
+    public loginFrame(BeMusicDatabase database) {
         this.setLocationRelativeTo(null);
-
+        loginFrame.database = database;
         initComponents();
     }
 
@@ -137,9 +140,13 @@ public class loginFrame extends javax.swing.JFrame {
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
         String user = usernamefield.getText();
-        if (user.equals("pj")){
+        String[] users = {"PJ", "Alyssa", "Cris", "Jo", "Emma", "Ethan", "Andrea", "Aniyah",
+            "Hansel", "Hasseit", "Vanessa", "Nelson", "Amri", "Tomy", "Gwyn", "Carmen", "Lili", "Julia", "Liz",
+            "Kieran", "Maela", "Rhea", "Jaden", "Aami"};
+        ArrayList<String> usersarray = new ArrayList<>(Arrays.asList(users));
 
-            TimelineFrame.setup(user);
+        if (usersarray.contains(user)){
+            TimelineFrame.setup(user, database);
             setVisible(false);
         }
         else {
@@ -161,8 +168,8 @@ public class loginFrame extends javax.swing.JFrame {
     }
     
     
-    public static void bootUp(){
-        loginFrame login = new loginFrame();
+    public static void bootUp(BeMusicDatabase database){
+        loginFrame login = new loginFrame(database);
         login.loading();
         
         /* Create and display the form */
@@ -193,7 +200,7 @@ public class loginFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         
-        bootUp();
+        bootUp(database);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
