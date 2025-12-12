@@ -65,7 +65,7 @@ public class TimelineFrame extends javax.swing.JFrame {
     }
 
     public void setLoggedUser(String user){
-        this.loggedUser = user;
+        TimelineFrame.loggedUser = user;
     }
 
     
@@ -146,7 +146,7 @@ public class TimelineFrame extends javax.swing.JFrame {
         toolbarPanel.setBackground(new java.awt.Color(153, 204, 0));
 
         timelineLabel.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        timelineLabel.setText(loggedUser +  "Timeline");
+        timelineLabel.setText(loggedUser +  "'s Timeline");
 
         profileButton.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         profileButton.setText("View Profile");

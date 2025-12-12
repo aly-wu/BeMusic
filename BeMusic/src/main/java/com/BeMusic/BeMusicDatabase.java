@@ -208,9 +208,7 @@ public class BeMusicDatabase {
        
     }
     /*
-     * Initializes the screen. TESTING GUI?
-
-    // TODO : DONT ACTUALLY START IT WITH A TIMELINEFRAME, INSTEAD USE A POP UP WINDOW TO 'LOG IN'
+     * Initializes the GUI screen.
      */
     public void run() {
         loginFrame.bootUp();

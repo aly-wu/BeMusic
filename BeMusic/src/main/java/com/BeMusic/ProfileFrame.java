@@ -16,7 +16,7 @@ public class ProfileFrame extends javax.swing.JFrame {
      * Creates new form ProfileFrame
      */
     public ProfileFrame() {
-        
+        //TODO: ADD USERNAME AS ARG
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -30,7 +30,6 @@ public class ProfileFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSeparator1 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         calendarpanel = new javax.swing.JPanel();
@@ -523,7 +522,6 @@ public class ProfileFrame extends javax.swing.JFrame {
     private javax.swing.JLabel greetinglabel;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel profilelabel;
     private javax.swing.JLabel ratinglabel;
     private javax.swing.JPanel ratingpanel;

@@ -359,6 +359,7 @@ public class BeMusicUser{
         System.out.println("-------did it read the .csv correctly?-------");
         System.out.println(testDatabase);
 
+        
 
         System.out.println("----------------Testing GUI---------------");
         allUsers.run();
