@@ -30,6 +30,7 @@ public class TimelineFrame extends javax.swing.JFrame {
     private String currentSongTitle; //index 2
     private String currentArtist; // index 3
     private String imageUrl; // index 4
+    private String currentNicheness; // index 5
     private static  String loggedUserStr;
     private static BeMusicDatabase database;
 
@@ -57,6 +58,7 @@ public class TimelineFrame extends javax.swing.JFrame {
         this.currentSongTitle = song[2];
         this.currentArtist = song[3];
         this.imageUrl = song[4];
+        this.currentNicheness = song[5];
         return song;
     }
     
@@ -143,6 +145,13 @@ public class TimelineFrame extends javax.swing.JFrame {
         this.currentArtist = currentArtist;
     }
    
+    public String getCurrentNicheness() {
+        return currentNicheness;
+    }
+
+    public void setCurrentNicheness(String currentNicheness) {
+        this.currentNicheness = currentNicheness;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -394,12 +403,17 @@ public class TimelineFrame extends javax.swing.JFrame {
         StringBuilder sb = new StringBuilder("How do you feel about");
         sb.append("\n").append(currentSongTitle).append(" by ").append(currentArtist).append("\n (1 to 5 stars)");
         String ratingmessage = sb.toString();
-        Object newrating = JOptionPane.showInputDialog(this, ratingmessage, "Rate this song!", 2);
+        String newrating = JOptionPane.showInputDialog(this, ratingmessage, "Rate this song!", 2);
+        //TODO: comments
+
+        int rating =  Integer.parseInt(newrating);
+        database.getUser(currentUsername).beRated(rating);
+
     } //GEN-LAST:event_ratesongbuttonActionPerformed
 
     private void nichebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nichebuttonActionPerformed
         StringBuilder sb = new StringBuilder(currentSongTitle); 
-        sb.append(" by ").append(currentArtist).append("\n Nicheness score: ").append("[NICHENESS]");
+        sb.append(" by ").append(currentArtist).append("\n Nicheness score: ").append(getCurrentNicheness());
         String nichemessage = sb.toString();
         JOptionPane.showMessageDialog(this, nichemessage);
 
@@ -445,6 +459,7 @@ public class TimelineFrame extends javax.swing.JFrame {
         setCurrentUsername((song[1]));
         setCurrentSongTitle((song[2]));
         setCurrentArtist((song[3]));
+        setCurrentNicheness(song[5]);
         
         System.out.println("database" + getDatabase());
 
@@ -480,43 +495,10 @@ public class TimelineFrame extends javax.swing.JFrame {
         System.out.println("Adding friends");
         //manually make ppl friends
 
-        database.getUser("pj").addFriend(database.getUser("alyssa"));
-        database.getUser("pj").addFriend(database.getUser("cris"));
-        /*
-        database.getUser("PJ").addFriend(database.getUser("Alyssa"));
-        database.getUser("PJ").addFriend(database.getUser("Cris"));
+        // database.getUser("pj").addFriend(database.getUser("alyssa"));
+        // database.getUser("pj").addFriend(database.getUser("cris"));
         
-        database.getUser("Alyssa").addFriend(database.getUser("Jo"));
-        database.getUser("Alyssa").addFriend(database.getUser("Emma"));
-        database.getUser("Emma").addFriend(database.getUser("Ethan"));
-        database.getUser("Alyssa").addFriend(database.getUser("Aniyah"));
-        database.getUser("Alyssa").addFriend(database.getUser("Andrea"));
-        database.getUser("Alyssa").addFriend(database.getUser("Hasseit"));
-        database.getUser("Alyssa").addFriend(database.getUser("Vanessa"));
-        database.getUser("Hasseit").addFriend(database.getUser("Vanessa"));
-        database.getUser("Andrea").addFriend(database.getUser("Aniyah"));
-        database.getUser("Cris").addFriend(database.getUser("Nelson"));
-        database.getUser("Cris").addFriend(database.getUser("Liz"));
-        database.getUser("Cris").addFriend(database.getUser("Tomy"));
-        database.getUser("Cris").addFriend(database.getUser("Julia"));
-        database.getUser("Cris").addFriend(database.getUser("Carmen"));
-        database.getUser("Cris").addFriend(database.getUser("Gwyn"));
-        database.getUser("Cris").addFriend(database.getUser("Amri"));
-        database.getUser("Julia").addFriend(database.getUser("Carmen"));
-        database.getUser("Cris").addFriend(database.getUser("Lili"));
-        database.getUser("Lili").addFriend(database.getUser("Amri"));
-        database.getUser("Nelson").addFriend(database.getUser("Tomy"));
-        database.getUser("PJ").addFriend(database.getUser("Aami"));
-        database.getUser("PJ").addFriend(database.getUser("Julia"));
-        database.getUser("PJ").addFriend(database.getUser("Carmen"));
-        database.getUser("PJ").addFriend(database.getUser("Jaden"));
-        database.getUser("PJ").addFriend(database.getUser("Rhea"));
-        database.getUser("PJ").addFriend(database.getUser("Kieran"));
-        database.getUser("PJ").addFriend(database.getUser("Maela"));
-        database.getUser("Maela").addFriend(database.getUser("Kieran"));
-        database.getUser("Jaden").addFriend(database.getUser("Aami"));
-        database.getUser("Jaden").addFriend(database.getUser("Rhea"));
-         */
+         
         //TODO edge case if no friends!
         
 
