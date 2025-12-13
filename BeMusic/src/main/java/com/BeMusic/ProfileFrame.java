@@ -246,7 +246,6 @@ public class ProfileFrame extends javax.swing.JFrame {
 
         monthcombobox.setEditable(true);
         monthcombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "November 2025", "October 2025" }));
-        monthcombobox.addActionListener(this::monthcomboboxActionPerformed);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 204, 0));
@@ -399,7 +398,7 @@ public class ProfileFrame extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText(userStr + "'s nicheness: "+  "NICHENESS");
+        jLabel1.setText(userStr + "'s nicheness: "+  database.getUser(userStr).getNicheScore());
 
         javax.swing.GroupLayout ratingpanelLayout = new javax.swing.GroupLayout(ratingpanel);
         ratingpanel.setLayout(ratingpanelLayout);
@@ -478,57 +477,65 @@ public class ProfileFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
+
+    /**
+     * 'Returns' to TimelineFrame window by hiding profile window.
+     * @param evt
+     */
     private void timelinebuttonActionPerformed(java.awt.event.ActionEvent evt) {                                               
         setVisible(false);
         
-    }                                              
+    }                                                                          
 
-    private void monthcomboboxActionPerformed(java.awt.event.ActionEvent evt) {                                              
-    }                                             
-
-    
+    /**
+     * Loads calendar based on month/year chosen in combo box.
+     * @param evt
+     */
     private void selectMonthbuttonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        String comboboxchoice = monthcombobox.getSelectedItem().toString();
-        String[] monthyear = comboboxchoice.split(" ");
-        if (monthyear[0].equals("October")){
+        String comboboxchoice = monthcombobox.getSelectedItem().toString(); // gets selection from combobox
+        String[] monthyear = comboboxchoice.split(" "); // index 0 = month, index 1 = year
+
+        imagelabels = createArrayImgLabels();
+
+        // with limited months, only need to check october and november.
+        if (monthyear[0].equals("October")){ 
             String[] calendar = database.getUser(userStr).getMusicCalendar(10, 2025);
-            for (int i = 0; i < 31; i++) {
+            for (int i = 1; i < 32; i++) { //calendar is maxxed out at 31 days.
                 String songurl = calendar[i];
-                if (songurl.equals("")){
-                    imagelabels.get(i).setIcon(null);
+                if (songurl.equals("")){ //if no url, as defined in getMusicCalendar, then string will be empty.
+                    imagelabels.get(i-1).setIcon(null); // do not display anything
                 }
                 else {
-                    getImage(imagelabels.get(i), songurl);
+                    getImage(imagelabels.get(i-1), songurl); //display image at url provided
                 }
             }
-            getImage(day1, "https://hips.hearstapps.com/hmg-prod/images/2022-chevrolet-corvette-z06-1607016574.jpg?crop=0.670xw:1.00xh;0.221xw,0&resize=640:*");
         }
         if (monthyear[0].equals("November")){
             String[] calendar = database.getUser(userStr).getMusicCalendar(11, 2025);
-            System.out.println(imagelabels.get(1));
+            System.out.println("imagelabels" + imagelabels.get(1));
 
-            for (int i = 0; i < 31; i++) {
+            for (int i = 1; i < 32; i++) { // from index 1 = day 1 to index 31 = day 31
                 String songurl = calendar[i];
                 if (songurl.equals("")){
-                    imagelabels.get(i).setIcon(null);
+                    imagelabels.get(i-1).setIcon(null);
                 }
                 else {
-                    getImage(imagelabels.get(i), songurl);
+                    getImage(imagelabels.get(i-1), songurl);
                 }
             }
-            getImage(day1, "https://png.pngtree.com/png-clipart/20250516/original/pngtree-flat-sheep-icon-png-image_21012836.png");
         }
-        
-        
-        
     }                                                 
 
 
+    /**
+     * Sets up the arraylist of labels where album covers will be displayed. 
+     * I know this is really ugly but it makes everything else a lot easier...
+     * I'm sorry
+     * @return
+     */
     public ArrayList<JLabel> createArrayImgLabels(){
         ArrayList<JLabel> imagelabels =  new ArrayList<JLabel>();
-
         // im so sorry
-
         imagelabels.add(day1);
         imagelabels.add(day2);
         imagelabels.add(day3);
@@ -563,6 +570,11 @@ public class ProfileFrame extends javax.swing.JFrame {
         return imagelabels;
     }
     
+    /**
+     * Sets select label to image at link provided. Resizes to miniature in order to be displayed on calendar.
+     * @param label
+     * @param link
+     */
     public void getImage(JLabel label ,String link){
         try {
         URL url = new URL(link); // Replace with your image URL

@@ -45,6 +45,11 @@ public class TimelineFrame extends javax.swing.JFrame {
         initComponents(loggedUserStr);
     }
     
+    /**
+     * Updates all current song variables depending on indexing in song timeline array.
+     * @param i
+     * @return Song
+     */
     public String[] getInfo(int i){
         String[] song = history.get(i);
         this.currentDate = song[0];
@@ -54,17 +59,31 @@ public class TimelineFrame extends javax.swing.JFrame {
         this.imageUrl = song[4];
         return song;
     }
+    
+   
+
+    /**
+     * Adds song entry (in form of strings) to history (song timeline array).
+     * @param date
+     * @param username
+     * @param songtitle
+     * @param artist
+     * @param url
+     */
+    // TODO: MAY END UP UNUSED. MAYBE REMOVE?
+    public void addEntry(String date, String username, String songtitle, String artist, String url){
+        String[] entry = {date, username,songtitle,artist,url};
+        this.history.add(entry);
+    }
+
+
+    // --------------- GETTERS AND SETTERS ---------------
     public void setDatabase(BeMusicDatabase database){
         TimelineFrame.database = database;
     }
 
     public BeMusicDatabase getDatabase(){
         return database;
-    }
-
-    public void addEntry(String date, String username, String songtitle, String artist, String url){
-        String[] entry = {date, username,songtitle,artist,url};
-        this.history.add(entry);
     }
     
     public void changeIndex(int var){
@@ -123,9 +142,6 @@ public class TimelineFrame extends javax.swing.JFrame {
     public void setCurrentArtist(String currentArtist) {
         this.currentArtist = currentArtist;
     }
-
-    
-    
    
     
     /**
@@ -160,7 +176,7 @@ public class TimelineFrame extends javax.swing.JFrame {
         timelineLabel.setText(loggedUserStr +  "'s Timeline");
 
         profileButton.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        profileButton.setText("View Profile");
+        profileButton.setText("View Profiles");
         profileButton.addActionListener(this::profileButtonActionPerformed);
 
         javax.swing.GroupLayout toolbarPanelLayout = new javax.swing.GroupLayout(toolbarPanel);
@@ -311,26 +327,57 @@ public class TimelineFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    
 
+    /**
+     * Creates dialog box, allowing user to choose to either view own profile or profile of the user 
+     * whose the listened to song is currently being displayed in TimelineFrame.
+     * @param evt
+     */
     private void profileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileButtonActionPerformed
-        System.out.println("OPENING PROFILE:" + getDatabase());
-        ProfileFrame profileframe = new ProfileFrame(loggedUserStr,getDatabase());
-        profileframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        profileframe.setVisible(true);
+        Object[] options = { "Your own", currentUsername};
+        int choice = JOptionPane.showOptionDialog(
+            null, // Parent component (null means center on screen)
+            "Whose profile would you like to view?", // Message to display
+            "Profiles", // Dialog title
+            JOptionPane.YES_NO_OPTION, // Option type (Yes, No, Cancel)
+            JOptionPane.QUESTION_MESSAGE, // Message type (question icon)
+            null, // Custom icon (null means no custom icon)
+            options, // Custom options array
+            options[0] // Initial selection (default is "Cancel")
+        );
         
-        
+        // Check the user's choice and display profile accordingly
+        if (choice == JOptionPane.YES_OPTION) {
+            //if user chose 'your profile' / yes option
+            ProfileFrame profileframe = new ProfileFrame(loggedUserStr, database); 
+            profileframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            profileframe.setVisible(true);
+        }
+        else if (choice == JOptionPane.NO_OPTION) {
+            // If the user chose 'No' aka current profile
+            ProfileFrame profileframe = new ProfileFrame(currentUsername,database);
+            profileframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            profileframe.setVisible(true);
+        }
     }//GEN-LAST:event_profileButtonActionPerformed
 
+    /**
+     * clicks to view next song. increments index in order to view next in list of song timeline.
+     * @param evt
+     */
     private void nextbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextbuttonActionPerformed
-        System.out.println("NEXT CLICKED");
         if (index < history.size() -1) {
             changeIndex(1);
         }
         reload(getDatabase());
     }//GEN-LAST:event_nextbuttonActionPerformed
 
+    /**
+     * clicks to view previous song. decrement index in order to view previous in list of song timeline.
+     * @param evt
+     */
     private void lastbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastbuttonActionPerformed
-        System.out.println("LAST CLICKED");
         if (index >=1){
             changeIndex(-1);
         }
@@ -338,6 +385,11 @@ public class TimelineFrame extends javax.swing.JFrame {
         reload(getDatabase());
     } //GEN-LAST:event_lastbuttonActionPerformed
 
+    /**
+     * Action that occurs after clicking rate button. Allows user to rate a song, 
+     * which adds to the listening user's overall rating.
+     * @param evt
+     */
     private void ratesongbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ratesongbuttonActionPerformed
         StringBuilder sb = new StringBuilder("How do you feel about");
         sb.append("\n").append(currentSongTitle).append(" by ").append(currentArtist).append("\n (1 to 5 stars)");
@@ -377,6 +429,10 @@ public class TimelineFrame extends javax.swing.JFrame {
         setup(loggedUserStr, database);
     }
 
+    /**
+     * Reloads window to display new song. Called after every modifying actions (such as viewing new song).
+     * @param database
+     */
     public void reload(BeMusicDatabase database){
         setDatabase(database);
         
@@ -413,6 +469,10 @@ public class TimelineFrame extends javax.swing.JFrame {
         
     }
     
+    /**
+     * First time load process. Initializes TimelineFrame.
+     * @param database
+     */
     public void firsttimeload(BeMusicDatabase database){
         // here is where we will load the songs from the cvs and process them, with addEntry
 
@@ -488,15 +548,14 @@ public class TimelineFrame extends javax.swing.JFrame {
         System.out.println("size: " + getHistory().size());
 
         System.out.println(getHistory().get(0)[0]);
-        
-        /* 
-        addEntry("2025-12-09", "PJ", "Heartbreak", "Minho", "https://i.scdn.co/image/ab67616d0000b2731817d8017b41f3d555ffc12c");
-        addEntry("2025-12-09", "Alyssa", "Chapter Six", "Kendrick Lamar", "https://www.shutterstock.com/image-vector/clownfish-vibrant-small-marine-fish-600nw-2488428137.jpg");
-        addEntry("2025-12-09", "Cris", "Get Used to It", "Ricky Montgomery", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSPZ9qXGkUUKotCwh3A5cIFzDd3O-HdRRUNw&s");
-        */
+      
         reload(getDatabase());
     }
-    
+
+    /**
+     * Sets image for the album cover label.
+     * @param link pulled from spotify.
+     */
     public void getImage(String link){
         try {
             URL url = new URL(link); 
