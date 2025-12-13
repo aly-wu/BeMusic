@@ -27,6 +27,8 @@ public class ReadCSV {
             String title = line1[1];
             String artist = line1[2];
             String date = line1[3];
+            String imageURL = line1[4];
+            String nicheness = line1[5];
 
             String[] line;
             BeMusicUser currentUser = new BeMusicUser(currentUsername, database);
@@ -37,16 +39,18 @@ public class ReadCSV {
                 title = line[1];
                 artist = line[2];
                 date = line[3];
+                imageURL = line[4];
+                nicheness = line[5];
             
                 if (!username.equals(currentUsername)){ // we are at a new user
                     currentUsername = username; // overwrite currentUsername,
                     currentUser = new BeMusicUser(username, database); // create new user
                     // Add song info from that line
-                    Song song = new Song(title, artist, date);
+                    Song song = new Song(title, artist, date, imageURL, nicheness);
                     currentUser.addSong(song);
     
                 } else {
-                    Song song = new Song(title, artist, date);
+                    Song song = new Song(title, artist, date, imageURL, nicheness);
                     currentUser.addSong(song);
                 }
             }
@@ -59,7 +63,7 @@ public class ReadCSV {
         } 
 
         public static void main(String[] args){
-            String testFile = "listening_data_test.csv";
+            String testFile = "listening_data_test_processed.csv";
             BeMusicDatabase testDatabase = new BeMusicDatabase();
             ReadCSV r = new ReadCSV(testFile, testDatabase);
             r.generateDatabase();

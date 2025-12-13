@@ -1,5 +1,8 @@
 package com.BeMusic;
 
+/** A song which stores relevant information like title, artist, the day it was listened to, the albumn cover, and its nicheness.
+    The same song listened to on different days/by a different person IS a different song object. */
+
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,15 +14,13 @@ public class Song implements Comparable<Song> {
     // Instance variables
     final String title;
     final String artist;
-    private Date date; // the same song listened to on different days IS a different song object
+    private Date date;
     private int nicheness;
     private String dateString;
     private String[] dateSplit;
-    private String username; // set not when song is created, but when user add song to their listnening
-                             // history
+    private String username; // set not when song is created, but when user adds song to their listnening history
     private String imageURL;
-    // TODO: other things we may want to store like album cover, nicheness score,
-    // etc.
+  
 
     /**
      * 
@@ -27,16 +28,12 @@ public class Song implements Comparable<Song> {
      * @param artist
      * @param date
      */
-    public Song(String title, String artist, String date) {
+    public Song(String title, String artist, String date, String imageURL, String nicheness) {
 
-        String[] details = SearchItemExample.search(title + " " + artist);
         this.title = title;
         this.artist = artist;
-        this.imageURL = details[2];
-        this.nicheness = 100 - Integer.parseInt(details[3]);
-        System.out.println("Searched on Spotify API: \"" + this.title + "\" by " +
-                this.artist + " with popularity "
-                + this.nicheness);
+        this.imageURL = imageURL;
+        this.nicheness = Integer.parseInt(nicheness);
 
         // Date in format from excel as mm/d(d)/yyyy, need to standardize as mm/dd/yyyy
         this.dateSplit = date.split("/");
@@ -162,10 +159,10 @@ public class Song implements Comparable<Song> {
         Queue<Song> priorityQueue = new PriorityQueue<>();
 
         // insert elements in the queue
-        priorityQueue.add(new Song("EoO", "Bad Bunny", "11/29/2025"));
-        priorityQueue.add(new Song("Heroine", "Azamiah", "10/15/2025"));
-        priorityQueue.add(new Song("Fall In Love (Your Funeral)", "Erykah Badu", "11/11/2025"));
-        priorityQueue.add(new Song("Care for You", "The Marias", "10/31/2025"));
+        priorityQueue.add(new Song("EoO", "Bad Bunny", "11/29/2025", "fakeurl", "20"));
+        priorityQueue.add(new Song("Heroine", "Azamiah", "10/15/2025", "fakeurl", "20"));
+        priorityQueue.add(new Song("Fall In Love (Your Funeral)", "Erykah Badu", "11/11/2025", "fakeurl", "20"));
+        priorityQueue.add(new Song("Care for You", "The Marias", "10/31/2025", "fakeurl", "20"));
 
         // Should return songs starting from most recently listened
         while (!priorityQueue.isEmpty()) {
@@ -173,7 +170,7 @@ public class Song implements Comparable<Song> {
         }
 
         System.out.println("\n-------testing get methods-------");
-        Song test = new Song("Waiting In Vain", "Daniel Caesar", "11/29/2025");
+        Song test = new Song("Waiting In Vain", "Daniel Caesar", "11/29/2025", "fakeurl", "20");
         System.out.print("November 29th, 2025...month " + test.getMonth() + ", day " + test.getDay() + ", year "
                 + test.getYear());
     }

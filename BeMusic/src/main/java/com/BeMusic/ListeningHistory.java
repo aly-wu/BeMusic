@@ -1,4 +1,13 @@
 package com.BeMusic;
+
+// Class that stores a given BeMusic user's listening history
+
+/**
+ * Two underlying data structures 
+ *    1) songHistory: a dictionary with month/year keys and priority queue values of songs sorted by date (most recent song listened to at top of PQ)
+ *    2) artistHistory: a nested dictionary with month/year keys and HashMap<String, Integer> values to track number of times listened to a given artist
+*/
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,13 +18,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.PriorityQueue;
 
-// Class that stores a given BeMusic user's listening history
 
-/**
- * Two underlying data structures 
- *    1) songHistory: a dictionary with month/year keys and priority queue values of songs sorted by date (most recent song listened to at top of PQ)
- *    2) artistHistory: a nested dictionary with month/year keys and HashMap<String, Integer> values to track number of times listened to a given artist
-*/
 public class ListeningHistory {
     // Instance variables
     HashMap<YearMonth, Queue<Song>> songHistory;

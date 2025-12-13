@@ -1,5 +1,6 @@
 package com.BeMusic;
 
+// Class for BeMusic user, storing their username, listening history, and ratinings
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -34,8 +35,6 @@ public class BeMusicUser {
         return allUsers.adj(this);
     }
 
-    // get friends listening history method, calls last 2 months of friends
-    // listening history
 
     /**
      * Retrieve the degree of given user (aka number of friends)
@@ -133,8 +132,7 @@ public class BeMusicUser {
     /**
      * Get's the ENTIRE song histories of all added friends and formats into
      * an ArrayList of String[] with hardcoded order [date, username, song title,
-     * artist,
-     * image-url]
+     * artist, image-url, nicheness score]
      * 
      * @return friend's listening history in reverse-chronological order.
      */
@@ -148,12 +146,13 @@ public class BeMusicUser {
         ArrayList<String[]> feed = new ArrayList<String[]>();
         for (Song song : songs) {
             // Create list entry for each song
-            String[] list = new String[5];
+            String[] list = new String[6];
             list[0] = song.getDate();
             list[1] = song.getUser();
             list[2] = song.getTitle();
             list[3] = song.getArtist();
             list[4] = song.getImageURL();
+            list[5] = song.getNichness() + "";
 
             // Add list entry to ArrayList feed
             feed.add(list);
@@ -349,37 +348,18 @@ public class BeMusicUser {
         System.out.println(string);
 
         System.out.println(SearchItemExample.search(pj.listeningHistory.getSongHistory().get(0)));
-
-        /*
-         * String testFile = "listening_data_test.csv";
-         * BeMusicDatabase testDatabase = new BeMusicDatabase();
-         * ReadCSV r = new ReadCSV(testFile, testDatabase);
-         * r.generateDatabase();
-         * 
-         */
-
+        
+        
+        System.out.println("\n-------did it read the .csv correctly?-------");
+        String testFile = "listening_data_test.csv";
+        BeMusicDatabase testDatabase = new BeMusicDatabase();
+        ReadCSV r = new ReadCSV(testFile, testDatabase);
+        r.generateDatabase();
         /**
          * Since we know alyssa, pj, and cris are in this database, creating new users
-         * won't add
-         * duplicates, but will function as "logging in"
+         * won't add duplicates, but will function as "logging in" and adding songs to existing users
          */
-
-        System.out.println("-------did it read the .csv correctly?-------");
-        System.out.println("TEMPORARILY DISABLED FOR TIME");
-        //System.out.println(testDatabase);
-
-        
-
-        System.out.println("----------------Testing GUI---------------");
-        allUsers.run();
+        System.out.println(testDatabase);
 
     }
-
-    /*
-     * Initializes the screen. TESTING GUI?
-     */
-    // public void run() {
-    // TimelineFrame gui = new TimelineFrame();
-
-    // }
 }
