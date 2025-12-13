@@ -1,8 +1,17 @@
-package com.BeMusic;
 
-/** RUNS ONCE. Reads in out listening_data.csv and makes all the Spotify API calls to obtain 
+
+/** 
+ * Class that preprocesses listening_data_processed.csv permanently.
+ * 
+ * RUNS ONCE. Reads in out listening_data.csv and makes all the Spotify API calls to obtain 
  * the album cover and nicheness score. Writes them to another csv to be read in to generate 
- * the database */
+ * the database 
+ * 
+ * @author PJ James, Cris Wu, Alyssa Wu
+ */
+
+
+package com.BeMusic;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;

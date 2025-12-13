@@ -1,10 +1,12 @@
-/*
+/**
+ * Class that loads Timeline GUI. Imported from Apache Netbeans IDE, and modified.
+ * @author PJ James, Cris Wu, Alyssa Wu
+ * 
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
 package com.BeMusic;
-
 
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.lang.StringBuilder;
+
 
 /**
  *

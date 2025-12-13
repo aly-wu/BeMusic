@@ -1,7 +1,11 @@
-package com.BeMusic;
+/**
+ * Class to define songs. Parses title, artist, date, nicheness and url.
+ *  A song which stores relevant information like title, artist, the day it was listened to, the albumn cover, and its nicheness.
+    The same song listened to on different days/by a different person IS a different song object.
+ * @author PJ James, Cris Ovalle, Alyssa Wu
+ */
 
-/** A song which stores relevant information like title, artist, the day it was listened to, the albumn cover, and its nicheness.
-    The same song listened to on different days/by a different person IS a different song object. */
+package com.BeMusic;
 
 import java.util.Date;
 import java.text.ParseException;

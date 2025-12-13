@@ -1,3 +1,9 @@
+/**
+ * @author Pulled from Michael Thelin : https://github.com/spotify-web-api-java/spotify-web-api-java
+ * Modified by PJ James, Cris Ovalle, Alyssa Wu.
+ */
+
+
 package com.BeMusic;
 
 import se.michaelthelin.spotify.SpotifyApi;
@@ -6,12 +12,9 @@ import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 import org.apache.hc.core5.http.ParseException;
-
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
 import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
-
 import java.io.IOException;
-
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;

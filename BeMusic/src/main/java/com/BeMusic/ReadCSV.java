@@ -1,8 +1,12 @@
+/**
+ * Class to scan .csv file and pull information to create database.
+ * @author PJ James, Cris Wu, Alyssa Wu
+ */
+
 package com.BeMusic;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
-
 import java.io.FileReader;
 import java.io.IOException;
 

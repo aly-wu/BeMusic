@@ -1,11 +1,13 @@
-package com.BeMusic;
+/**
+ * Class for the BeMusicDatabase, storing users and their friendships.
+ * @author PJ James, Cris Wu, Alyssa Wu
+ */
 
-// Class for the BeMusicDatabase, storing users and their friendships.
+package com.BeMusic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
- 
 public class BeMusicDatabase {
     private int V; // number of users
     private int E; // number of connections across BeMusic

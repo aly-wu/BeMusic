@@ -1,9 +1,11 @@
+/**
+ * Main class to run BeMusic. Generates BeMusic Database and runs BeMusic.
+ * @author PJ James, Cris Ovalle, Alyssa Wu
+ */
+
 package com.BeMusic;
 
-// Generates BeMusic Database and runs BeMusic.
-
 public class RunBeMusic {
-    // Instance variables
     
     // Constructor
     public RunBeMusic(){}
