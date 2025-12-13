@@ -28,7 +28,6 @@ public class LoginFrame extends javax.swing.JFrame {
     public LoginFrame(BeMusicDatabase database) {
         this.setLocationRelativeTo(null);
         LoginFrame.database = database;
-        System.out.println("CREATED LOG IN. DATABASE: " + database);
         initComponents();
     }
 

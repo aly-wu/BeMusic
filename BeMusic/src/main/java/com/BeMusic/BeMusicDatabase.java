@@ -2,7 +2,6 @@ package com.BeMusic;
 
 // Class for the BeMusicDatabase, storing users and their friendships.
 
-import java.util.NoSuchElementException;
 import java.util.ArrayList;
 import java.util.HashMap;
 

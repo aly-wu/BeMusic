@@ -251,7 +251,6 @@ public class BeMusicUser {
         try {
             Path filePath = Paths.get("ratings.txt");
             List<String> ratingLinesIN = Files.readAllLines(filePath);
-            List<String> ratingLinesOUT = new ArrayList<String>();
 
             for (String line : ratingLinesIN) {
                 if (line.equals("")) {
@@ -359,6 +358,7 @@ public class BeMusicUser {
 
         System.out.println("\n-------testing hashing function-------");
         BeMusicUser pj2 = new BeMusicUser("pj", allUsers); // should not add new user as repeated username
+        System.out.println("pj2 ?" + pj2);
         System.out.println(allUsers);
 
         System.out.println("\n-------testing rating functions-------");
@@ -368,56 +368,56 @@ public class BeMusicUser {
         alyssa.beRated(8); // invalid ratings does nothing
         System.out.println("alyssa's rating: ");
         System.out.println(alyssa.getRating());
-        /*
-         * 
-         * System.out.println("\n-------adding ListeningHistory to users()-------");
-         * Song s1 = new Song("EoO", "Bad Bunny", "11/29/2025", "fake url", "47");
-         * Song s2 = new Song("Heroine", "Azamiah", "11/3/2025", "fake url", "47");
-         * Song s3 = new Song("Fall In Love (Your Funeral)", "Erykah Badu",
-         * "11/11/2025", "fake url", "47");
-         * Song s4 = new Song("Care for You", "The Marias", "10/31/2025", "fake url",
-         * "47");
-         * BeMusicUser crisAgain = new BeMusicUser("cris", allUsers);
-         * alyssa.addSong(s1);
-         * crisAgain.addSong(s2);
-         * pj.addSong(s3);
-         * pj.addSong(s4);
-         * alyssa.addFriend(crisAgain);
-         * alyssa.addFriend(pj);
-         * 
-         * 
-         * System.out.println("\n-------testing getFeed()-------");
-         * ArrayList<String[]> feed = alyssa.getFeed();
-         * System.out.println("alyssa's feed...");
-         * for (String[] post : feed) {
-         * System.out.println("NEW POST:");
-         * String string = "";
-         * for (String info : post) {
-         * string = string + info + ", ";
-         * }
-         * System.out.println(string);
-         * }
-         * 
-         * System.out.println("\n-------testing getMusicCalendar()-------");
-         * pj.addSong(s1);
-         * pj.addSong(s2);
-         * String[] calendar = pj.getMusicCalendar(11, 2025);
-         * int index = 0;
-         * String string = "";
-         * for (String entry : calendar) {
-         * StringBuilder sb = new StringBuilder(string);
-         * sb.append("index ").append(index).append(": ").append(entry).append(" || ");
-         * string = sb.toString();
-         * // string = string + "index " + index + ": " + entry + " || ";
-         * index++;
-         * }
-         * System.out.println("pj's music calendar for november:");
-         * System.out.println(string);
-         * 
-         * System.out.println(SearchItemExample.search(pj.listeningHistory.
-         * getSongHistory().get(0)));
-         * 
-         */
+        
+        
+        System.out.println("\n-------adding ListeningHistory to users()-------");
+        Song s1 = new Song("EoO", "Bad Bunny", "11/29/2025", "fake url", "47");
+        Song s2 = new Song("Heroine", "Azamiah", "11/3/2025", "fake url", "47");
+        Song s3 = new Song("Fall In Love (Your Funeral)", "Erykah Badu",
+        "11/11/2025", "fake url", "47");
+        Song s4 = new Song("Care for You", "The Marias", "10/31/2025", "fake url",
+        "47");
+        BeMusicUser crisAgain = new BeMusicUser("cris", allUsers);
+        alyssa.addSong(s1);
+        crisAgain.addSong(s2);
+        pj.addSong(s3);
+        pj.addSong(s4);
+        alyssa.addFriend(crisAgain);
+        alyssa.addFriend(pj);
+        
+        
+        System.out.println("\n-------testing getFeed()-------");
+        ArrayList<String[]> feed = alyssa.getFeed();
+        System.out.println("alyssa's feed...");
+        for (String[] post : feed) {
+        System.out.println("NEW POST:");
+        String string = "";
+        for (String info : post) {
+        string = string + info + ", ";
+        }
+        System.out.println(string);
+        }
+         
+        System.out.println("\n-------testing getMusicCalendar()-------");
+        pj.addSong(s1);
+        pj.addSong(s2);
+        String[] calendar = pj.getMusicCalendar(11, 2025);
+        int index = 0;
+        String string = "";
+        for (String entry : calendar) {
+        StringBuilder sb = new StringBuilder(string);
+        sb.append("index ").append(index).append(": ").append(entry).append(" || ");
+        string = sb.toString();
+        // string = string + "index " + index + ": " + entry + " || ";
+        index++;
+        }
+        System.out.println("pj's music calendar for november:");
+        System.out.println(string);
+        
+        System.out.println(SearchItemExample.search(pj.listeningHistory.
+        getSongHistory().get(0)));
+        
+        
         System.out.println("\n-------did it read the .csv correctly?-------");
         String testFile = "listening_data_test_processed.csv";
         BeMusicDatabase testDatabase = new BeMusicDatabase();

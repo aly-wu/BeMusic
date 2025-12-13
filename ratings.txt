@@ -1,6 +1,6 @@
 Username,0.0,0
 Alyssa,42.0,9
-PJ,48.0,11
+PJ,97.0,21
 Cris,24.0,5
 Carmen,19.0,4
 Vanessa,18.0,4
@@ -11,7 +11,14 @@ Andrea,24.0,5
 Hasseit,10.0,2
 Aami,5,1
 Julia,9.0,2
-Jaden,5,1
+Jaden,19.0,4
 Rhea,44.0,11
-Kieran,22.0,5
-Maela,13.0,3
+Kieran,30.0,7
+Maela,20.0,5
+Liz,8.0,2
+Tomy,3,1
+Gwyn,9.0,2
+Amri,29.0,6
+Lili,13.0,3
+Nelson,9.0,2
+alyssa,52.0,12

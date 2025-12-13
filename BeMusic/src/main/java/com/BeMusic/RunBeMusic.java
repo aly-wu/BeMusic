@@ -43,6 +43,7 @@ public class RunBeMusic {
         database.getUser("PJ").addFriend(database.getUser("Carmen"));
         database.getUser("PJ").addFriend(database.getUser("Jaden"));
         database.getUser("PJ").addFriend(database.getUser("Rhea"));
+        database.getUser("PJ").addFriend(database.getUser("Amri"));
         database.getUser("PJ").addFriend(database.getUser("Kieran"));
         database.getUser("PJ").addFriend(database.getUser("Maela"));
         database.getUser("Maela").addFriend(database.getUser("Kieran"));

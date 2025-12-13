@@ -38,11 +38,8 @@ public class TimelineFrame extends javax.swing.JFrame {
      * Creates new form TimelineFrame
      */
     public TimelineFrame(String loggedUserStr) {
-        System.out.println("new Timeline Frame");
         setLoggedUserStr(loggedUserStr);
         setDatabase(database);
-        System.out.println("init:" + loggedUserStr);
-
         initComponents(loggedUserStr);
     }
     
@@ -405,7 +402,7 @@ public class TimelineFrame extends javax.swing.JFrame {
         String ratingmessage = sb.toString();
         String newrating = JOptionPane.showInputDialog(this, ratingmessage, "Rate this song!", 2); //receive rating
         
-        if (!newrating.equals("")){  // make sure didnt submit with empty field
+        if (!(newrating == null) && !newrating.equals("")){  // make sure didnt submit with empty field
             int rating =  Integer.parseInt(newrating); //cast to int
             database.getUser(currentUsername).beRated(rating); //add to user's overall rating
         }
@@ -453,23 +450,18 @@ public class TimelineFrame extends javax.swing.JFrame {
         
         revalidate();
         repaint();
-        System.out.println("\n RELOADED."); 
-        String[] song = getInfo(getIndex()); 
 
+        //reset variables to current song info
+        String[] song = getInfo(getIndex()); 
         setCurrentDate((song[0]));
         setCurrentUsername((song[1]));
         setCurrentSongTitle((song[2]));
         setCurrentArtist((song[3]));
         setCurrentNicheness(song[5]);
         
-        System.out.println("database" + getDatabase());
-
-        StringBuilder printsong = new StringBuilder("current song: ");
-        printsong.append(currentDate).append(currentUsername).append(currentSongTitle).append(currentArtist);
-        System.out.println(printsong);
-        
-        artistlabel.setText(currentArtist);
-        songtitlelabel.setText(currentSongTitle);
+        //change display
+        artistlabel.setText(currentArtist); //display artist
+        songtitlelabel.setText(currentSongTitle); //display song title
 
         StringBuilder sbdate = new StringBuilder("On ");
         sbdate.append(currentDate).append(",");
@@ -490,50 +482,21 @@ public class TimelineFrame extends javax.swing.JFrame {
      * @param database
      */
     public void firsttimeload(BeMusicDatabase database){
-        // here is where we will load the songs from the cvs and process them, with addEntry
-
-        setDatabase(database);
-        System.out.println("Adding friends");
-        //manually make ppl friends
-
-        // database.getUser("pj").addFriend(database.getUser("alyssa"));
-        // database.getUser("pj").addFriend(database.getUser("cris"));
+        setDatabase(database); //initialize database
         
-         
-        //TODO edge case if no friends!
-        
-
-        System.out.println("database adj list");
-
-        System.out.println(database); //adj list
-
-        System.out.println("userstr" + getLoggedUserStr());
+        //logged in user
         BeMusicUser loggedUser = database.getUser(loggedUserStr);
-        System.out.println("user" + loggedUser);
 
+        //generate feed
         ArrayList<String[]> feed = loggedUser.getFeed();
 
-        if (feed.size() == 0){
+        // edge case if no friends!
+        if (feed.size() == 0){ //initialize history with only this entry
             addEntry("this day","you have no friends who","haha", "You have no friends :)", "https://i.pinimg.com/564x/d4/8b/85/d48b85df63333d0ccbd4321a5b8b5301.jpg", "100");
+        } else {
+            setHistory(feed); // initialize history as feed
         }
-        else{
-
-        System.out.println(loggedUserStr + "'s feed...");
-        for (String[] post: feed){
-            System.out.println("NEW POST:");
-            String string = "";
-            for (String info:post){
-                string = string + info + ", ";
-            }
-            System.out.println(string);
-        }
-
-        setHistory(feed);
-        }
-        System.out.println("size: " + getHistory().size());
-
-      
-        reload(getDatabase());
+        reload(getDatabase()); 
     }
 
     /**
@@ -553,13 +516,12 @@ public class TimelineFrame extends javax.swing.JFrame {
     }
     
     public static void setup(String loggedUserStr, BeMusicDatabase database){
-        
+        //initialize frame
         TimelineFrame timeline = new TimelineFrame(loggedUserStr);
         timeline.setDatabase(database);
         timeline.firsttimeload(database);
         timeline.reload(database);
 
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> timeline.setVisible(true));
     }
