@@ -365,10 +365,12 @@ public class TimelineFrame extends javax.swing.JFrame {
             profileframe.setVisible(true);
         }
         else if (choice == JOptionPane.NO_OPTION) {
-            // If the user chose 'No' aka current profile
-            ProfileFrame profileframe = new ProfileFrame(currentUsername,database);
-            profileframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            profileframe.setVisible(true);
+            if (!currentSongTitle.equals("haha")) { // the screen that displays when there are no friends/songs on the timeline
+                // If the user chose 'No' aka current profile
+                ProfileFrame profileframe = new ProfileFrame(currentUsername,database);
+                profileframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                profileframe.setVisible(true);
+            }
         }
     }//GEN-LAST:event_profileButtonActionPerformed
 
@@ -406,9 +408,11 @@ public class TimelineFrame extends javax.swing.JFrame {
         String ratingmessage = sb.toString();
         String newrating = JOptionPane.showInputDialog(this, ratingmessage, "Rate this song!", 2); //receive rating
         
-        if (!(newrating == null) && !newrating.equals("")){  // make sure didnt submit with empty field
-            int rating =  Integer.parseInt(newrating); //cast to int
-            database.getUser(currentUsername).beRated(rating); //add to user's overall rating
+        if (!currentSongTitle.equals("haha")){ //the song that displays when no timeline exists
+            if (!(newrating == null) && !newrating.equals("")){  // make sure didnt submit with empty field
+                int rating =  Integer.parseInt(newrating); //cast to int
+                database.getUser(currentUsername).beRated(rating); //add to user's overall rating
+            }
         }
 
     } //GEN-LAST:event_ratesongbuttonActionPerformed
