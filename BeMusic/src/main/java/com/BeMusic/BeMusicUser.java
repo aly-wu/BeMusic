@@ -354,7 +354,7 @@ public class BeMusicUser {
          * String testFile = "listening_data_test.csv";
          * BeMusicDatabase testDatabase = new BeMusicDatabase();
          * ReadCSV r = new ReadCSV(testFile, testDatabase);
-         * r.generateDatabase();
+         * r.generateDatabase();pj
          * 
          */
 

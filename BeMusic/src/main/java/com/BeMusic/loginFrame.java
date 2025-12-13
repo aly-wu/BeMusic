@@ -28,6 +28,7 @@ public class loginFrame extends javax.swing.JFrame {
     public loginFrame(BeMusicDatabase database) {
         this.setLocationRelativeTo(null);
         loginFrame.database = database;
+        System.out.println("CREATED LOG IN. DATABASE: " + database);
         initComponents();
     }
 
@@ -140,12 +141,15 @@ public class loginFrame extends javax.swing.JFrame {
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
         String user = usernamefield.getText();
-        String[] users = {"PJ", "Alyssa", "Cris", "Jo", "Emma", "Ethan", "Andrea", "Aniyah",
+        String[] users = {"pj", "PJ", "Alyssa", "Cris", "Jo", "Emma", "Ethan", "Andrea", "Aniyah",
             "Hansel", "Hasseit", "Vanessa", "Nelson", "Amri", "Tomy", "Gwyn", "Carmen", "Lili", "Julia", "Liz",
             "Kieran", "Maela", "Rhea", "Jaden", "Aami"};
         ArrayList<String> usersarray = new ArrayList<>(Arrays.asList(users));
 
         if (usersarray.contains(user)){
+
+            System.out.println("LOGGED IN. DATABASE: " + database);
+            
             TimelineFrame.setup(user, database);
             setVisible(false);
         }

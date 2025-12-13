@@ -58,6 +58,10 @@ public class TimelineFrame extends javax.swing.JFrame {
         TimelineFrame.database = database;
     }
 
+    public BeMusicDatabase getDatabase(){
+        return database;
+    }
+
     public void addEntry(String date, String username, String songtitle, String artist, String url){
         String[] entry = {date, username,songtitle,artist,url};
         this.history.add(entry);
@@ -309,7 +313,8 @@ public class TimelineFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileButtonActionPerformed
-        ProfileFrame profileframe = new ProfileFrame(loggedUserStr);
+        System.out.println("OPENING PROFILE:" + getDatabase());
+        ProfileFrame profileframe = new ProfileFrame(loggedUserStr,getDatabase());
         profileframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         profileframe.setVisible(true);
         
@@ -321,7 +326,7 @@ public class TimelineFrame extends javax.swing.JFrame {
         if (index < history.size() -1) {
             changeIndex(1);
         }
-        reload();
+        reload(getDatabase());
     }//GEN-LAST:event_nextbuttonActionPerformed
 
     private void lastbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastbuttonActionPerformed
@@ -330,7 +335,7 @@ public class TimelineFrame extends javax.swing.JFrame {
             changeIndex(-1);
         }
         
-        reload();
+        reload(getDatabase());
     } //GEN-LAST:event_lastbuttonActionPerformed
 
     private void ratesongbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ratesongbuttonActionPerformed
@@ -372,7 +377,9 @@ public class TimelineFrame extends javax.swing.JFrame {
         setup(loggedUserStr, database);
     }
 
-    public void reload(){
+    public void reload(BeMusicDatabase database){
+        setDatabase(database);
+        
         revalidate();
         repaint();
         System.out.println("\n RELOADED."); 
@@ -383,7 +390,8 @@ public class TimelineFrame extends javax.swing.JFrame {
         setCurrentSongTitle((song[2]));
         setCurrentArtist((song[3]));
         
-        
+        System.out.println("database" + getDatabase());
+
         StringBuilder printsong = new StringBuilder("current song: ");
         printsong.append(currentDate).append(currentUsername).append(currentSongTitle).append(currentArtist);
         System.out.println(printsong);
@@ -408,12 +416,16 @@ public class TimelineFrame extends javax.swing.JFrame {
     public void firsttimeload(BeMusicDatabase database){
         // here is where we will load the songs from the cvs and process them, with addEntry
 
-
+        setDatabase(database);
         System.out.println("Adding friends");
         //manually make ppl friends
+
+        database.getUser("pj").addFriend(database.getUser("alyssa"));
+        database.getUser("pj").addFriend(database.getUser("cris"));
+        /*
         database.getUser("PJ").addFriend(database.getUser("Alyssa"));
         database.getUser("PJ").addFriend(database.getUser("Cris"));
-        /*
+        
         database.getUser("Alyssa").addFriend(database.getUser("Jo"));
         database.getUser("Alyssa").addFriend(database.getUser("Emma"));
         database.getUser("Emma").addFriend(database.getUser("Ethan"));
@@ -462,9 +474,6 @@ public class TimelineFrame extends javax.swing.JFrame {
             addEntry("this day","you have no friends who","You have no friends!", "Hope you find some soon :)", "https://media.tenor.com/t9MWQKc83tgAAAAm/crying-laughing-emoji-gif.webp");
         }
 
-        System.out.println("1st in feed:");
-        System.out.println(feed.get(0)[0]);
-
         System.out.println(loggedUserStr + "'s feed...");
         for (String[] post: feed){
             System.out.println("NEW POST:");
@@ -485,7 +494,7 @@ public class TimelineFrame extends javax.swing.JFrame {
         addEntry("2025-12-09", "Alyssa", "Chapter Six", "Kendrick Lamar", "https://www.shutterstock.com/image-vector/clownfish-vibrant-small-marine-fish-600nw-2488428137.jpg");
         addEntry("2025-12-09", "Cris", "Get Used to It", "Ricky Montgomery", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSPZ9qXGkUUKotCwh3A5cIFzDd3O-HdRRUNw&s");
         */
-        reload();
+        reload(getDatabase());
     }
     
     public void getImage(String link){
@@ -501,11 +510,13 @@ public class TimelineFrame extends javax.swing.JFrame {
     }
     
     public static void setup(String loggedUserStr, BeMusicDatabase database){
+        
         TimelineFrame timeline = new TimelineFrame(loggedUserStr);
+        timeline.setDatabase(database);
         timeline.firsttimeload(database);
-        timeline.reload();
+        timeline.reload(database);
 
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> timeline.setVisible(true));
     }
