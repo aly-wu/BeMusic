@@ -1,5 +1,14 @@
 package com.BeMusic;
 
+import java.io.BufferedReader;
+import java.io.File;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 // Class for BeMusic user, storing their username, listening history, and ratinings
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +43,6 @@ public class BeMusicUser {
     public ArrayList<BeMusicUser> friends() {
         return allUsers.adj(this);
     }
-
 
     /**
      * Retrieve the degree of given user (aka number of friends)
@@ -195,8 +203,42 @@ public class BeMusicUser {
      */
     public void beRated(int rating) {
         if (rating <= 5 && rating >= 0) {
-            ratingAggregate = ratingAggregate + rating;
-            nbRatings++;
+            rate(rating);
+        }
+    }
+
+    public void rate(int rating) {
+        boolean exists = false;
+
+        try {
+            Path filePath = Paths.get("ratings.txt");
+            List<String> ratingLinesIN = Files.readAllLines(filePath);
+            List<String> ratingLinesOUT = new ArrayList<String>();
+
+            for (String line : ratingLinesIN) {
+                if (line.equals("")) {
+                    break;
+                } else {
+                    String[] splitLine = line.split(",");
+                    String name = splitLine[0];
+                    double aggRating = Double.parseDouble(splitLine[1]);
+                    int timesRated = Integer.parseInt(splitLine[2]);
+
+                    if (name.equals(username)) {
+                        ratingLinesOUT.add(name + "," + (aggRating + rating) + "," + ++timesRated);
+                        exists = true;
+                    } else {
+                        ratingLinesOUT.add(line);
+                    }
+                }
+            }
+            if (!exists) {
+                ratingLinesOUT.add(this.username + "," + rating + "," + "1");
+            }
+
+            Files.write(filePath, ratingLinesOUT);
+        } catch (IOException e) {
+            System.out.println("File Not Found");
         }
     }
 
@@ -206,8 +248,34 @@ public class BeMusicUser {
      *         rounded to 2 decimals
      */
     public double getRating() {
-        double scale = Math.pow(10, 2);
-        return Math.round(ratingAggregate / nbRatings * scale) / scale;
+        try {
+            Path filePath = Paths.get("ratings.txt");
+            List<String> ratingLinesIN = Files.readAllLines(filePath);
+
+            for (String line : ratingLinesIN) {
+                if (line.equals("")) {
+                    break;
+                } else {
+                    String[] splitLine = line.split(",");
+                    String name = splitLine[0];
+                    double aggRating = Double.parseDouble(splitLine[1]);
+                    int timesRated = Integer.parseInt(splitLine[2]);
+
+                    if (name.equals(username)) {
+                        // return aggRating;
+                        double scale = Math.pow(10, 2);
+                        return Math.round(aggRating / timesRated * scale) / scale;
+                    } else {
+                        return 0.0;
+                    }
+                }
+            }
+            // Files.write(filePath, ratingLinesOUT);
+        } catch (IOException e) {
+            System.out.println("File Not Found");
+
+        }
+        return 0;
 
     }
 
@@ -305,61 +373,65 @@ public class BeMusicUser {
         alyssa.beRated(8); // invalid ratings do nothing
         System.out.println("alyssa's rating: ");
         System.out.println(alyssa.getRating());
-        /* 
-
-        System.out.println("\n-------adding ListeningHistory to users()-------");
-        Song s1 = new Song("EoO", "Bad Bunny", "11/29/2025");
-        Song s2 = new Song("Heroine", "Azamiah", "11/3/2025");
-        Song s3 = new Song("Fall In Love (Your Funeral)", "Erykah Badu", "11/11/2025");
-        Song s4 = new Song("Care for You", "The Marias", "10/31/2025");
-        BeMusicUser crisAgain = new BeMusicUser("cris", allUsers);
-        alyssa.addSong(s1);
-        crisAgain.addSong(s2);
-        pj.addSong(s3);
-        pj.addSong(s4);
-        alyssa.addFriend(crisAgain);
-        alyssa.addFriend(pj);
-        
-
-        System.out.println("\n-------testing getFeed()-------");
-        ArrayList<String[]> feed = alyssa.getFeed();
-        System.out.println("alyssa's feed...");
-        for (String[] post : feed) {
-            System.out.println("NEW POST:");
-            String string = "";
-            for (String info : post) {
-                string = string + info + ", ";
-            }
-            System.out.println(string);
-        }
-
-        System.out.println("\n-------testing getMusicCalendar()-------");
-        pj.addSong(s1);
-        pj.addSong(s2);
-        String[] calendar = pj.getMusicCalendar(11, 2025);
-        int index = 0;
-        String string = "";
-        for (String entry : calendar) {
-            StringBuilder sb = new StringBuilder(string);
-            sb.append("index ").append(index).append(": ").append(entry).append(" || ");
-            string = sb.toString();
-            // string = string + "index " + index + ": " + entry + " || ";
-            index++;
-        }
-        System.out.println("pj's music calendar for november:");
-        System.out.println(string);
-
-        System.out.println(SearchItemExample.search(pj.listeningHistory.getSongHistory().get(0)));
-        
-        */
+        /*
+         * 
+         * System.out.println("\n-------adding ListeningHistory to users()-------");
+         * Song s1 = new Song("EoO", "Bad Bunny", "11/29/2025", "fake url", "47");
+         * Song s2 = new Song("Heroine", "Azamiah", "11/3/2025", "fake url", "47");
+         * Song s3 = new Song("Fall In Love (Your Funeral)", "Erykah Badu",
+         * "11/11/2025", "fake url", "47");
+         * Song s4 = new Song("Care for You", "The Marias", "10/31/2025", "fake url",
+         * "47");
+         * BeMusicUser crisAgain = new BeMusicUser("cris", allUsers);
+         * alyssa.addSong(s1);
+         * crisAgain.addSong(s2);
+         * pj.addSong(s3);
+         * pj.addSong(s4);
+         * alyssa.addFriend(crisAgain);
+         * alyssa.addFriend(pj);
+         * 
+         * 
+         * System.out.println("\n-------testing getFeed()-------");
+         * ArrayList<String[]> feed = alyssa.getFeed();
+         * System.out.println("alyssa's feed...");
+         * for (String[] post : feed) {
+         * System.out.println("NEW POST:");
+         * String string = "";
+         * for (String info : post) {
+         * string = string + info + ", ";
+         * }
+         * System.out.println(string);
+         * }
+         * 
+         * System.out.println("\n-------testing getMusicCalendar()-------");
+         * pj.addSong(s1);
+         * pj.addSong(s2);
+         * String[] calendar = pj.getMusicCalendar(11, 2025);
+         * int index = 0;
+         * String string = "";
+         * for (String entry : calendar) {
+         * StringBuilder sb = new StringBuilder(string);
+         * sb.append("index ").append(index).append(": ").append(entry).append(" || ");
+         * string = sb.toString();
+         * // string = string + "index " + index + ": " + entry + " || ";
+         * index++;
+         * }
+         * System.out.println("pj's music calendar for november:");
+         * System.out.println(string);
+         * 
+         * System.out.println(SearchItemExample.search(pj.listeningHistory.
+         * getSongHistory().get(0)));
+         * 
+         */
         System.out.println("\n-------did it read the .csv correctly?-------");
-        String testFile = "listening_data_test.csv";
+        String testFile = "listening_data_test_processed.csv";
         BeMusicDatabase testDatabase = new BeMusicDatabase();
         ReadCSV r = new ReadCSV(testFile, testDatabase);
         r.generateDatabase();
         /**
          * Since we know alyssa, pj, and cris are in this database, creating new users
-         * won't add duplicates, but will function as "logging in" and adding songs to existing users
+         * won't add duplicates, but will function as "logging in" and adding songs to
+         * existing users
          */
         System.out.println(testDatabase);
 
