@@ -1,6 +1,6 @@
 # BeMusic
 
-Inspired by BeReal, the daily photo journal that goes off at random points in the day, we are making BeMusic. BeMusic will contain two main displays: 1) your personal profile that works as your music journal, and includes your music recaps by month, and 2) your feed, which includes the most recent posts from your friends in chronological order, newest posts on top.
+Inspired by BeReal, the daily photo journal that goes off at random points in the day, we are making BeMusic. BeMusic will contain two main displays: 1) your feed, which includes the most recent posts from your friends in chronological order, newest posts on top, and 2) the profile pages of you and your friends, that serve as monthly music journals in calendar format, and includes overall ratings accumulated from other users, general nicheness score as calculated based on listening history, and top artist(s) of the month.
 
 BeMusic is not a live-running app. Instead, it looks at the music history of our peers and presents it in a fun, interactive format where you can rate your friend's music tastes and see how niche they are!
 
@@ -20,11 +20,11 @@ A user's feed shows the songs their friends have listened to in reverse-chronolo
 
 **TO RUN THIS PROGRAM, YOU MUST HAVE JAVA 25!** To download and find more information on JDK 25, visit: https://www.oracle.com/java/technologies/downloads/.
 
-We used the SpotifyAPI to take our users song history and get deatils from Spotify, such as track title, artist(s), url to the track's album cover, and the track's "popularity score", which is a Spotify-made score from 0 (not popular) to 100 (very popular).
+We used the SpotifyAPI to take our users song history and get details from Spotify, such as track title, artist(s), url to the track's album cover, and the track's "popularity score", which is a Spotify-made score from 0 (not popular) to 100 (very popular).
 
 The OpenCSV library is used to simplfy parsing in data from listening_data.csv to populate our users and their listening histories.
 
-Apache NetBeans is used to format and display the GUI.
+Apache NetBeans was used to format and display the GUI. Files were then imported into VSCode and manually edited.
 
 These APIs and libraries are managed through the pom.xml file that keeps track of dependencies.
 
@@ -38,9 +38,9 @@ RunBeMusic
 
 This will ask you to login.
 ![Login Screen](image-2.png)\
-**YOU CAN ONLY LOGIN TO EXISTING ACCOUNTS!** Below is a list of all users you can login as (capitalization matters). Their friendships are hard-coded in RunBeMusic.java.
+**YOU CAN ONLY LOGIN TO EXISTING ACCOUNTS!** Below is a list of all users you can login as (capitalization matters). Their friendships are hard-coded in RunBeMusic.java. Logging in with different users produces different interfaces based on the timelines.
 
-Existing Users: Alyssa, Cris, PJ, Jo, Emma, Ethan, Aniyah, Andrea, Hansel, Hasseit, Vanessa, Nelson, Amri, Tomy, Gwyn, Carmen, Lili, Julia, Liz, Kieran, Maela, Rhea, Jaden, PJ, Aami
+Existing Users: Alyssa, Cris, PJ, Jo, Emma, Ethan, Aniyah, Andrea, Hansel, Hasseit, Vanessa, Nelson, Amri, Tomy, Gwyn, Carmen, Lili, Julia, Liz, Kieran, Maela, Rhea, Jaden, Aami
 
 **Other Classes & Public Methods**\
 Below is a list of all the classes avalaible, their public methods (including usage examples), though to use the intended program, only the RunBeMusic.java file is needed to start the program.
@@ -184,7 +184,7 @@ ProfileFrame:
 
     createArrayImgLabels() - Initialized the ArrayList<JLabel> used to wrangle image display.
 
-    getImage(JLabel label ,String link) - Sets the label to display the image at the link.
+    getImage(JLabel label, String link) - Sets the label to display the image at the link.
     
 
 
