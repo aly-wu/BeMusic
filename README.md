@@ -22,7 +22,7 @@ A user's feed shows the songs their friends have listened to in reverse-chronolo
 
 We used the SpotifyAPI to take our users song history and get details from Spotify, such as track title, artist(s), url to the track's album cover, and the track's "popularity score", which is a Spotify-made score from 0 (not popular) to 100 (very popular).
 
-The OpenCSV library is used to simplfy parsing in data from listening_data.csv to populate our users and their listening histories.
+The OpenCSV library is used to simplify parsing in data from listening_data.csv to populate our users and their listening histories.
 
 Apache NetBeans was used to format and display the GUI. Files were then imported into VSCode and manually edited.
 

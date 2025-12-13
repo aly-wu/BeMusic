@@ -422,7 +422,6 @@ public class TimelineFrame extends javax.swing.JFrame {
         sb.append(" by ").append(currentArtist).append("\nNicheness score: ").append(getCurrentNicheness());
         String nichemessage = sb.toString();
         JOptionPane.showMessageDialog(this, nichemessage);
-        System.out.println(getCurrentNicheness());
 
     }//GEN-LAST:event_nichebuttonActionPerformed
 
