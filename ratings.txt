@@ -7,7 +7,7 @@ Vanessa,18.0,4
 Jo,9.0,2
 Emma,14.0,3
 Aniyah,24.0,5
-Andrea,19.0,4
+Andrea,24.0,5
 Hasseit,10.0,2
 Aami,5,1
 Julia,9.0,2
