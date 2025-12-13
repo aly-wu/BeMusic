@@ -4,19 +4,22 @@ package com.BeMusic;
 
 public class RunBeMusic {
     // Instance variables
-    private String csvfile = "listening_data_test.csv"; 
-    private BeMusicDatabase database = new BeMusicDatabase();
-    ReadCSV r = new ReadCSV(csvfile, database);
-    database = r.generateDatabase();
     
     // Constructor
     public RunBeMusic(){
         
     }
 
-    public void 
+    public static void main(String[] args){
+        String testFile = "listening_data_test_processed.csv";
+        BeMusicDatabase database = new BeMusicDatabase();
+        ReadCSV r = new ReadCSV(testFile, database);
+        database = r.generateDatabase();
 
-    loginFrame.bootUp(database);
+        loginFrame.bootUp(database);
+    }
+
+    
     
     
 }

@@ -46,7 +46,7 @@ public class ReadCSV {
                     currentUsername = username; // overwrite currentUsername,
                     currentUser = new BeMusicUser(username, database); // create new user
                     // Add song info from that line
-                    Song song = new Song(title, artist, date, imageURL, nicheness);
+                    Song song = new Song(title, artist, date, imageURL, nicheness); 
                     currentUser.addSong(song);
     
                 } else {

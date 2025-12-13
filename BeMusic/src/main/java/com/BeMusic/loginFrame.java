@@ -28,6 +28,7 @@ public class loginFrame extends javax.swing.JFrame {
     public loginFrame(BeMusicDatabase database) {
         this.setLocationRelativeTo(null);
         loginFrame.database = database;
+        System.out.println("CREATED LOG IN. DATABASE: " + database);
         initComponents();
     }
 
@@ -138,19 +139,25 @@ public class loginFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+
+    /**
+     * Action taken after 'Confirm' button is pressed.
+     * Verifies if input corresponds to preexisting username. 
+     * @param evt
+     */
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
         String user = usernamefield.getText();
-        String[] users = {"PJ", "Alyssa", "Cris", "Jo", "Emma", "Ethan", "Andrea", "Aniyah",
+        //TODO : REMOVE lowercase pj, used for testing.
+        String[] users = {"pj", "PJ", "Alyssa", "Cris", "Jo", "Emma", "Ethan", "Andrea", "Aniyah",
             "Hansel", "Hasseit", "Vanessa", "Nelson", "Amri", "Tomy", "Gwyn", "Carmen", "Lili", "Julia", "Liz",
             "Kieran", "Maela", "Rhea", "Jaden", "Aami"};
         ArrayList<String> usersarray = new ArrayList<>(Arrays.asList(users));
 
-        if (usersarray.contains(user)){
+        if (usersarray.contains(user)){ //check if username valid.
             TimelineFrame.setup(user, database);
             setVisible(false);
         }
         else {
-            System.out.println(user);
             JOptionPane.showMessageDialog(this, "Please log in with a valid username.", "LOG IN ATTEMPT FAILED",2);
             
         }
