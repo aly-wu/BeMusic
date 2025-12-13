@@ -73,6 +73,7 @@ public class TimelineFrame extends javax.swing.JFrame {
     public void addEntry(String date, String username, String songtitle, String artist, String url, String nicheness){
         String[] entry = {date, username,songtitle,artist,url,nicheness};
         this.history.add(entry);
+
     }
 
 
@@ -411,9 +412,10 @@ public class TimelineFrame extends javax.swing.JFrame {
 
     private void nichebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nichebuttonActionPerformed
         StringBuilder sb = new StringBuilder(currentSongTitle); 
-        sb.append(" by ").append(currentArtist).append("\n Nicheness score: ").append(getCurrentNicheness());
+        sb.append(" by ").append(currentArtist).append("\nNicheness score: ").append(getCurrentNicheness());
         String nichemessage = sb.toString();
         JOptionPane.showMessageDialog(this, nichemessage);
+        System.out.println(getCurrentNicheness());
 
     }//GEN-LAST:event_nichebuttonActionPerformed
 

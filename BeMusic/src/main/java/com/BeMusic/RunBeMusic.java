@@ -50,7 +50,7 @@ public class RunBeMusic {
         database.getUser("Jaden").addFriend(database.getUser("Aami"));
         database.getUser("Jaden").addFriend(database.getUser("Rhea"));
         
-
+        //load GUI
         LoginFrame.bootUp(database);
     }
 
