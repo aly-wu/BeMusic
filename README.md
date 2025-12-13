@@ -1,22 +1,26 @@
 # BeMusic
 
-Summary of BeMusic and what it does!
-Music is a great peek into a person’s aesthetic, and people often take great pride in the artists they listen to. While music is a great way to connect, music streaming apps like Spotify or Apple Music lack a social aspect. Airbuds, an app that tells you all the songs your friend is listening to, often holds too much information, and the feed is easily bombarded by one person if they are continuously listening to music for any extended period of time. We wanted to create something that allows people to journal snippets of their music listening history and share that information with friends.
-
 Inspired by BeReal, the daily photo journal that goes off at random points in the day, we are making BeMusic. BeMusic will contain two main displays: 1) your personal profile that works as your music journal, and includes your music recaps by month, and 2) your feed, which includes the most recent posts from your friends in chronological order, newest posts on top.
+
+BeMusic is not a live-running app. Instead, it looks at the music history of our peers and presents it in a fun, interactive format where you can rate your friend's music tastes and see how niche they are!
 
 ## Demo
 
-[(click here for a video demo of BeMusic)](youtubeLink)
-![Music Calendar](image-1.png)
+[(Click here for a video demo of how to use BeMusic :P)](youtubeLink)
 
-Desciption of image.
 
-![User Feed](image-2.png)
+**Example of Your Profile**
+![Music Calendar](image.png)\
+A person's personal profile, with their overall rating and music nicheness score. Music calendars can be loaded for the months of October and November. The music calendar is full of the album covers of the songs listened to on various days. On top of the calendar is also their top artist for that month as well as the number of times they listened to that artist. 
 
-Description of image.
+**Example of Your Feed**
+![User Feed](image-1.png)\
+A user's feed shows the songs their friends have listened to in reverse-chronological order. You can click back and forth on the feed to view different posts. For each post, it displays your friend's username, the song title and artist, and the album cover. You can rate the song (which will contribute to your friend's overall rating), as well as view how niche that particular song is. Note that songs which could not be found on Spotify will display an "Image not Found" image, and their nicheness score defaults to 100 (song sooooo underground it could not be found on Spotify!).
+
 
 ## External Libraries:
+
+**TO RUN THIS PROGRAM, YOU MUST HAVE JAVA 25!** To download and find more information on JDK 25, visit: https://www.oracle.com/java/technologies/downloads/. 
 
 We used the SpotifyAPI to take our users song history and get deatils from Spotify, such as track title, artist(s), url to the track's album cover, and the track's "popularity score", which is a Spotify-made score from 0 (not popular) to 100 (very popular).
 
@@ -26,12 +30,8 @@ Apache NetBeans is used to format and display the GUI.
 
 These APIs and libraries are managed through the pom.xml file that keeps track of dependencies.
 
+
 ## Use Instructions:
-
-Instructions on how to call your public methods. That is, you are now writing an API in your README. This could be the same thing as your JavaDocs: What is the method called? What are its inputs and outputs? What is a verbal description of what it does? Don’t forget about constructors!
-
-For each of your public methods, also include usage examples. What do expected inputs and outputs look like in practice? For example, a usage example for add(x,y) would be add(2, 3) = 5.
-
 
 To run the BeMusic application, run the RunBeMusic main class file.
 
@@ -39,8 +39,15 @@ RunBeMusic
 
     main - Initializes database and loads GUI on Login window.
     
+This will ask you to login. 
+![Login Screen](image-2.png)\
+**YOU CAN ONLY LOGIN TO EXISTING ACCOUNTS!** Below is a list of all users you can login as (capitalization matters). Their friendships are hard-coded in RunBeMusic.java.
 
-Below is a list of the classes avalaible, their public methods (including usage examples), though to use the intended program, only the RunBeMusic.java file is needed to start the program.
+Existing Users: Alyssa, Cris, PJ, Jo, Emma, Ethan, Aniyah, Andrea, Hansel, Hasseit, Vanessa, Nelson, Amri, Tomy, Gwyn, Carmen, Lili, Julia, Liz, Kieran, Maela, Rhea, Jaden, PJ, Aami
+
+
+**Other Classes & Public Methods**\
+Below is a list of all the classes avalaible, their public methods (including usage examples), though to use the intended program, only the RunBeMusic.java file is needed to start the program.
 
 BeMusicDatabase
 
@@ -143,7 +150,7 @@ TimelineFrame:
 
 **Cris Ovalle:** \
 &emsp; Student at Pomona College, Class of '28 \
-&emsp; contact: @crissovalle2010@gmail.com | [linkedin](linkedin)
+&emsp; contact: @crissovalle2010@gmail.com | [linkedin](https://www.linkedin.com/in/cristofer-ovalle-525008238/)
 
 **Alyssa Wu:** \
 &emsp; Student at Pomona College, Class of '28 \
