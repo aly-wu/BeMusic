@@ -33,7 +33,6 @@ public class ProfileFrame extends javax.swing.JFrame {
     public ProfileFrame(String userStr, BeMusicDatabase database) {
         ProfileFrame.userStr = userStr;
         ProfileFrame.database = database;
-        System.out.println("Created profile: database: " + database);
         ProfileFrame.imagelabels = createArrayImgLabels();
         initComponents();
         this.setLocationRelativeTo(null);
@@ -551,10 +550,8 @@ public class ProfileFrame extends javax.swing.JFrame {
             String print = sb.toString();
             jLabel2.setText(print);
 
-
-
+            //display monthly calendar
             String[] calendar = database.getUser(userStr).getMusicCalendar(11, 2025);
-            System.out.println("imagelabels" + imagelabels.get(1));
 
             for (int i = 1; i < 32; i++) { // from index 1 = day 1 to index 31 = day 31
                 String songurl = calendar[i];
