@@ -493,7 +493,8 @@ public class ProfileFrame extends javax.swing.JFrame {
     }                                                                          
 
     /**
-     * Loads calendar based on month/year chosen in combo box.
+     * Loads calendar based on month/year chosen in combo box. 
+     * Also shows top artist of the month and how many times listened to.
      * @param evt
      */
     private void selectMonthbuttonActionPerformed(java.awt.event.ActionEvent evt) {                                                  

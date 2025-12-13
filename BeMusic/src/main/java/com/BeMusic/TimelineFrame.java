@@ -413,6 +413,10 @@ public class TimelineFrame extends javax.swing.JFrame {
 
     } //GEN-LAST:event_ratesongbuttonActionPerformed
 
+    /**
+     * Action that occurs after cliking nicheness button. Tells you how niche the song is. 100 = very niche
+     * @param evt
+     */
     private void nichebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nichebuttonActionPerformed
         StringBuilder sb = new StringBuilder(currentSongTitle); 
         sb.append(" by ").append(currentArtist).append("\nNicheness score: ").append(getCurrentNicheness());
@@ -520,6 +524,11 @@ public class TimelineFrame extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Initializes TimelineFrame.
+     * @param loggedUserStr
+     * @param database
+     */
     public static void setup(String loggedUserStr, BeMusicDatabase database){
         //initialize frame
         TimelineFrame timeline = new TimelineFrame(loggedUserStr);

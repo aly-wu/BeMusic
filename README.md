@@ -6,7 +6,7 @@ BeMusic is not a live-running app. Instead, it looks at the music history of our
 
 ## Demo
 
-[(Click here for a video demo of how to use BeMusic :P)](youtubeLink)
+[(Click here for a video demo of how to use BeMusic :P)](https://drive.google.com/file/d/156gMybNfWRd4CEB6o5x9UIv9jPuYJCmo/view?usp=sharing)
 
 **Example of Your Profile**
 ![Music Calendar](image.png)\
@@ -136,9 +136,10 @@ SearchItemExample:
         Example: SearchItemExample.search("First Rate Town Good Kid") returns [First Rate Town, Good Kid, https://i.scdn.co/image/ab67616d0000b2739e466f8262ef856bc5b70260, 54]
 
 LoginFrame:
-Creates the GUI window to 'log in'. Enter a valid username from the preexisting database in order to view that user's timeline.
 
-    bootUp(BeMusicDatabase database) - Initializes Login window when called.
+    initComponents() - Initializes the GUI elements and layout.
+
+    bootUp(BeMusicDatabase database) - Initializes Login window when called. Creates the GUI window to 'log in'. Enter a valid username from the preexisting database in order to view that user's timeline.
 
     loading() - Loads image displayed at Login menu.
 
@@ -146,11 +147,48 @@ Creates the GUI window to 'log in'. Enter a valid username from the preexisting 
 
 TimelineFrame:
 
-    Creates the GUI window for the timeline.
+    initComponents(String user) - Initializes the GUI elements and layout. user is the currently logged in username.
+
+    addEntry(String date, String username, String songtitle, String artist, String url, String nicheness) - Adds song entry (in form of strings) to history (song timeline array).
+
+    Getters and Setters for database, index, loggedUserStr, history, currentDate, currentUsername, currentSongTitle, currentArtist, currentNicheness.
+
+    profileButtonActionPerformed(java.awt.event.ActionEvent evt) - Lets user switch to the Profile screen by openning a ProfileFrame Window. Upon clicking the View Profile button, creates a dialog box, allowing user to choose to either view own profile or profile of the user whose the listened to song is currently being displayed in TimelineFrame.
+
+    nextbuttonActionPerformed(java.awt.event.ActionEvent evt) - Upon clicking the -> button, 'scrolls' in the timeline by incrementing index to view next in list of history.
+
+    lastbuttonActionPerformed(java.awt.event.ActionEvent evt) - Upon clicking the <- > button, 'scrolls' backwards in the timeline by decrementing index to view previous in list of history.
+
+    ratesongbuttonActionPerformed(java.awt.event.ActionEvent evt) - Upon clicking the "Rate this song!" button, a dialog box will prompt the user to rate the current song 1 to 5 stars. This rating will then be added to the cumulative rating of the listener's profile.
+
+    nichebuttonActionPerformed(java.awt.event.ActionEvent evt) - Upon clicking the "How niche is it?" button, a dialog box will display how niche the currently viewed song is considered according to Spotify data.
+
+    reload(BeMusicDatabase database) - Reloads the TimelineFrame window to update the display. Occurs automatically whenever 'scrolling' or viewing a new song.
+
+    firsttimeload(BeMusicDatabase database) - Processes the window when first called. 
+
+    getImage(String link) - Sets image for the album cover label, scaled to 250x250.
+
+    setup(String loggedUserStr, BeMusicDatabase database) - Creates the GUI window for the timeline, initializes TimelineFrame. This is called after logging in successfully and first opening the TimelineFrame GUI. Runs firsttimeload. 
+
 
 ProfileFrame:
 
-    Displays a given user's profile, the month's calendar with the songs they listened to, rating and nicheness score, as well as the buttons needed to transition to and from screens
+    Displays a given user's profile, the month's calendar with the songs they listened to, rating and nicheness score, as well as a button that returns to the timeline.
+
+    initComponents() - Initializes the GUI elements and layout.
+
+    timelinebuttonActionPerformed(java.awt.event.ActionEvent evt) - Upon clicking the "Return to Timeline" button, hides Profile window, revealing the Timeline screen.
+
+    selectMonthbuttonActionPerformed(java.awt.event.ActionEvent evt) - Upon clicking the "Go!" or "..." button, loads calendar display of song covers listened to during the month/year chosen in combo box. Also displays the most listened to artist(s), and how many songs of theirs were listened to during the month.
+
+    createArrayImgLabels() - Initialized the ArrayList<JLabel> used to wrangle image display.
+
+    getImage(JLabel label ,String link) - Sets the label to display the image at the link.
+    
+
+
+
 
 ## Contributors
 
