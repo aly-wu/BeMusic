@@ -1,5 +1,7 @@
 package com.BeMusic;
 
+// Class for the BeMusicDatabase, storing users and their friendships.
+
 import java.util.NoSuchElementException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -195,18 +197,6 @@ public class BeMusicDatabase {
         }
         return null;
         }
-    // TESTED IN BEMUSICUSER.
-
-    /*
-     * Initializes the GUI screen.
-     */
-    public void run() {
     
-        String csvfile = "listening_data_test.csv"; 
-        BeMusicDatabase database = new BeMusicDatabase();
-        ReadCSV r = new ReadCSV(csvfile, database);
-        database = r.generateDatabase();
-
-        loginFrame.bootUp(database);
-    }
+    // THIS CLASS IS TESTED IN BEMUSICUSER.
 }

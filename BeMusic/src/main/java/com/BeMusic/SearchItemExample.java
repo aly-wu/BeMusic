@@ -31,6 +31,8 @@ public class SearchItemExample {
 
     private static final SpotifyApi spotifyApi = ClientCredentialsExample.clientCredentials_Sync();
     private static SearchTracksRequest searchTracksRequest;
+    private static String title;
+    private static String artist;
 
     /**
      * Search for a song on Spotify and return an array of relevant info:
@@ -40,7 +42,8 @@ public class SearchItemExample {
      * @return String[]
      */
     public static String[] search(Song searchSong) {
-        return search(searchSong.getTitle() + " " + searchSong.getArtist());
+        // searchTerm = searchSong;
+        return search(searchSong.getTitle(), searchSong.getArtist());
 
     }
 
@@ -51,8 +54,10 @@ public class SearchItemExample {
      * @param search
      * @return String[]
      */
-    public static String[] search(String search) {
-        searchTracksRequest = spotifyApi.searchTracks(search)
+    public static String[] search(String t, String a) {
+        artist = a;
+        title = t;
+        searchTracksRequest = spotifyApi.searchTracks(title + " " + artist)
                 // .market(CountryCode.SE)
                 .limit(1)
                 // .offset(0)
@@ -73,12 +78,27 @@ public class SearchItemExample {
 
             if (trackPaging.getItems().length == 0) {
                 // System.out.println();
-                return new String[] { "Unknown ", "Unknown Artist", "", "0" };
+                return new String[] { title, artist,
+                        "https://nftcalendar.io/storage/uploads/2022/02/21/image-not-found_0221202211372462137974b6c1a.png",
+                        "100" };
             } else {
                 Track track = trackPaging.getItems()[0];
+                // System.out.println(track.getName());
 
-                return new String[] { track.getName(), track.getArtists()[0].getName(),
-                        track.getAlbum().getImages()[0].getUrl(), "" + track.getPopularity() };
+                if (track.getName().toLowerCase().contains(title.toLowerCase())
+                        && track.getArtists()[0].getName().substring(0, 1).equals(artist.substring(0, 1))) {
+                    return new String[] { track.getName(), track.getArtists()[0].getName(),
+                            track.getAlbum().getImages()[0].getUrl(), "" + track.getPopularity() };
+                } else {
+                    // System.out.println(title);
+                    // System.out.println(track.getName());
+                    // System.out.println(artist);
+                    // System.out.println(track.getArtists()[0].getName());
+                    return new String[] { title, artist,
+                            "https://nftcalendar.io/storage/uploads/2022/02/21/image-not-found_0221202211372462137974b6c1a.png",
+                            "100" };
+                }
+
             }
 
         } catch (IOException | SpotifyWebApiException |
@@ -119,17 +139,17 @@ public class SearchItemExample {
 
     public static void main(String[] args) {
 
-        ArrayList<String> searches = new ArrayList<>();
-        searches.add("HER MINNIE");
-        searches.add("First Rate Town");
-        searches.add("MF GROOVE, Smino, Ravyn Lenae");
+        // ArrayList<String> searches = new ArrayList<>();
+        // searches.add("HER");
+        search("First Rate Town", "Good Kid");
+        // searches.add("MF GROOVE, Smino, Ravyn Lenae");
 
-        for (String search : searches) {
-            System.out.println(search(search)[0]);
-            System.out.println(search(search)[1]);
-            System.out.println(search(search)[2]);
-            System.out.println(search(search)[3]);
-        }
+        // for (String search : searches) {
+        // System.out.println(search(search, "MINNIE")[0]);
+        // System.out.println(search(search, "Good Kid")[1]);
+        // // System.out.println(search(search)[2]);
+        // // System.out.println(search(search)[3]);
+        // }
     }
 }
 
