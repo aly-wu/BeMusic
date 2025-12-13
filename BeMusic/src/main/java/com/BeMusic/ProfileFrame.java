@@ -11,6 +11,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 
 /**
  *
@@ -499,6 +501,25 @@ public class ProfileFrame extends javax.swing.JFrame {
 
         // with limited months, only need to check october and november.
         if (monthyear[0].equals("October")){ 
+
+            //top artist
+            List<Entry<String, Integer>> topartistlist = database.getUser(userStr).getTopArtist(10, 2025);
+            StringBuilder sb = new StringBuilder("Top Artist: ");
+            sb.append(topartistlist.get(0).getKey());
+
+
+            if (topartistlist.size() > 1){
+                for (Entry<String, Integer> entry : topartistlist){
+                    sb.append(", " + entry.getKey());
+                }
+            }
+            sb.append(" (" + topartistlist.get(0).getValue() + ")");
+            String print = sb.toString();
+            jLabel2.setText(print);
+
+
+
+
             String[] calendar = database.getUser(userStr).getMusicCalendar(10, 2025);
             for (int i = 1; i < 32; i++) { //calendar is maxxed out at 31 days.
                 String songurl = calendar[i];
@@ -509,8 +530,27 @@ public class ProfileFrame extends javax.swing.JFrame {
                     getImage(imagelabels.get(i-1), songurl); //display image at url provided
                 }
             }
+
         }
         if (monthyear[0].equals("November")){
+
+            //top artist
+            List<Entry<String, Integer>> topartistlist = database.getUser(userStr).getTopArtist(11, 2025);
+            StringBuilder sb = new StringBuilder("Top Artist: ");
+            sb.append(topartistlist.get(0).getKey());
+
+
+            if (topartistlist.size() > 1){
+                for (Entry<String, Integer> entry : topartistlist){
+                    sb.append(", " + entry.getKey());
+                }
+            }
+            sb.append(" (" + topartistlist.get(0).getValue() + ")");
+            String print = sb.toString();
+            jLabel2.setText(print);
+
+
+
             String[] calendar = database.getUser(userStr).getMusicCalendar(11, 2025);
             System.out.println("imagelabels" + imagelabels.get(1));
 
