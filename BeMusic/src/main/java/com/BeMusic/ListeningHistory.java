@@ -160,13 +160,13 @@ public class ListeningHistory {
         ListeningHistory test = new ListeningHistory();
 
         System.out.println("-------testing addSong()-------");
-        test.addSong(new Song("EoO", "Bad Bunny", "11/29/2025"));
-        test.addSong(new Song("Heroine", "Azamiah", "10/15/2025"));
-        test.addSong(new Song("Fall In Love (Your Funeral)", "Erykah Badu", "11/11/2025"));
-        test.addSong(new Song("Back in the Day", "Erykah Badu", "11/20/2025"));
-        test.addSong(new Song("Care for You", "The Marias", "10/31/2025"));
-        test.addSong(new Song("Time Machine", "Willow", "11/13/2025"));
-        test.addSong(new Song("Otro Atarfecer", "Bad Bunny, The Marias", "11/23/2025"));
+        test.addSong(new Song("EoO", "Bad Bunny", "11/29/2025", "url", "nicheness"));
+        test.addSong(new Song("Heroine", "Azamiah", "10/15/2025", "url", "nicheness"));
+        test.addSong(new Song("Fall In Love (Your Funeral)", "Erykah Badu", "11/11/2025", "url", "nicheness"));
+        test.addSong(new Song("Back in the Day", "Erykah Badu", "11/20/2025", "url", "nicheness"));
+        test.addSong(new Song("Care for You", "The Marias", "10/31/2025", "url", "nicheness"));
+        test.addSong(new Song("Time Machine", "Willow", "11/13/2025", "url", "nicheness"));
+        test.addSong(new Song("Otro Atarfecer", "Bad Bunny, The Marias", "11/23/2025", "url", "nicheness"));
         System.out.println("songHistory: ");
         System.out.println(test.songHistory);
         System.out.println("artistHistory: ");
