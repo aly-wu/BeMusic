@@ -203,20 +203,15 @@ public class BeMusicUser {
      */
     public void beRated(int rating) {
         if (rating <= 5 && rating >= 0) {
-            ratingAggregate = ratingAggregate + rating;
-            nbRatings++;
             rate(rating);
         }
     }
 
     public void rate(int rating) {
-        ArrayList<Integer> history = new ArrayList<>();
         boolean exists = false;
-        ArrayList<String> newLines = new ArrayList<>();
 
         try {
-            // PrintWriter scores = new PrintWriter(new File("analysis.txt"));
-            Path filePath = Paths.get("ratings_test.txt");
+            Path filePath = Paths.get("ratings.txt");
             List<String> ratingLinesIN = Files.readAllLines(filePath);
             List<String> ratingLinesOUT = new ArrayList<String>();
 
@@ -247,60 +242,40 @@ public class BeMusicUser {
         }
     }
 
-    // BufferedReader br = new BufferedReader(fr);
-
-    // String line = br.readLine();
-    // newLines.add(line);
-
-    // String name = "";
-    // double vote = 0.0;
-    // int timesRated = 0;
-
-    // while (line != null) {
-    // String[] splitLine = line.split(",");
-    // if (splitLine.length > 0) {
-    // name = splitLine[0];
-    // vote = Double.parseDouble(splitLine[1]);
-    // timesRated = Integer.parseInt(splitLine[2]);
-
-    // if (name.equals(username)) {
-    // timesRated++;
-    // double newRating = (rating + vote) / timesRated;
-    // newLines.add(name + "," + newRating + "," + timesRated);
-    // exists = true;
-    // } else {
-    // newLines.add(line);
-    // }
-    // }
-
-    // splitLine = br.readLine().split(",");
-    // }
-
-    // if (exists == false) {
-    // newLines.add(username + "," + rating + "," + "1");
-    // }
-
-    // } catch (IOException e) {
-    // System.out.println("File Not Found");
-    // }
-
-    // try {
-    // output = new PrintWriter(new File("ratings_test.txt"));
-    // for (String line : newLines) {
-    // output.println(line);
-    // }
-    // } catch (Exception e) {
-    // System.out.println("File Not Found");
-    // }
-
     /**
      * 
      * @return view rating of this user
      *         rounded to 2 decimals
      */
     public double getRating() {
-        double scale = Math.pow(10, 2);
-        return Math.round(ratingAggregate / nbRatings * scale) / scale;
+        try {
+            Path filePath = Paths.get("ratings.txt");
+            List<String> ratingLinesIN = Files.readAllLines(filePath);
+
+            for (String line : ratingLinesIN) {
+                if (line.equals("")) {
+                    break;
+                } else {
+                    String[] splitLine = line.split(",");
+                    String name = splitLine[0];
+                    double aggRating = Double.parseDouble(splitLine[1]);
+                    int timesRated = Integer.parseInt(splitLine[2]);
+
+                    if (name.equals(username)) {
+                        // return aggRating;
+                        double scale = Math.pow(10, 2);
+                        return Math.round(aggRating / timesRated * scale) / scale;
+                    } else {
+                        return 0.0;
+                    }
+                }
+            }
+            // Files.write(filePath, ratingLinesOUT);
+        } catch (IOException e) {
+            System.out.println("File Not Found");
+
+        }
+        return 0;
 
     }
 
