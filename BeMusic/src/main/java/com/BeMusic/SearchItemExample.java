@@ -78,19 +78,12 @@ public class SearchItemExample {
                 Track track = trackPaging.getItems()[0];
                 // System.out.println(track.getName());
 
-                if (track.getName().toLowerCase().contains(title.toLowerCase())
-                        && track.getArtists()[0].getName().substring(0, 1).equals(artist.substring(0, 1))) {
-                    return new String[] { track.getName(), track.getArtists()[0].getName(),
-                            track.getAlbum().getImages()[0].getUrl(), "" + track.getPopularity() };
-                } else {
-                    // System.out.println(title);
-                    // System.out.println(track.getName());
-                    // System.out.println(artist);
-                    // System.out.println(track.getArtists()[0].getName());
-                    return new String[] { title, artist,
-                            "https://nftcalendar.io/storage/uploads/2022/02/21/image-not-found_0221202211372462137974b6c1a.png",
-                            "100" };
-                }
+                return new String[] { track.getName(), track.getArtists()[0].getName(),
+                        track.getAlbum().getImages()[0].getUrl(), "" + track.getPopularity() };
+                // System.out.println(title);
+                // System.out.println(track.getName());
+                // System.out.println(artist);
+                // System.out.println(track.getArtists()[0].getName());
 
             }
 
