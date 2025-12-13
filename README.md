@@ -52,10 +52,6 @@ BeMusicDatabase
     getUser(String username) - returns the user associated with the given username (no duplicate usernames are allowed)
         Ex: getUser("pj") returns BeMusicUser("pj")
 
-BeMusicGUI
-
-    Magic, witchcraft, unexplainable
-
 BeMusicUser
 
     friends() - returns an ArrayList of the users friends.
@@ -151,6 +147,10 @@ Creates the GUI window to 'log in'. Enter a valid username from the preexisting 
 TimelineFrame:
 
     Creates the GUI window for the timeline.
+
+ProfileFrame:
+
+    Displays a given user's profile, the month's calendar with the songs they listened to, rating and nicheness score
 
 ## Contributors
 
