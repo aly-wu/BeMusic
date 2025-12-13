@@ -251,6 +251,7 @@ public class BeMusicUser {
         try {
             Path filePath = Paths.get("ratings.txt");
             List<String> ratingLinesIN = Files.readAllLines(filePath);
+            List<String> ratingLinesOUT = new ArrayList<String>();
 
             for (String line : ratingLinesIN) {
                 if (line.equals("")) {
@@ -262,21 +263,15 @@ public class BeMusicUser {
                     int timesRated = Integer.parseInt(splitLine[2]);
 
                     if (name.equals(username)) {
-                        // return aggRating;
                         double scale = Math.pow(10, 2);
                         return Math.round(aggRating / timesRated * scale) / scale;
-                    } else {
-                        return 0.0;
                     }
                 }
             }
-            // Files.write(filePath, ratingLinesOUT);
         } catch (IOException e) {
             System.out.println("File Not Found");
-
         }
-        return 0;
-
+        return 0.0;
     }
 
     /**
@@ -370,7 +365,7 @@ public class BeMusicUser {
         alyssa.beRated(5);
         alyssa.beRated(4);
         alyssa.beRated(4);
-        alyssa.beRated(8); // invalid ratings do nothing
+        alyssa.beRated(8); // invalid ratings does nothing
         System.out.println("alyssa's rating: ");
         System.out.println(alyssa.getRating());
         /*
