@@ -32,8 +32,7 @@ public class ProfileFrame extends javax.swing.JFrame {
         ProfileFrame.userStr = userStr;
         ProfileFrame.database = database;
         System.out.println("Created profile: database: " + database);
-        
-
+        ProfileFrame.imagelabels = createArrayImgLabels();
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -493,21 +492,30 @@ public class ProfileFrame extends javax.swing.JFrame {
         String[] monthyear = comboboxchoice.split(" ");
         if (monthyear[0].equals("October")){
             String[] calendar = database.getUser(userStr).getMusicCalendar(10, 2025);
-            int index = 0;
-            String string = "";
-            for (String entry : calendar) {
-                StringBuilder sb = new StringBuilder(string);
-                sb.append("index ").append(index).append(": ").append(entry).append(" || ");
-                string = sb.toString();
-                // string = string + "index " + index + ": " + entry + " || ";
-                index++;
+            for (int i = 0; i < 31; i++) {
+                String songurl = calendar[i];
+                if (songurl.equals("")){
+                    imagelabels.get(i).setIcon(null);
+                }
+                else {
+                    getImage(imagelabels.get(i), songurl);
+                }
             }
             getImage(day1, "https://hips.hearstapps.com/hmg-prod/images/2022-chevrolet-corvette-z06-1607016574.jpg?crop=0.670xw:1.00xh;0.221xw,0&resize=640:*");
         }
         if (monthyear[0].equals("November")){
             String[] calendar = database.getUser(userStr).getMusicCalendar(11, 2025);
-            
+            System.out.println(imagelabels.get(1));
 
+            for (int i = 0; i < 31; i++) {
+                String songurl = calendar[i];
+                if (songurl.equals("")){
+                    imagelabels.get(i).setIcon(null);
+                }
+                else {
+                    getImage(imagelabels.get(i), songurl);
+                }
+            }
             getImage(day1, "https://png.pngtree.com/png-clipart/20250516/original/pngtree-flat-sheep-icon-png-image_21012836.png");
         }
         
@@ -587,7 +595,7 @@ public class ProfileFrame extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+       
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new ProfileFrame(userStr, database).setVisible(true));
     }

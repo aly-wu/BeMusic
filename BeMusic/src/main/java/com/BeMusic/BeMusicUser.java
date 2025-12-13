@@ -305,6 +305,7 @@ public class BeMusicUser {
         alyssa.beRated(8); // invalid ratings do nothing
         System.out.println("alyssa's rating: ");
         System.out.println(alyssa.getRating());
+        /* 
 
         System.out.println("\n-------adding ListeningHistory to users()-------");
         Song s1 = new Song("EoO", "Bad Bunny", "11/29/2025");
@@ -318,6 +319,7 @@ public class BeMusicUser {
         pj.addSong(s4);
         alyssa.addFriend(crisAgain);
         alyssa.addFriend(pj);
+        
 
         System.out.println("\n-------testing getFeed()-------");
         ArrayList<String[]> feed = alyssa.getFeed();
@@ -349,7 +351,7 @@ public class BeMusicUser {
 
         System.out.println(SearchItemExample.search(pj.listeningHistory.getSongHistory().get(0)));
         
-        
+        */
         System.out.println("\n-------did it read the .csv correctly?-------");
         String testFile = "listening_data_test.csv";
         BeMusicDatabase testDatabase = new BeMusicDatabase();
