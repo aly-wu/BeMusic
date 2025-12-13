@@ -17,17 +17,17 @@ import java.util.Arrays;
  *
  * @author pjman
  */
-public class loginFrame extends javax.swing.JFrame {
+public class LoginFrame extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(loginFrame.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginFrame.class.getName());
     private static BeMusicDatabase database;
 
     /**
      * Creates new form loginFrame
      */
-    public loginFrame(BeMusicDatabase database) {
+    public LoginFrame(BeMusicDatabase database) {
         this.setLocationRelativeTo(null);
-        loginFrame.database = database;
+        LoginFrame.database = database;
         System.out.println("CREATED LOG IN. DATABASE: " + database);
         initComponents();
     }
@@ -163,6 +163,9 @@ public class loginFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_confirmActionPerformed
 
+    /**
+     * Loads image.
+     */
     public void loading(){
         try {
         URL url = new URL("https://i.pinimg.com/originals/98/7c/92/987c925021ab888257cf75194d761bc9.gif"); // Replace with your image URL
@@ -174,9 +177,12 @@ public class loginFrame extends javax.swing.JFrame {
         }
     }
     
-    
+    /**
+     * Initializes Login window.
+     * @param database
+     */
     public static void bootUp(BeMusicDatabase database){
-        loginFrame login = new loginFrame(database);
+        LoginFrame login = new LoginFrame(database);
         login.loading();
         
         /* Create and display the form */
@@ -205,8 +211,6 @@ public class loginFrame extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        
         bootUp(database);
     }
 

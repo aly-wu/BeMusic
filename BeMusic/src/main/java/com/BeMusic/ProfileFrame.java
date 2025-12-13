@@ -390,7 +390,7 @@ public class ProfileFrame extends javax.swing.JFrame {
         ratinglabel.setBackground(new java.awt.Color(255, 255, 255));
         ratinglabel.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         ratinglabel.setForeground(new java.awt.Color(255, 255, 255));
-        ratinglabel.setText(userStr +"'s BeMusic rating: " + "[RATING]" + " stars");
+        ratinglabel.setText(userStr +"'s BeMusic rating: " + database.getUser(userStr).getRating() + " stars");
 
         greetinglabel.setFont(new java.awt.Font("Dialog", 2, 18)); // NOI18N
         greetinglabel.setForeground(new java.awt.Color(255, 255, 255));
