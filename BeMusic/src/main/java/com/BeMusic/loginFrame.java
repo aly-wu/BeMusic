@@ -1,4 +1,8 @@
-/*
+/**
+ * Class that loads Log In Frame GUI. Imported from Apache Netbeans IDE, and modified.
+ * @author PJ James, Cris Wu, Alyssa Wu
+ * 
+ * 
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */

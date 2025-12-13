@@ -1,30 +1,27 @@
+/**
+ * Class for BeMusic user, storing their username, listening history, and ratings.
+ * @author PJ James, Cris Ovalle, Alyssa Wu
+ */
+
 package com.BeMusic;
 
-import java.io.BufferedReader;
-import java.io.File;
-
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-// Class for BeMusic user, storing their username, listening history, and ratinings
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Collections;
 
+
 public class BeMusicUser {
-    // TESTING GUI
 
     // INSTANCE VARIABLES
     private String username;
     private ListeningHistory listeningHistory = new ListeningHistory();
     private BeMusicDatabase allUsers;
     private int totalNichescore = 0;
-    private double ratingAggregate;
-    private int nbRatings;
 
     /**
      * Creates a BeMusic user and adds them to the allUsers database
