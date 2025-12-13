@@ -72,9 +72,9 @@ public class TimelineFrame extends javax.swing.JFrame {
      * @param artist
      * @param url
      */
-    // TODO: MAY END UP UNUSED. MAYBE REMOVE?
-    public void addEntry(String date, String username, String songtitle, String artist, String url){
-        String[] entry = {date, username,songtitle,artist,url};
+    
+    public void addEntry(String date, String username, String songtitle, String artist, String url, String nicheness){
+        String[] entry = {date, username,songtitle,artist,url,nicheness};
         this.history.add(entry);
     }
 
@@ -403,11 +403,12 @@ public class TimelineFrame extends javax.swing.JFrame {
         StringBuilder sb = new StringBuilder("How do you feel about");
         sb.append("\n").append(currentSongTitle).append(" by ").append(currentArtist).append("\n (1 to 5 stars)");
         String ratingmessage = sb.toString();
-        String newrating = JOptionPane.showInputDialog(this, ratingmessage, "Rate this song!", 2);
-        //TODO: comments
-
-        int rating =  Integer.parseInt(newrating);
-        database.getUser(currentUsername).beRated(rating);
+        String newrating = JOptionPane.showInputDialog(this, ratingmessage, "Rate this song!", 2); //receive rating
+        
+        if (!newrating.equals("")){  // make sure didnt submit with empty field
+            int rating =  Integer.parseInt(newrating); //cast to int
+            database.getUser(currentUsername).beRated(rating); //add to user's overall rating
+        }
 
     } //GEN-LAST:event_ratesongbuttonActionPerformed
 
@@ -513,8 +514,9 @@ public class TimelineFrame extends javax.swing.JFrame {
         ArrayList<String[]> feed = loggedUser.getFeed();
 
         if (feed.size() == 0){
-            addEntry("this day","you have no friends who","You have no friends!", "Hope you find some soon :)", "https://media.tenor.com/t9MWQKc83tgAAAAm/crying-laughing-emoji-gif.webp");
+            addEntry("this day","you have no friends who","haha", "You have no friends :)", "https://i.pinimg.com/564x/d4/8b/85/d48b85df63333d0ccbd4321a5b8b5301.jpg", "100");
         }
+        else{
 
         System.out.println(loggedUserStr + "'s feed...");
         for (String[] post: feed){
@@ -527,9 +529,9 @@ public class TimelineFrame extends javax.swing.JFrame {
         }
 
         setHistory(feed);
+        }
         System.out.println("size: " + getHistory().size());
 
-        System.out.println(getHistory().get(0)[0]);
       
         reload(getDatabase());
     }

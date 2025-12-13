@@ -6,16 +6,16 @@ public class RunBeMusic {
     // Instance variables
     
     // Constructor
-    public RunBeMusic(){
-        
-    }
+    public RunBeMusic(){}
 
     public static void main(String[] args){
+        //initializing database
         String testFile = "listening_data_processed.csv";
         BeMusicDatabase database = new BeMusicDatabase();
         ReadCSV r = new ReadCSV(testFile, database);
         database = r.generateDatabase();
 
+        //friendships
         database.getUser("PJ").addFriend(database.getUser("Alyssa"));
         database.getUser("PJ").addFriend(database.getUser("Cris"));
         database.getUser("Alyssa").addFriend(database.getUser("Jo"));

@@ -505,6 +505,7 @@ public class ProfileFrame extends javax.swing.JFrame {
             //top artist
             List<Entry<String, Integer>> topartistlist = database.getUser(userStr).getTopArtist(10, 2025);
             StringBuilder sb = new StringBuilder("Top Artist: ");
+            sb.append("(" + topartistlist.get(0).getValue() + ") ");
             sb.append(topartistlist.get(0).getKey());
 
 
@@ -513,7 +514,7 @@ public class ProfileFrame extends javax.swing.JFrame {
                     sb.append(", " + entry.getKey());
                 }
             }
-            sb.append(" (" + topartistlist.get(0).getValue() + ")");
+            
             String print = sb.toString();
             jLabel2.setText(print);
 
@@ -537,6 +538,8 @@ public class ProfileFrame extends javax.swing.JFrame {
             //top artist
             List<Entry<String, Integer>> topartistlist = database.getUser(userStr).getTopArtist(11, 2025);
             StringBuilder sb = new StringBuilder("Top Artist: ");
+            sb.append("(" + topartistlist.get(0).getValue() + ") ");
+
             sb.append(topartistlist.get(0).getKey());
 
 
@@ -545,7 +548,6 @@ public class ProfileFrame extends javax.swing.JFrame {
                     sb.append(", " + entry.getKey());
                 }
             }
-            sb.append(" (" + topartistlist.get(0).getValue() + ")");
             String print = sb.toString();
             jLabel2.setText(print);
 
