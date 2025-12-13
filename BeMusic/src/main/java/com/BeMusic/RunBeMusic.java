@@ -16,7 +16,7 @@ public class RunBeMusic {
         ReadCSV r = new ReadCSV(testFile, database);
         database = r.generateDatabase();
 
-        loginFrame.bootUp(database);
+        LoginFrame.bootUp(database);
     }
 
     

@@ -32,7 +32,15 @@ Instructions on how to call your public methods. That is, you are now writing an
 
 For each of your public methods, also include usage examples. What do expected inputs and outputs look like in practice? For example, a usage example for add(x,y) would be add(2, 3) = 5.
 
-Below is a list of the classes avaliable and their public methods, though to use the intended program, only the loginFrame.java file is needed to start the program.
+
+To run the BeMusic application, run the RunBeMusic main class file.
+
+RunBeMusic
+
+    main - Initializes database and loads GUI on Login window.
+    
+
+Below is a list of the classes avalaible, their public methods (including usage examples), though to use the intended program, only the RunBeMusic.java file is needed to start the program.
 
 BeMusicDatabase
 
@@ -112,9 +120,20 @@ SearchItemExample:
     search(String search) - Makes a call to the SpotifyAPI to get a song's [title, artist, album cover url, popularity score] as an array of Strings.
         Example: SearchItemExample.search("First Rate Town Good Kid") returns [First Rate Town, Good Kid, https://i.scdn.co/image/ab67616d0000b2739e466f8262ef856bc5b70260, 54]
 
-Timeline:
+LoginFrame: 
+    Creates the GUI window to 'log in'. Enter a valid username from the preexisting database in order to view that user's timeline.
 
-    Idek more sorcery
+    bootUp(BeMusicDatabase database) - Initializes Login window when called.  
+
+    loading() - Loads image displayed at Login menu.
+
+    confirmActionPerformed(java.awt.event.ActionEvent evt) - Action that occurs when the 'Confirm' button is clicked. Checks if username is valid. If not, prompts user to enter a different username through a Dialog box. If yes, then opens TimelineFrame window.
+
+TimelineFrame:
+
+    Creates the GUI window for the timeline. 
+
+
 
 ## Contributors
 
