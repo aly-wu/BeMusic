@@ -10,17 +10,17 @@ BeMusic is not a live-running app. Instead, it looks at the music history of our
 
 
 **Example of Your Profile**
-![Music Calendar](image.png)
+![Music Calendar](image.png)\
 A person's personal profile, with their overall rating and music nicheness score. Music calendars can be loaded for the months of October and November. The music calendar is full of the album covers of the songs listened to on various days. On top of the calendar is also their top artist for that month as well as the number of times they listened to that artist. 
 
 **Example of Your Feed**
-![User Feed](image-1.png)
+![User Feed](image-1.png)\
 A user's feed shows the songs their friends have listened to in reverse-chronological order. You can click back and forth on the feed to view different posts. For each post, it displays your friend's username, the song title and artist, and the album cover. You can rate the song (which will contribute to your friend's overall rating), as well as view how niche that particular song is. Note that songs which could not be found on Spotify will display an "Image not Found" image, and their nicheness score defaults to 100 (song sooooo underground it could not be found on Spotify!).
 
 
 ## External Libraries:
 
-**To run this program, you must have Java 25!** To download and find more information on JDK 25, visit: https://www.oracle.com/java/technologies/downloads/. 
+**TO RUN THIS PROGRAM, YOU MUST HAVE JAVA 25!** To download and find more information on JDK 25, visit: https://www.oracle.com/java/technologies/downloads/. 
 
 We used the SpotifyAPI to take our users song history and get deatils from Spotify, such as track title, artist(s), url to the track's album cover, and the track's "popularity score", which is a Spotify-made score from 0 (not popular) to 100 (very popular).
 
@@ -39,7 +39,9 @@ RunBeMusic
 
     main - Initializes database and loads GUI on Login window.
     
-This will ask you to login. **YOU CAN ONLY LOGIN TO EXISTING ACCOUNTS!** Below is a list of all users you can login as (capitalization matters). Their friendships are hard-coded in RunBeMusic.java. \
+This will ask you to login. 
+![Login Screen](image-2.png)\
+**YOU CAN ONLY LOGIN TO EXISTING ACCOUNTS!** Below is a list of all users you can login as (capitalization matters). Their friendships are hard-coded in RunBeMusic.java.
 
 Existing Users: Alyssa, Cris, PJ, Jo, Emma, Ethan, Aniyah, Andrea, Hansel, Hasseit, Vanessa, Nelson, Amri, Tomy, Gwyn, Carmen, Lili, Julia, Liz, Kieran, Maela, Rhea, Jaden, PJ, Aami
 
