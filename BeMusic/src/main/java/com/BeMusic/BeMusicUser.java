@@ -1,5 +1,6 @@
 package com.BeMusic;
 
+// Class for BeMusic user, storing their username, listening history, and ratinings
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -34,8 +35,6 @@ public class BeMusicUser {
         return allUsers.adj(this);
     }
 
-    // get friends listening history method, calls last 2 months of friends
-    // listening history
 
     /**
      * Retrieve the degree of given user (aka number of friends)
@@ -349,37 +348,18 @@ public class BeMusicUser {
         System.out.println(string);
 
         System.out.println(SearchItemExample.search(pj.listeningHistory.getSongHistory().get(0)));
-
-        /*
-         * String testFile = "listening_data_test.csv";
-         * BeMusicDatabase testDatabase = new BeMusicDatabase();
-         * ReadCSV r = new ReadCSV(testFile, testDatabase);
-         * r.generateDatabase();
-         * 
-         */
-
+        
+        
+        System.out.println("\n-------did it read the .csv correctly?-------");
+        String testFile = "listening_data_test.csv";
+        BeMusicDatabase testDatabase = new BeMusicDatabase();
+        ReadCSV r = new ReadCSV(testFile, testDatabase);
+        r.generateDatabase();
         /**
          * Since we know alyssa, pj, and cris are in this database, creating new users
-         * won't add
-         * duplicates, but will function as "logging in"
+         * won't add duplicates, but will function as "logging in" and adding songs to existing users
          */
-
-        System.out.println("-------did it read the .csv correctly?-------");
-        System.out.println("TEMPORARILY DISABLED FOR TIME");
-        //System.out.println(testDatabase);
-
-        
-
-        System.out.println("----------------Testing GUI---------------");
-        allUsers.run();
+        System.out.println(testDatabase);
 
     }
-
-    /*
-     * Initializes the screen. TESTING GUI?
-     */
-    // public void run() {
-    // TimelineFrame gui = new TimelineFrame();
-
-    // }
 }
