@@ -150,7 +150,7 @@ TimelineFrame:
 
 ProfileFrame:
 
-    Displays a given user's profile, the month's calendar with the songs they listened to, rating and nicheness score
+    Displays a given user's profile, the month's calendar with the songs they listened to, rating and nicheness score, as well as the buttons needed to transition to and from screens
 
 ## Contributors
 
