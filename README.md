@@ -8,19 +8,17 @@ BeMusic is not a live-running app. Instead, it looks at the music history of our
 
 [(Click here for a video demo of how to use BeMusic :P)](youtubeLink)
 
-
 **Example of Your Profile**
 ![Music Calendar](image.png)\
-A person's personal profile, with their overall rating and music nicheness score. Music calendars can be loaded for the months of October and November. The music calendar is full of the album covers of the songs listened to on various days. On top of the calendar is also their top artist for that month as well as the number of times they listened to that artist. 
+A person's personal profile, with their overall rating and music nicheness score. Music calendars can be loaded for the months of October and November. The music calendar is full of the album covers of the songs listened to on various days. On top of the calendar is also their top artist for that month as well as the number of times they listened to that artist.
 
 **Example of Your Feed**
 ![User Feed](image-1.png)\
 A user's feed shows the songs their friends have listened to in reverse-chronological order. You can click back and forth on the feed to view different posts. For each post, it displays your friend's username, the song title and artist, and the album cover. You can rate the song (which will contribute to your friend's overall rating), as well as view how niche that particular song is. Note that songs which could not be found on Spotify will display an "Image not Found" image, and their nicheness score defaults to 100 (song sooooo underground it could not be found on Spotify!).
 
-
 ## External Libraries:
 
-**TO RUN THIS PROGRAM, YOU MUST HAVE JAVA 25!** To download and find more information on JDK 25, visit: https://www.oracle.com/java/technologies/downloads/. 
+**TO RUN THIS PROGRAM, YOU MUST HAVE JAVA 25!** To download and find more information on JDK 25, visit: https://www.oracle.com/java/technologies/downloads/.
 
 We used the SpotifyAPI to take our users song history and get deatils from Spotify, such as track title, artist(s), url to the track's album cover, and the track's "popularity score", which is a Spotify-made score from 0 (not popular) to 100 (very popular).
 
@@ -30,7 +28,6 @@ Apache NetBeans is used to format and display the GUI.
 
 These APIs and libraries are managed through the pom.xml file that keeps track of dependencies.
 
-
 ## Use Instructions:
 
 To run the BeMusic application, run the RunBeMusic main class file.
@@ -38,13 +35,12 @@ To run the BeMusic application, run the RunBeMusic main class file.
 RunBeMusic
 
     main - Initializes database and loads GUI on Login window.
-    
-This will ask you to login. 
+
+This will ask you to login.
 ![Login Screen](image-2.png)\
 **YOU CAN ONLY LOGIN TO EXISTING ACCOUNTS!** Below is a list of all users you can login as (capitalization matters). Their friendships are hard-coded in RunBeMusic.java.
 
 Existing Users: Alyssa, Cris, PJ, Jo, Emma, Ethan, Aniyah, Andrea, Hansel, Hasseit, Vanessa, Nelson, Amri, Tomy, Gwyn, Carmen, Lili, Julia, Liz, Kieran, Maela, Rhea, Jaden, PJ, Aami
-
 
 **Other Classes & Public Methods**\
 Below is a list of all the classes avalaible, their public methods (including usage examples), though to use the intended program, only the RunBeMusic.java file is needed to start the program.
@@ -69,7 +65,19 @@ BeMusicUser
 
     removeFriend(BeMusicUser newFriend) - removes a BeMusicUser object to the adjacency list of the current user, if that friend exists.
 
-    addSong(Song song) -
+    getRating() - returns the user's average rating from the ratings.txt file
+        Ex: alyssa.getRating() returns 4.9
+
+    rate(int rating) - takes in a rating inputed into a user's song, and updates the ratings.txt file.Does not return anything
+
+    getMusicCalendar(int month, int year) - returns a list of size 31 where each index correponds to the image-url of the song listened to that day
+
+    getFeed() - Get's the ENTIRE song histories of all added friends and formats into an ArrayList of String[] with hardcoded order [date, username, song title, artist, image-url, nicheness score]
+
+    getNichescore() - returns the "nichescore" of the user, or 100 minus the average popularity score based on user's song
+        Ex: alyssa.getNicheScore() returns 12 (very niche)
+
+    deleteAccount() - deletes user account (data for user still remains)
 
 ListeningHistory
 
@@ -87,6 +95,10 @@ ListeningHistory
 ReadCSV:
 
     generateDatabase() - reads in a CSV file, creates users, adds in song and date history. Does not return anything
+
+ReadCSVPreprocess:
+
+    preprocess() - runs through the CSV file containing users, songs, artists, and dates and creates a new file that contains everything prior as well as the URL to the album cover and popularity score, if found on the SpotifyAPI
 
 Song:
 
@@ -127,10 +139,10 @@ SearchItemExample:
     search(String search) - Makes a call to the SpotifyAPI to get a song's [title, artist, album cover url, popularity score] as an array of Strings.
         Example: SearchItemExample.search("First Rate Town Good Kid") returns [First Rate Town, Good Kid, https://i.scdn.co/image/ab67616d0000b2739e466f8262ef856bc5b70260, 54]
 
-LoginFrame: 
-    Creates the GUI window to 'log in'. Enter a valid username from the preexisting database in order to view that user's timeline.
+LoginFrame:
+Creates the GUI window to 'log in'. Enter a valid username from the preexisting database in order to view that user's timeline.
 
-    bootUp(BeMusicDatabase database) - Initializes Login window when called.  
+    bootUp(BeMusicDatabase database) - Initializes Login window when called.
 
     loading() - Loads image displayed at Login menu.
 
@@ -138,9 +150,7 @@ LoginFrame:
 
 TimelineFrame:
 
-    Creates the GUI window for the timeline. 
-
-
+    Creates the GUI window for the timeline.
 
 ## Contributors
 
